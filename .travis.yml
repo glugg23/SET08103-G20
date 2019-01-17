@@ -1,0 +1,10 @@
+sudo: required
+
+language: java
+
+services:
+  - docker
+
+after_success:
+  - docker build -t set08103g20 .
+  - docker run set08103g20
