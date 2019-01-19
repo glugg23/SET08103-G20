@@ -1,4 +1,4 @@
-FROM openjdk:11
-COPY ./target/SET08103-G20-0.1.0-jar-with-dependencies.jar /tmp
+FROM openjdk:latest
+COPY ./target/classes/com /tmp/com
 WORKDIR /tmp
-ENTRYPOINT ["java", "-jar","SET08103-G20-0.1.0-jar-with-dependencies.jar"]
+ENTRYPOINT ["java", "com.napier.group20.Main"]
