@@ -23,3 +23,4 @@
     }
     ```
     
+- Use package by feature for project layout.
