@@ -6,6 +6,7 @@ This is group 20's coursework submission for the SET08103 course at Edinburgh Na
 
 ## Requirements
 - Docker
+- Docker Compose
 - Maven 4.0.0
 - JDK 11.0.2
 
