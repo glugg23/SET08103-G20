@@ -1,0 +1,22 @@
+#docker-compose -f docker-compose.yml up
+#TODO Fix login, always same exception, cannot login as root. Try to use latest docker-compose version.
+version: '2.1'
+services:
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - 3306:3306
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    links:
+      - db
