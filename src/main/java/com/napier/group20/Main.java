@@ -7,8 +7,9 @@ import java.sql.Statement;
 
 public class Main {
     public static void main(String[] args) {
+        //TODO: Fix connection to mariaDB
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/world", "root", "password");
+            Connection connection = DriverManager.getConnection("jdbc:mariadb://localhost:3306/world", "user", "pwd");
             String query = "SELECT * FROM country;";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
