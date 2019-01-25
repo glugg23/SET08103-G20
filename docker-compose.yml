@@ -12,7 +12,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./src/resources/:/docker-entrypoint-initdb.d/
+      - ./src/main/resources/:/docker-entrypoint-initdb.d/
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uroot", "-psecret"]
       interval: 30s
