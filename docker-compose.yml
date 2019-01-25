@@ -1,4 +1,4 @@
-#docker-compose up --build (try sudo if it doesn't work)
+#docker-compose up --build --abort-on-container-exit (try sudo if it doesn't work)
 #if first time on boot/pull, recommended you run docker-rm.sh first so the volume is loaded properly
 #lastest version is not being used due to health-checks not working for container order.
 version: '2.1'

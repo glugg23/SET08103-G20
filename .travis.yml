@@ -14,7 +14,7 @@ after_success:
   - sudo service mariadb stop
   - sudo service mysql stop
   - sudo service postgresql stop
-  - sudo docker-compose up --build
+  - sudo docker-compose up --build --abort-on-container-exit
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
   - ./send.sh success $WEBHOOK_URL
