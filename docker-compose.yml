@@ -1,5 +1,5 @@
 #docker-compose up --build --abort-on-container-exit (try sudo if it doesn't work)
-#if first time on boot/pull, recommended you run docker-rm.sh first so the volume is loaded properly
+#if first time on boot/pull, recommended you run docker_rm.sh first so the volume is loaded properly
 #lastest version is not being used due to health-checks not working for container order.
 version: '2.1'
 services:
@@ -13,16 +13,8 @@ services:
       - 3306:3306
     volumes:
       - ./src/main/resources/:/docker-entrypoint-initdb.d/
-    healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uroot", "-psecret"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
 
   app:
     build: .
-    depends_on:
-      db:
-        condition: service_healthy
     links:
       - db
