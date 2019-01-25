@@ -11,9 +11,9 @@ services:
 
 after_success:
   - mvn install
-  - sudo systemctl stop mariadb
-  - sudo systemctl stop mysql
-  - sudo systemctl stop postgresql
+  - sudo service mariadb stop
+  - sudo service mysql stop
+  - sudo service postgresql stop
   - sudo docker-compose up --build
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
