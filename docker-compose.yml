@@ -1,23 +1,28 @@
-#docker-compose up --build
-version: '3.3'
+#docker-compose up --build (try sudo if it doesn't work)
+#if first time on boot/pull, recommended you run docker-rm.sh first so the volume is loaded properly
+#lastest version is not being used due to health-checks not working for container order.
+version: '2.1'
 services:
   db:
     image: mariadb
     restart: always
     environment:
-      MYSQL_USER: user
-      MYSQL_PASSWORD: pwd
       MYSQL_DATABASE: world
       MYSQL_ROOT_PASSWORD: secret
     ports:
       - 3306:3306
+    volumes:
+      - ./src/resources/:/docker-entrypoint-initdb.d/
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-uroot", "-psecret"]
-      timeout: 5s
-      retries: 10
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
   app:
     build: .
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     links:
       - db
