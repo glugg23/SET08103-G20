@@ -6,7 +6,7 @@
 
     <groupId>com.napier.group20</groupId>
     <artifactId>SET08103-G20</artifactId>
-    <version>0.1.0</version>
+    <version>0.2.0</version>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
