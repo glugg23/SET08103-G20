@@ -1,0 +1,20 @@
+#docker-compose up --build --abort-on-container-exit (try sudo if it doesn't work)
+#if first time on boot/pull, recommended you run docker_rm.sh first so the volume is loaded properly
+#lastest version is not being used due to health-checks not working for container order.
+version: '2.1'
+services:
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_DATABASE: world
+      MYSQL_ROOT_PASSWORD: secret
+    ports:
+      - 3306:3306
+    volumes:
+      - ./src/main/resources/:/docker-entrypoint-initdb.d/
+
+  app:
+    build: .
+    links:
+      - db
