@@ -1,7 +1,7 @@
 #docker-compose up --build --abort-on-container-exit (try sudo if it doesn't work)
 #if first time on boot/pull, recommended you run docker_rm.sh first so the volume is loaded properly
 #lastest version is not being used due to health-checks not working for container order.
-version: '2.1'
+version: '3.3'
 services:
   db:
     image: mariadb
