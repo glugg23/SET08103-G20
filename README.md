@@ -7,9 +7,6 @@
 #### Master Branch
 [![Build Status](https://travis-ci.org/glugg23/SET08103-G20.svg?branch=master)](https://travis-ci.org/glugg23/SET08103-G20)
 
-
-
-
 ## Introduction
 This is group 20's coursework submission for the SET08103 course at Edinburgh Napier University
 
