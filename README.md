@@ -3,12 +3,9 @@
 ![](https://img.shields.io/github/languages/code-size/glugg23/SET08103-G20.svg?style=flat)
 # SET08103 Group 20
 #### Development Branch
-[![Build Status](https://travis-ci.org/glugg23/SET08103-G20.svg?branch=develop)](https://travis-ci.orgglugg23/SET08103-G20)
+[![Build Status](https://travis-ci.org/glugg23/SET08103-G20.svg?branch=develop)](https://travis-ci.org/glugg23/SET08103-G20)
 #### Master Branch
-[![Build Status](https://travis-ci.org/glugg23/SET08103-G20.svg?branch=master)](https://travis-ci.orgglugg23/SET08103-G20)
-
-
-
+[![Build Status](https://travis-ci.org/glugg23/SET08103-G20.svg?branch=master)](https://travis-ci.org/glugg23/SET08103-G20)
 
 ## Introduction
 This is group 20's coursework submission for the SET08103 course at Edinburgh Napier University
