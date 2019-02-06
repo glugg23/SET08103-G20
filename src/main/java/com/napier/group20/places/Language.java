@@ -16,6 +16,17 @@ public class Language {
     private double percentage;
     private boolean isOfficial;
 
+    public Language() {
+
+    }
+
+    public Language(String languageName, String countryCode, double percentage, boolean isOfficial) {
+        this.languageName = languageName;
+        this.countryCode = countryCode;
+        this.percentage = percentage;
+        this.isOfficial = isOfficial;
+    }
+
     public String getLanguageName() {
         return languageName;
     }
