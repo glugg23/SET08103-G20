@@ -1,9 +1,18 @@
 package com.napier.group20.places;
 
+/**
+ * City.java
+ *
+ * Stores information about a city including its name, country,
+ * district, population and if it is the capital city.
+ *
+ */
+
 public class City {
+
     private String name;
-    private String country;
-    private String district;
+    private Country country;
+    private District district;
     private int population;
     private boolean isCapital;
 
@@ -11,7 +20,7 @@ public class City {
 
     }
 
-    public City(String name, String country, String district, int population, boolean isCapital) {
+    public City(String name, Country country, District district, int population, boolean isCapital) {
         this.name = name;
         this.country = country;
         this.district = district;
@@ -23,11 +32,11 @@ public class City {
         return name;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public String getDistrict() {
+    public District getDistrict() {
         return district;
     }
 
