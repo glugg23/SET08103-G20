@@ -9,14 +9,13 @@ import java.sql.Statement;
 public class Main {
     public static void main(String[] args) {
         Connection connection = null;
-        int count;
+        int count = 10;
 
-        if (args.length > 0)
+        if (args.length > 0) {
             count = Integer.parseInt(args[0]);
-        else
-            count = 10;
+        }
 
-        for (int i = 0; (i < count) || (connection == null); i++){
+        for (int i = 0; (i < count) && (connection == null); i++){
             try {
                 TimeUnit.SECONDS.sleep(5);
                 connection = DriverManager.getConnection("jdbc:mariadb://db:3306/world", "root", "secret");
@@ -25,8 +24,7 @@ public class Main {
             }
         }
 
-        if (connection == null)
-        {
+        if (connection == null) {
             System.out.println("Cannot find instance of MariaDB. Closing program.");
             System.exit(-1);
         }
@@ -39,7 +37,6 @@ public class Main {
             while(resultSet.next()) {
                 System.out.println(resultSet.getString("Name"));
             }
-
             connection.close();
         } catch(Exception e) {
             e.printStackTrace();
