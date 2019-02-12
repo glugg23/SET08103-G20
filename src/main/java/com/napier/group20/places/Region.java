@@ -18,8 +18,7 @@ public class Region implements Population{
     private long population;
 
     //Constructor
-    public Region(String name, ArrayList<Country> countries, long population)
-    {
+    public Region(String name, ArrayList<Country> countries, long population) {
         this.name = name;
         this.countries = countries;
         this.population = population;

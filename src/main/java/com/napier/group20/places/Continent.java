@@ -18,8 +18,7 @@ public class Continent implements Population{
     private long population;
 
     //Constructor
-    public Continent(String name, ArrayList<Region> regions, long population)
-    {
+    public Continent(String name, ArrayList<Region> regions, long population) {
         this.name = name;
         this.regions = regions;
         this.population = population;
