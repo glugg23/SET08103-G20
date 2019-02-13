@@ -32,7 +32,10 @@ public class District implements Population {
     }
 
     public long getPopulation() {
-        return 0;
+        long districtPopulation = 0;
+        for (City city : cities) {
+            districtPopulation += city.getPopulation();
+        }
+        return districtPopulation;
     }
-
 }
