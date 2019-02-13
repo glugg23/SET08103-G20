@@ -60,4 +60,4 @@ of world population.
 
 ## SCHEDULE
 
-As this is a high level summary this should be met by Week 12 with possible further extension Week 15 with any finalisations.
+As this is a high level summary this should be met by Week 12 with possible further extension to Week 15 with any finalisations.
