@@ -20,7 +20,7 @@ public class Country implements Population {
     private ArrayList<District> districts;
     private City capital;
     private ArrayList<Language> language;
-
+    private long population;
 
     public String getCountryCode() {
         return countryCode;
@@ -51,6 +51,10 @@ public class Country implements Population {
     }
 
     public long getPopulation() {
+        return population;
+    }
+
+    public long getCitiesPopulation() {
         long countryPopulation = 0;
         for (District district : districts) {
             countryPopulation += district.getPopulation();
