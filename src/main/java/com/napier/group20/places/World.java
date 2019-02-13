@@ -9,7 +9,6 @@ import java.util.ArrayList;
  *
  * Stores the attributes of the world
  *
- *
  */
 
 public class World implements Population {

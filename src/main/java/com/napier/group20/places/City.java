@@ -1,5 +1,7 @@
 package com.napier.group20.places;
 
+import com.napier.group20.utils.Population;
+
 /**
  * City.java
  *
@@ -8,17 +10,13 @@ package com.napier.group20.places;
  *
  */
 
-public class City {
+public class City implements Population {
 
     private String name;
     private Country country;
     private District district;
     private int population;
     private boolean isCapital;
-
-    public City() {
-
-    }
 
     public City(String name, Country country, District district, int population, boolean isCapital) {
         this.name = name;
@@ -40,8 +38,8 @@ public class City {
         return district;
     }
 
-    public int getPopulation() {
-        return population;
+    public long getPopulation() {
+        return (long)population;
     }
 
     public boolean isCapital() {
