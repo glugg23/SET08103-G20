@@ -21,7 +21,11 @@ public class World implements Population {
     }
 
     public long getPopulation() {
-        return 0;
+        long worldPopulation = 0;
+        for (Continent continent : continents) {
+            worldPopulation += continent.getPopulation();
+        }
+        return worldPopulation;
     }
 
 }
