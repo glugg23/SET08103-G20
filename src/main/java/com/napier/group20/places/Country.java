@@ -51,7 +51,11 @@ public class Country implements Population {
     }
 
     public long getPopulation() {
-        return 0;
+        long countryPopulation = 0;
+        for (District district : districts) {
+            countryPopulation += district.getPopulation();
+        }
+        return countryPopulation;
     }
 
 
