@@ -22,7 +22,10 @@ rectangle "Query System" as S1 {
     A1 -- U7
     (Return the top n populated capital cities from the world, continents, regions, countries and districts) as U8
     A1 -- U8
-    
+    (Displaying a list of all cities order by population with associated metadata) as U9
+    A1 -- U9
+    (Displaying the total population of people living in cities and not) as U10
+    A2 -- U10
 
 
     A1 ..> U5 : " inputs N"
@@ -35,6 +38,8 @@ rectangle "Query System" as S1 {
     U6 ..> U1 : " include"
     U7 ..> U1 : " include"
     U8 ..> U1 : " include"
+    U9 ..> U1 : " include"
+    U10 ..> U1 : " include"
 
     U2 -left- S2
     U3 -left- S2
@@ -43,6 +48,8 @@ rectangle "Query System" as S1 {
     U6 -left- S2
     U7 -left- S2
     U8 -left- S2
+    U9 -left- S2
+    U10 -left- S2
 }
 
 @enduml
