@@ -1,19 +1,20 @@
 @startuml
 
+rectangle "World Database" as S2
+
 :Population Analyst: as A1
 :Statistician: as A2
 :Youtube Content Creator: as A3
 
-rectangle "World Database" as S2
-
 rectangle "Query System" as S1 {
     (Print report to user display) as U1
     (Do something) as U2
-    A1 --> U2
-    A2 --> U2
-    A3 --> U2
-    U2 ..> U1 : include
-    U1 - S2
+
+    A1 -- U2
+    A2 -- U2
+    A3 -- U2
+    U2 ..> U1 : " include"
+    U2 - S2
 
 }
 
