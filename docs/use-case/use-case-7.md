@@ -1,11 +1,10 @@
-# USE CASE: 4 Ordering by Population
+# USE CASE: 7 Find the top `n` populated cities
 
 ## CHARACTERISTIC INFORMATION
 
 ### Goal in Context
 
-Countries need to be orgainised by population in terms of continents, regions, and the world
-
+The top `n` populated cities from the world, continents, regions, countries and districts need to be selected
 ### Scope
 
 Organisation (black-box)
@@ -20,7 +19,7 @@ System instantiation and intra-connections being successful.
 
 ### Success End Condition
 
-Display the organised populations to the screen
+Display the top `n` populated cities to the screen
 
 ### Failed End Condition
 
@@ -32,13 +31,14 @@ Population analyst
 
 ### Trigger
 
-The analyst will select an option to organise the countries in either the world, the continents or the regions by population 
+The analyst will enter `n` and what group to select from
 
 ## MAIN SUCCESS SCENARIO
 
 1. Analyst starts the program and prompted with welcome message
 2. A menu is displayed with various sub-menus to select
-3. Analyst selects either the world, the continents or the regions
+3. Analyst enters `n`
+3. Analyst selects either the world, a continent, a region or a district
 4. A report is displayed in the command line
 
 
