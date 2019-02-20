@@ -28,7 +28,7 @@ Display a detailed error message
 
 ### Primary Actor
 
-Population analyst
+Statistician
 
 ### Trigger
 
