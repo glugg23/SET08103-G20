@@ -5,7 +5,6 @@ rectangle "World Database" as S2
 
 :Population Analyst: as A1
 :Statistician: as A2
-:Youtube Content Creator: as A3
 
 rectangle "Query System" as S1 {
     (Print report to user display) as U1
@@ -15,15 +14,35 @@ rectangle "Query System" as S1 {
     A2 -- U3
     (Displaying countries organised by population in \nterms of continents, regions, and the world.) as U4
     A1 -- U4
+    (Return the top N populated countries in the\n world, continent and region.) as U5
+    A1 -- U5
+    (Return the top N populated cities from \nthe world, continents,\n regions, countries and districts) as U6
+    A1 -- U6
+    (Display a list of all the capital cities in \nthe world, continent or region\n, organised by largest to smallest) as U7
+    A1 -- U7
+    (Return the top n populated capital cities from the world, continents, regions, countries and districts) as U8
+    A1 -- U8
+    
 
-      
+
+    A1 ..> U5 : " inputs N"
+    A1 ..> U6 : " inputs N"
+    A1 ..> U8 : " input N"
     U2 ..> U1 : " include"
     U3 ..> U1 : " include"
     U4 ..> U1 : " include"
+    U5 ..> U1 : " include"
+    U6 ..> U1 : " include"
+    U7 ..> U1 : " include"
+    U8 ..> U1 : " include"
+
     U2 -left- S2
     U3 -left- S2
     U4 -left- S2
-
+    U5 -left- S2
+    U6 -left- S2
+    U7 -left- S2
+    U8 -left- S2
 }
 
 @enduml
