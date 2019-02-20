@@ -1,4 +1,5 @@
 @startuml
+left to right direction
 
 rectangle "World Database" as S2
 
@@ -8,13 +9,20 @@ rectangle "World Database" as S2
 
 rectangle "Query System" as S1 {
     (Print report to user display) as U1
-    (Do something) as U2
-
+    (Display the number of people in the world\n and the % who speak each language) as U2
     A1 -- U2
-    A2 -- U2
-    A3 -- U2
+    (Displaying name of selected area, its total population\n the percentage of people living in cities and\n not living in cities.) as U3
+    A2 -- U3
+    (Displaying countries organised by population in \nterms of continents, regions, and the world.) as U4
+    A1 -- U4
+
+      
     U2 ..> U1 : " include"
-    U2 - S2
+    U3 ..> U1 : " include"
+    U4 ..> U1 : " include"
+    U2 -left- S2
+    U3 -left- S2
+    U4 -left- S2
 
 }
 
