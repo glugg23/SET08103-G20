@@ -22,6 +22,18 @@ public class Country implements Population {
     private ArrayList<Language> language;
     private long population;
 
+    public Country(String countryCode, String name, Continent continent, Region region, ArrayList<District> districts,
+                   City capital, ArrayList<Language> language, long population) {
+        this.countryCode = countryCode;
+        this.name = name;
+        this.continent = continent;
+        this.region = region;
+        this.districts = districts;
+        this.capital = capital;
+        this.language = language;
+        this.population = population;
+    }
+
     public String getCountryCode() {
         return countryCode;
     }
