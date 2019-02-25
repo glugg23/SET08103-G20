@@ -20,14 +20,10 @@ class DistrictTest {
     @Test
     void getCities() {
         // Arrange
-        City city1 = new City("City1", null, null, 100,true);
-        City city2 = new City("City2", null, null, 100,false);
-        City city3 = new City("City3", null, null, 100,false);
-
         ArrayList<City> cities = new ArrayList<>();
-        cities.add(city1);
-        cities.add(city2);
-        cities.add(city3);
+        cities.add(new City("City1", null, null, 100,true));
+        cities.add(new City("City2", null, null, 100,false));
+        cities.add(new City("City3", null, null, 100,false));
 
         District district = new District("District", cities);
 
@@ -38,10 +34,15 @@ class DistrictTest {
     @Test
     void getPopulation() {
         // Arrange
-        City city = new City("City", null, null, 12345,true);
+        ArrayList<City> cities = new ArrayList<>();
+        cities.add(new City("City1", null, null, 100,true));
+        cities.add(new City("City2", null, null, 100,false));
+        cities.add(new City("City3", null, null, 100,false));
+
+        District district = new District("District", cities);
 
         // Assert
-        assertEquals(12345, city.getPopulation());
+        assertEquals(300, district.getPopulation());
     }
 
 }
