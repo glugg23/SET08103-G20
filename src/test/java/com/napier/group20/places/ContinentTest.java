@@ -21,9 +21,9 @@ class ContinentTest {
     void getRegions() {
         // Arrange
         ArrayList<Region> regions = new ArrayList<>();
-        regions.add(new Region("Region1", null, 1));
-        regions.add(new Region("Region2", null, 2));
-        regions.add(new Region("Region3", null, 3));
+        regions.add(new Region("Region1", null));
+        regions.add(new Region("Region2", null));
+        regions.add(new Region("Region3", null));
 
         Continent continent = new Continent("Continent", regions);
 
@@ -35,12 +35,20 @@ class ContinentTest {
     void getPopulation() {
         // Arrange
         ArrayList<Region> regions = new ArrayList<>();
-        regions.add(new Region("Region1", null, 1));
-        regions.add(new Region("Region2", null, 2));
-        regions.add(new Region("Region3", null, 3));
+
+        ArrayList<Country> countries = new ArrayList<>();
+
+        countries.add(new Country(null, null, null, null, null, 1));
+        countries.add(new Country(null, null, null, null, null, 2));
+        countries.add(new Country(null, null, null, null, null, 3));
+
+
+        regions.add(new Region("Region1", countries));
+        regions.add(new Region("Region2", countries));
+        regions.add(new Region("Region3", countries));
 
         Continent continent = new Continent("Continent", regions);
 
-        assertEquals(6, continent.getPopulation());
+        assertEquals(18, continent.getPopulation());
     }
 }
