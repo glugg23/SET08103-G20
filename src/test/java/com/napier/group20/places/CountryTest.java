@@ -140,8 +140,7 @@ class CountryTest {
                 null, languages, 12345);
 
         // Assert
-        assertEquals(expected.get(0), country.getOfficialLanguages().get(0));
-        assertEquals(expected.get(1), country.getOfficialLanguages().get(1));
+        assertEquals(expected, country.getOfficialLanguages());
     }
 
     @Test
