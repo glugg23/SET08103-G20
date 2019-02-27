@@ -30,6 +30,10 @@ public class World implements Population {
         return continents;
     }
 
+    public void setContinents(ArrayList<Continent> continents) {
+        this.continents = continents;
+    }
+
     public long getPopulation() {
         long worldPopulation = 0;
         for (Continent continent : continents) {
