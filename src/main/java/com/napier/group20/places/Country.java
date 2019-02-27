@@ -16,18 +16,16 @@ public class Country implements Population {
     private String countryCode;
     private String name;
     private Continent continent;
-    private Region region;
     private ArrayList<District> districts;
     private City capital;
     private ArrayList<Language> languages;
     private long population;
 
-    public Country(String countryCode, String name, Continent continent, Region region, ArrayList<District> districts,
+    public Country(String countryCode, String name, Continent continent, ArrayList<District> districts,
                    City capital, ArrayList<Language> languages, long population) {
         this.countryCode = countryCode;
         this.name = name;
         this.continent = continent;
-        this.region = region;
         this.districts = districts;
         this.capital = capital;
         this.languages = languages;
@@ -44,10 +42,6 @@ public class Country implements Population {
 
     public Continent getContinent() {
         return continent;
-    }
-
-    public Region getRegion() {
-        return region;
     }
 
     public ArrayList<District> getDistricts() {
