@@ -42,4 +42,15 @@ public class Language {
     public boolean isOfficial() {
         return isOfficial;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+        Language language = (Language) o;
+        return Double.compare(language.getPercentage(), getPercentage()) == 0 &&
+                isOfficial() == language.isOfficial() &&
+                getLanguageName().equals(language.getLanguageName()) &&
+                getCountryCode().equals(language.getCountryCode());
+    }
 }

@@ -123,4 +123,39 @@ class CountryTest {
         // Assert
         assertEquals(languages, country.getLanguages());
     }
+
+    @Test
+    void getOfficialLanguages() {
+        // Arrange
+        ArrayList<Language> languages = new ArrayList<>();
+        languages.add(new Language("Language1", "ABC", 20.5, true));
+        languages.add(new Language("Language2", "ABC", 39.5, true));
+        languages.add(new Language("Language3", "ABC", 40, false));
+
+        ArrayList<Language> expected = new ArrayList<>();
+        expected.add(new Language("Language1", "ABC", 20.5, true));
+        expected.add(new Language("Language2", "ABC", 39.5, true));
+
+        Country country = new Country("ABC", "Country", null, null, null,
+                null, languages, 12345);
+
+        // Assert
+        assertEquals(expected.get(0), country.getOfficialLanguages().get(0));
+        assertEquals(expected.get(1), country.getOfficialLanguages().get(1));
+    }
+
+    @Test
+    void getEmptyOfficialLanguages() {
+        // Arrange
+        ArrayList<Language> languages = new ArrayList<>();
+        languages.add(new Language("Language1", "ABC", 20.5, false));
+        languages.add(new Language("Language2", "ABC", 39.5, false));
+        languages.add(new Language("Language3", "ABC", 40, false));
+
+        Country country = new Country("ABC", "Country", null, null, null,
+                null, languages, 12345);
+
+        // Assert
+        assertNull(country.getOfficialLanguages());
+    }
 }

@@ -62,6 +62,21 @@ public class Country implements Population {
         return languages;
     }
 
+    public ArrayList<Language> getOfficialLanguages() {
+        ArrayList<Language> officialLanguages = new ArrayList<>();
+        for(Language language : languages) {
+            if(language.isOfficial()) {
+                officialLanguages.add(language);
+            }
+        }
+
+        if(officialLanguages.isEmpty()) {
+            return null;
+        }
+
+        return officialLanguages;
+    }
+
     public long getPopulation() {
         return population;
     }
