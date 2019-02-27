@@ -18,7 +18,7 @@ class CityTest {
     void getCountry() {
         //Arrange
         Country country = new Country("ABC", "Country", null, null, null,
-                null, null, 200);
+                12345);
         City city = new City("City", country, null, 100, false);
 
         //Assert
