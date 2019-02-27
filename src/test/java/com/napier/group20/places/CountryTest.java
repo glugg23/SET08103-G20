@@ -12,7 +12,7 @@ class CountryTest {
     void getCountryCode() {
         // Arrange
         Country country = new Country("ABC", "Country", null, null, null,
-                null, null, 12345);
+                12345);
 
         // Assert
         assertEquals("ABC", country.getCountryCode());
@@ -22,34 +22,12 @@ class CountryTest {
     void getName() {
         // Arrange
         Country country = new Country("ABC", "Country", null, null, null,
-                null, null, 12345);
+                12345);
 
         // Assert
         assertEquals("Country", country.getName());
     }
 
-    @Test
-    void getContinent() {
-        // Arrange
-        Continent continent = new Continent("Continent", null);
-
-        Country country = new Country("ABC", "Country", continent, null, null,
-                null, null, 12345);
-
-        // Assert
-        assertEquals(continent, country.getContinent());
-    }
-
-    @Test
-    void getRegion() {
-        // Arrange
-        Region region = new Region("Region", null, 12345);
-        Country country = new Country("ABC", "Country", null, region, null,
-                null, null, 12345);
-
-        // Assert
-        assertEquals(region, country.getRegion());
-    }
 
     @Test
     void getDistricts() {
@@ -59,8 +37,8 @@ class CountryTest {
         districts.add(new District("District2", null));
         districts.add(new District("District3", null));
 
-        Country country = new Country("ABC", "Country", null, null, districts,
-                null, null, 12345);
+        Country country = new Country("ABC", "Country", districts, null, null,
+                12345);
 
         // Assert
         assertEquals(districts, country.getDistricts());
@@ -70,7 +48,7 @@ class CountryTest {
     void getPopulation() {
         // Arrange
         Country country = new Country("ABC", "Country", null, null, null,
-                null, null, 12345);
+                12345);
 
         assertEquals(12345, country.getPopulation());
     }
@@ -90,8 +68,8 @@ class CountryTest {
         districts.add(new District("District1", cities1));
         districts.add(new District("District2", cities2));
 
-        Country country = new Country("ABC", "Country", null, null, districts,
-                null, null, 12345);
+        Country country = new Country("ABC", "Country", districts, null, null,
+                12345);
 
         assertEquals(300, country.getCitiesPopulation());
     }
@@ -101,8 +79,8 @@ class CountryTest {
         // Arrange
         City capital = new City("City1", null, null, 100,true);
 
-        Country country = new Country("ABC", "Country", null, null, null,
-                capital, null, 12345);
+        Country country = new Country("ABC", "Country", null, capital, null,
+                12345);
 
         // Assert
         assertEquals(capital, country.getCapital());
@@ -117,8 +95,8 @@ class CountryTest {
         languages.add(new Language("Language3", "ABC", 40, false));
 
 
-        Country country = new Country("ABC", "Country", null, null, null,
-                null, languages, 12345);
+        Country country = new Country("ABC", "Country", null, null, languages,
+                12345);
 
         // Assert
         assertEquals(languages, country.getLanguages());
@@ -136,8 +114,8 @@ class CountryTest {
         expected.add(new Language("Language1", "ABC", 20.5, true));
         expected.add(new Language("Language2", "ABC", 39.5, true));
 
-        Country country = new Country("ABC", "Country", null, null, null,
-                null, languages, 12345);
+        Country country = new Country("ABC", "Country", null, null, languages,
+                12345);
 
         // Assert
         assertEquals(expected, country.getOfficialLanguages());
@@ -151,8 +129,8 @@ class CountryTest {
         languages.add(new Language("Language2", "ABC", 39.5, false));
         languages.add(new Language("Language3", "ABC", 40, false));
 
-        Country country = new Country("ABC", "Country", null, null, null,
-                null, languages, 12345);
+        Country country = new Country("ABC", "Country", null, null, languages,
+                12345);
 
         // Assert
         assertNull(country.getOfficialLanguages());
