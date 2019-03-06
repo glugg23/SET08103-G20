@@ -1,6 +1,7 @@
 package com.napier.group20.utils;
 
 import com.napier.group20.places.Continent;
+import com.napier.group20.places.Region;
 import com.napier.group20.places.World;
 
 import java.sql.*;
@@ -37,6 +38,12 @@ public class App {
     public void loadDatabase() {
         world = World.getInstance();
         world.setContinents(loadContinents());
+
+        for(Continent continent : world.getContinents()) {
+            for(Region region : continent.getRegions()) {
+                System.out.println(region.getName());
+            }
+        }
     }
 
     private ArrayList<Continent> loadContinents() {
@@ -48,12 +55,34 @@ public class App {
             ResultSet rs = statement.executeQuery(query);
 
             while(rs.next()) {
-                continents.add(new Continent(rs.getString("Continent"), null));
+                String continentName = rs.getString("Continent");
+                continents.add(new Continent(continentName, loadRegions(continentName)));
             }
         } catch(SQLException e) {
             e.printStackTrace();
         }
 
         return continents;
+    }
+
+    private ArrayList<Region> loadRegions(String continentName) {
+        ArrayList<Region> regions = new ArrayList<>();
+        String query = "SELECT DISTINCT Region FROM country WHERE Continent = ?;";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, continentName);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                String regionName = rs.getString("Region");
+                regions.add(new Region(regionName, null));
+            }
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return regions;
     }
 }
