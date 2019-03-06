@@ -1,6 +1,7 @@
 package com.napier.group20.utils;
 
 import com.napier.group20.places.Continent;
+import com.napier.group20.places.Country;
 import com.napier.group20.places.Region;
 import com.napier.group20.places.World;
 
@@ -41,7 +42,9 @@ public class App {
 
         for(Continent continent : world.getContinents()) {
             for(Region region : continent.getRegions()) {
-                System.out.println(region.getName());
+                for(Country country : region.getCountries()) {
+                    System.out.println(country.getName());
+                }
             }
         }
     }
@@ -76,7 +79,7 @@ public class App {
 
             while(rs.next()) {
                 String regionName = rs.getString("Region");
-                regions.add(new Region(regionName, null));
+                regions.add(new Region(regionName, loadCountries(regionName)));
             }
 
         } catch(SQLException e) {
@@ -84,5 +87,28 @@ public class App {
         }
 
         return regions;
+    }
+
+    private ArrayList<Country> loadCountries(String regionName) {
+        ArrayList<Country> countries = new ArrayList<>();
+        String query = "SELECT Code, Name, Capital, Population FROM country WHERE Region = ?;";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, regionName);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                String countryName = rs.getString("Name");
+                String capitalName = rs.getString("Capital");
+
+                countries.add(new Country(rs.getString("Code"), countryName, null, null, null, rs.getLong("Population")));
+            }
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return countries;
     }
 }
