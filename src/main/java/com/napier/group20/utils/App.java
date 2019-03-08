@@ -1,9 +1,6 @@
 package com.napier.group20.utils;
 
-import com.napier.group20.places.Continent;
-import com.napier.group20.places.Country;
-import com.napier.group20.places.Region;
-import com.napier.group20.places.World;
+import com.napier.group20.places.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -43,7 +40,9 @@ public class App {
         for(Continent continent : world.getContinents()) {
             for(Region region : continent.getRegions()) {
                 for(Country country : region.getCountries()) {
-                    System.out.println(country.getName());
+                    for(District district : country.getDistricts()) {
+                        System.out.println(district.getName());
+                    }
                 }
             }
         }
@@ -99,10 +98,10 @@ public class App {
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
-                String countryName = rs.getString("Name");
+                String countryCode = rs.getString("Code");
                 String capitalName = rs.getString("Capital");
 
-                countries.add(new Country(rs.getString("Code"), countryName, null, null, null, rs.getLong("Population")));
+                countries.add(new Country(countryCode, rs.getString("Name"), loadDistricts(countryCode), null, null, rs.getLong("Population")));
             }
 
         } catch(SQLException e) {
@@ -110,5 +109,34 @@ public class App {
         }
 
         return countries;
+    }
+
+    private ArrayList<District> loadDistricts(String countryCode) {
+        ArrayList<District> districts = new ArrayList<>();
+        String query = "SELECT DISTINCT District FROM city WHERE CountryCode = ?;";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, countryCode);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                //Get original district name for next query
+                String districtNameOrig = rs.getString("District");
+                String districtName = districtNameOrig;
+
+                //If it's a strange value set it to something which makes more sense for the user
+                if(districtNameOrig.equals("") || districtNameOrig.equals("–")) {
+                    districtName = "None";
+                }
+
+                districts.add(new District(districtName, null));
+            }
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return districts;
     }
 }
