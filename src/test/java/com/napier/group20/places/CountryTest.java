@@ -91,9 +91,9 @@ class CountryTest {
     void getLanguages() {
         // Arrange
         ArrayList<Language> languages = new ArrayList<>();
-        languages.add(new Language("Language1", "ABC", 20.5, true));
-        languages.add(new Language("Language2", "ABC", 39.5, true));
-        languages.add(new Language("Language3", "ABC", 40, false));
+        languages.add(new Language("Language1", 20.5, true));
+        languages.add(new Language("Language2", 39.5, true));
+        languages.add(new Language("Language3", 40, false));
 
 
         Country country = new Country("ABC", "Country", null, null, languages,
@@ -107,13 +107,13 @@ class CountryTest {
     void getOfficialLanguages() {
         // Arrange
         ArrayList<Language> languages = new ArrayList<>();
-        languages.add(new Language("Language1", "ABC", 20.5, true));
-        languages.add(new Language("Language2", "ABC", 39.5, true));
-        languages.add(new Language("Language3", "ABC", 40, false));
+        languages.add(new Language("Language1", 20.5, true));
+        languages.add(new Language("Language2", 39.5, true));
+        languages.add(new Language("Language3", 40, false));
 
         ArrayList<Language> expected = new ArrayList<>();
-        expected.add(new Language("Language1", "ABC", 20.5, true));
-        expected.add(new Language("Language2", "ABC", 39.5, true));
+        expected.add(new Language("Language1", 20.5, true));
+        expected.add(new Language("Language2", 39.5, true));
 
         Country country = new Country("ABC", "Country", null, null, languages,
                 12345);
@@ -126,9 +126,9 @@ class CountryTest {
     void getEmptyOfficialLanguages() {
         // Arrange
         ArrayList<Language> languages = new ArrayList<>();
-        languages.add(new Language("Language1", "ABC", 20.5, false));
-        languages.add(new Language("Language2", "ABC", 39.5, false));
-        languages.add(new Language("Language3", "ABC", 40, false));
+        languages.add(new Language("Language1", 20.5, false));
+        languages.add(new Language("Language2", 39.5, false));
+        languages.add(new Language("Language3", 40, false));
 
         Country country = new Country("ABC", "Country", null, null, languages,
                 12345);

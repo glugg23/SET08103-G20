@@ -12,23 +12,17 @@ package com.napier.group20.places;
 public class Language {
 
     private String languageName;
-    private String countryCode;
     private double percentage;
     private boolean isOfficial;
 
-    public Language(String languageName, String countryCode, double percentage, boolean isOfficial) {
+    public Language(String languageName, double percentage, boolean isOfficial) {
         this.languageName = languageName;
-        this.countryCode = countryCode;
         this.percentage = percentage;
         this.isOfficial = isOfficial;
     }
 
     public String getLanguageName() {
         return languageName;
-    }
-
-    public String getCountryCode() {
-        return countryCode;
     }
 
     public double getPercentage() {
@@ -46,7 +40,6 @@ public class Language {
         Language language = (Language) o;
         return Double.compare(language.getPercentage(), getPercentage()) == 0 &&
                 isOfficial() == language.isOfficial() &&
-                getLanguageName().equals(language.getLanguageName()) &&
-                getCountryCode().equals(language.getCountryCode());
+                getLanguageName().equals(language.getLanguageName());
     }
 }

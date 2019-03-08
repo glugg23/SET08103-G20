@@ -36,18 +36,6 @@ public class App {
     public void loadDatabase() {
         world = World.getInstance();
         world.setContinents(loadContinents());
-
-        for(Continent continent : world.getContinents()) {
-            for(Region region : continent.getRegions()) {
-                for(Country country : region.getCountries()) {
-                    for(District district : country.getDistricts()) {
-                        for(City city : district.getCities()) {
-                            System.out.println(city.getName());
-                        }
-                    }
-                }
-            }
-        }
     }
 
     private ArrayList<Continent> loadContinents() {
@@ -103,7 +91,7 @@ public class App {
                 String countryCode = rs.getString("Code");
                 City capital = loadCapital(countryCode);
 
-                countries.add(new Country(countryCode, rs.getString("Name"), loadDistricts(countryCode, capital), capital, null, rs.getLong("Population")));
+                countries.add(new Country(countryCode, rs.getString("Name"), loadDistricts(countryCode, capital), capital, loadLanguages(countryCode), rs.getLong("Population")));
             }
 
         } catch(SQLException e) {
@@ -111,6 +99,27 @@ public class App {
         }
 
         return countries;
+    }
+
+    private ArrayList<Language> loadLanguages(String countryCode) {
+        ArrayList<Language> languages = new ArrayList<>();
+        String query = "SELECT Language, IsOfficial, Percentage FROM countrylanguage WHERE CountryCode = ?;";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, countryCode);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                boolean isOfficial = rs.getString("isOfficial").equals("T");
+                languages.add(new Language(rs.getString("Language"), rs.getDouble("Percentage"), isOfficial));
+            }
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return languages;
     }
 
     private ArrayList<District> loadDistricts(String countryCode, City capital) {
