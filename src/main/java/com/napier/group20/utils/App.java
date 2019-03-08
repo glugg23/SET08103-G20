@@ -41,7 +41,9 @@ public class App {
             for(Region region : continent.getRegions()) {
                 for(Country country : region.getCountries()) {
                     for(District district : country.getDistricts()) {
-                        System.out.println(district.getName());
+                        for(City city : district.getCities()) {
+                            System.out.println(city.getName());
+                        }
                     }
                 }
             }
@@ -99,9 +101,9 @@ public class App {
 
             while(rs.next()) {
                 String countryCode = rs.getString("Code");
-                String capitalName = rs.getString("Capital");
+                City capital = loadCapital(countryCode);
 
-                countries.add(new Country(countryCode, rs.getString("Name"), loadDistricts(countryCode), null, null, rs.getLong("Population")));
+                countries.add(new Country(countryCode, rs.getString("Name"), loadDistricts(countryCode, capital), capital, null, rs.getLong("Population")));
             }
 
         } catch(SQLException e) {
@@ -111,8 +113,14 @@ public class App {
         return countries;
     }
 
-    private ArrayList<District> loadDistricts(String countryCode) {
+    private ArrayList<District> loadDistricts(String countryCode, City capital) {
         ArrayList<District> districts = new ArrayList<>();
+
+        //EDGE CASE: If there is no capital there not be any districts so return early
+        if(capital == null) {
+            return districts;
+        }
+
         String query = "SELECT DISTINCT District FROM city WHERE CountryCode = ?;";
 
         try {
@@ -130,7 +138,7 @@ public class App {
                     districtName = "None";
                 }
 
-                districts.add(new District(districtName, null));
+                districts.add(new District(districtName, loadCities(districtNameOrig, countryCode, capital)));
             }
 
         } catch(SQLException e) {
@@ -138,5 +146,56 @@ public class App {
         }
 
         return districts;
+    }
+
+    private City loadCapital(String countryCode) {
+        String query = "SELECT city.Name, city.Population FROM country LEFT JOIN city ON Capital = ID AND Code = CountryCode WHERE Code = ?;";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, countryCode);
+            ResultSet rs = ps.executeQuery();
+
+            //Get first result
+            rs.next();
+
+            //This without this we get City objects of {null, 0, true} which is not what we intend
+            if(rs.getString("city.Name") == null) {
+                return null;
+            }
+            return new City(rs.getString("city.Name"), rs.getInt("city.Population"), true);
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        //Return null for any countries without a capital
+        return null;
+    }
+
+    private ArrayList<City> loadCities(String districtName, String countryCode, City capital) {
+        ArrayList<City> cities = new ArrayList<>();
+        String query = "SELECT Name, Population FROM city WHERE District = ? AND CountryCode = ?;";
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, districtName);
+            ps.setString(2, countryCode);
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()) {
+                //We don't want to double include the capital
+                if(rs.getString("Name").equals(capital.getName()) && rs.getInt("Population") == capital.getPopulation()) {
+                    cities.add(capital);
+                } else {
+                    cities.add(new City(rs.getString("Name"), rs.getInt("Population"), false));
+                }
+            }
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+        }
+
+        return cities;
     }
 }
