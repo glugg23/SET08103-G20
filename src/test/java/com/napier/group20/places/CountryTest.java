@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class CountryTest {
 
@@ -57,12 +58,12 @@ class CountryTest {
     void getCitiesPopulation() {
         // Arrange
         ArrayList<City> cities1 = new ArrayList<>();
-        cities1.add(new City("City1", null, null, 100,true));
-        cities1.add(new City("City2", null, null, 50,false));
+        cities1.add(new City("City1", 100,true));
+        cities1.add(new City("City2", 50,false));
 
         ArrayList<City> cities2 = new ArrayList<>();
-        cities2.add(new City("City3", null, null, 100,false));
-        cities2.add(new City("City4", null, null, 50,false));
+        cities2.add(new City("City3", 100,false));
+        cities2.add(new City("City4", 50,false));
 
         ArrayList<District> districts = new ArrayList<>();
         districts.add(new District("District1", cities1));
@@ -77,7 +78,7 @@ class CountryTest {
     @Test
     void getCapital() {
         // Arrange
-        City capital = new City("City1", null, null, 100,true);
+        City capital = new City("City1",100,true);
 
         Country country = new Country("ABC", "Country", null, capital, null,
                 12345);
@@ -90,9 +91,9 @@ class CountryTest {
     void getLanguages() {
         // Arrange
         ArrayList<Language> languages = new ArrayList<>();
-        languages.add(new Language("Language1", "ABC", 20.5, true));
-        languages.add(new Language("Language2", "ABC", 39.5, true));
-        languages.add(new Language("Language3", "ABC", 40, false));
+        languages.add(new Language("Language1", 20.5, true));
+        languages.add(new Language("Language2", 39.5, true));
+        languages.add(new Language("Language3", 40, false));
 
 
         Country country = new Country("ABC", "Country", null, null, languages,
@@ -106,13 +107,13 @@ class CountryTest {
     void getOfficialLanguages() {
         // Arrange
         ArrayList<Language> languages = new ArrayList<>();
-        languages.add(new Language("Language1", "ABC", 20.5, true));
-        languages.add(new Language("Language2", "ABC", 39.5, true));
-        languages.add(new Language("Language3", "ABC", 40, false));
+        languages.add(new Language("Language1", 20.5, true));
+        languages.add(new Language("Language2", 39.5, true));
+        languages.add(new Language("Language3", 40, false));
 
         ArrayList<Language> expected = new ArrayList<>();
-        expected.add(new Language("Language1", "ABC", 20.5, true));
-        expected.add(new Language("Language2", "ABC", 39.5, true));
+        expected.add(new Language("Language1", 20.5, true));
+        expected.add(new Language("Language2", 39.5, true));
 
         Country country = new Country("ABC", "Country", null, null, languages,
                 12345);
@@ -125,9 +126,9 @@ class CountryTest {
     void getEmptyOfficialLanguages() {
         // Arrange
         ArrayList<Language> languages = new ArrayList<>();
-        languages.add(new Language("Language1", "ABC", 20.5, false));
-        languages.add(new Language("Language2", "ABC", 39.5, false));
-        languages.add(new Language("Language3", "ABC", 40, false));
+        languages.add(new Language("Language1", 20.5, false));
+        languages.add(new Language("Language2", 39.5, false));
+        languages.add(new Language("Language3", 40, false));
 
         Country country = new Country("ABC", "Country", null, null, languages,
                 12345);
