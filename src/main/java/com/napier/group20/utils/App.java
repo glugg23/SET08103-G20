@@ -6,11 +6,23 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * App.java
+ *
+ * A class which holds all the methods for interacting
+ * with the database and returning data for user queries
+ */
 public class App {
 
     private Connection connection = null;
     private World world = null;
 
+    /**
+     * Creates a connection to a mariadb database
+     *
+     * @param connectionString Where to connect to, usually db:3306 or localhost:3306
+     * @param retries The number of times the connection should be attempted
+     */
     public void connect(String connectionString, int retries) {
         for(int i = 0; i < retries; ++i) {
             try {
@@ -23,6 +35,9 @@ public class App {
         }
     }
 
+    /**
+     * Close the connection to the database
+     */
     public void disconnect() {
         if(connection != null) {
             try {
@@ -33,11 +48,20 @@ public class App {
         }
     }
 
+    /**
+     * Loads the contents of the database into the world member variable
+     */
     public void loadDatabase() {
         world = World.getInstance();
         world.setContinents(loadContinents());
     }
 
+    /**
+     * Queries the database for all the continents and creates the
+     * relevant objects
+     *
+     * @return A list of all the continents
+     */
     private ArrayList<Continent> loadContinents() {
         ArrayList<Continent> continents = new ArrayList<>();
         String query = "SELECT DISTINCT Continent FROM country;";
@@ -48,6 +72,7 @@ public class App {
 
             while(rs.next()) {
                 String continentName = rs.getString("Continent");
+                //Call the function to load all regions for a continent
                 continents.add(new Continent(continentName, loadRegions(continentName)));
             }
         } catch(SQLException e) {
@@ -57,6 +82,12 @@ public class App {
         return continents;
     }
 
+    /**
+     * Loads all the region data for a given continent from the database
+     *
+     * @param continentName The name of the continent for which we want the regions
+     * @return A list of all regions for a given continent
+     */
     private ArrayList<Region> loadRegions(String continentName) {
         ArrayList<Region> regions = new ArrayList<>();
         String query = "SELECT DISTINCT Region FROM country WHERE Continent = ?;";
@@ -68,6 +99,7 @@ public class App {
 
             while(rs.next()) {
                 String regionName = rs.getString("Region");
+                //Call function to load countries for a region
                 regions.add(new Region(regionName, loadCountries(regionName)));
             }
 
@@ -78,6 +110,12 @@ public class App {
         return regions;
     }
 
+    /**
+     * Gets the required data for all the countries in a region
+     *
+     * @param regionName The region we want to get the countries from
+     * @return A list of all countries for this region
+     */
     private ArrayList<Country> loadCountries(String regionName) {
         ArrayList<Country> countries = new ArrayList<>();
         String query = "SELECT Code, Name, Capital, Population FROM country WHERE Region = ?;";
@@ -88,10 +126,13 @@ public class App {
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
+                //Put this in a variable to save writing this statement in multiple places
                 String countryCode = rs.getString("Code");
+                //Find the capital city
                 City capital = loadCapital(countryCode);
-
-                countries.add(new Country(countryCode, rs.getString("Name"), loadDistricts(countryCode, capital), capital, loadLanguages(countryCode), rs.getLong("Population")));
+                //Call function to load districts and to load languages
+                countries.add(new Country(countryCode, rs.getString("Name"), loadDistricts(countryCode, capital),
+                        capital, loadLanguages(countryCode), rs.getLong("Population")));
             }
 
         } catch(SQLException e) {
@@ -101,6 +142,12 @@ public class App {
         return countries;
     }
 
+    /**
+     * Gets a list of all the languages spoken for a specific country
+     *
+     * @param countryCode The country code for which we want the languages from
+     * @return A list of all languages spoken in a country
+     */
     private ArrayList<Language> loadLanguages(String countryCode) {
         ArrayList<Language> languages = new ArrayList<>();
         String query = "SELECT Language, IsOfficial, Percentage FROM countrylanguage WHERE CountryCode = ?;";
@@ -111,6 +158,7 @@ public class App {
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()) {
+                //Convert the database data into a boolean
                 boolean isOfficial = rs.getString("isOfficial").equals("T");
                 languages.add(new Language(rs.getString("Language"), rs.getDouble("Percentage"), isOfficial));
             }
@@ -122,10 +170,19 @@ public class App {
         return languages;
     }
 
+    /**
+     * Finds a list of all the districts in a country
+     *
+     * @param countryCode The country code for the districts we want
+     * @param capital We pass this because some countries do not have districts or even
+     *                a capital so we can use this as a check here as well as passing
+     *                it to the loadCities function to avoid duplicate data
+     * @return A list of all districts for a country
+     */
     private ArrayList<District> loadDistricts(String countryCode, City capital) {
         ArrayList<District> districts = new ArrayList<>();
 
-        //EDGE CASE: If there is no capital there not be any districts so return early
+        //EDGE CASE: If there is no capital there will not be any districts so return early
         if(capital == null) {
             return districts;
         }
@@ -146,7 +203,7 @@ public class App {
                 if(districtNameOrig.equals("") || districtNameOrig.equals("–")) {
                     districtName = "None";
                 }
-
+                //Load cities into new district object
                 districts.add(new District(districtName, loadCities(districtNameOrig, countryCode, capital)));
             }
 
@@ -157,6 +214,12 @@ public class App {
         return districts;
     }
 
+    /**
+     * Finds the capital of a given country
+     *
+     * @param countryCode The country code for the capital that we need to find
+     * @return An object representing the capital of a country
+     */
     private City loadCapital(String countryCode) {
         String query = "SELECT city.Name, city.Population FROM country LEFT JOIN city ON Capital = ID AND Code = CountryCode WHERE Code = ?;";
 
@@ -168,7 +231,7 @@ public class App {
             //Get first result
             rs.next();
 
-            //This without this we get City objects of {null, 0, true} which is not what we intend
+            //Without this we get City objects of {null, 0, true} for countries without a capital
             if(rs.getString("city.Name") == null) {
                 return null;
             }
@@ -182,6 +245,14 @@ public class App {
         return null;
     }
 
+    /**
+     * Finds a list of all the cities in a given district.
+     *
+     * @param districtName The district we want to get the cities for
+     * @param countryCode The country this district is in
+     * @param capital The capital for this country in order to not have duplicate data
+     * @return A list of all cities in a district
+     */
     private ArrayList<City> loadCities(String districtName, String countryCode, City capital) {
         ArrayList<City> cities = new ArrayList<>();
         String query = "SELECT Name, Population FROM city WHERE District = ? AND CountryCode = ?;";
@@ -194,7 +265,8 @@ public class App {
 
             while(rs.next()) {
                 //We don't want to double include the capital
-                if(rs.getString("Name").equals(capital.getName()) && rs.getInt("Population") == capital.getPopulation()) {
+                if(rs.getString("Name").equals(capital.getName())
+                        && rs.getInt("Population") == capital.getPopulation()) {
                     cities.add(capital);
                 } else {
                     cities.add(new City(rs.getString("Name"), rs.getInt("Population"), false));
