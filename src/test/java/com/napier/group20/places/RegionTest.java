@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RegionTest {
 
@@ -20,9 +20,9 @@ class RegionTest {
     @Test
     void getCountries() { // Arrange
         ArrayList<Country> countries = new ArrayList<>();
-        countries.add(new Country("ABC", "Country1", null, null, null, 1));
-        countries.add(new Country("DEF", "Country2", null, null, null, 2));
-        countries.add(new Country("GHI", "Country3", null, null, null, 3));
+        countries.add(new Country("ABC", "Country1", null, null, null, 1, null, null));
+        countries.add(new Country("DEF", "Country2", null, null, null, 2, null, null));
+        countries.add(new Country("GHI", "Country3", null, null, null, 3, null, null));
 
         Region region = new Region("Region", countries);
 
@@ -33,9 +33,9 @@ class RegionTest {
     @Test
     void getPopulation() {
         ArrayList<Country> countries = new ArrayList<>();
-        countries.add(new Country("ABC", "Country1", null, null, null, 1));
-        countries.add(new Country("DEF", "Country2", null, null, null, 2));
-        countries.add(new Country("GHI", "Country3", null, null, null, 3));
+        countries.add(new Country("ABC", "Country1", null, null, null, 1, null, null));
+        countries.add(new Country("DEF", "Country2", null, null, null, 2, null, null));
+        countries.add(new Country("GHI", "Country3", null, null, null, 3, null, null));
 
         Region region = new Region("Region", countries);
 

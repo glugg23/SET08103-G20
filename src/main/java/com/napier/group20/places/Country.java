@@ -19,15 +19,19 @@ public class Country implements Population {
     private City capital;
     private ArrayList<Language> languages;
     private long population;
+    private String continent;
+    private String region;
 
-    public Country(String countryCode, String name, ArrayList<District> districts,
-                   City capital, ArrayList<Language> languages, long population) {
+    public Country(String countryCode, String name, ArrayList<District> districts, City capital,
+                   ArrayList<Language> languages, long population, String continent, String region) {
         this.countryCode = countryCode;
         this.name = name;
         this.districts = districts;
         this.capital = capital;
         this.languages = languages;
         this.population = population;
+        this.continent = continent;
+        this.region = region;
     }
 
     public String getCountryCode() {
@@ -77,5 +81,24 @@ public class Country implements Population {
         return countryPopulation;
     }
 
+    public String getContinent() {
+        return continent;
+    }
 
+    public String getRegion() {
+        return region;
+    }
+
+    //TODO: Write unit test once City class has been updated with toString method
+    @Override
+    public String toString() {
+        return "Country{" +
+                "countryCode='" + countryCode + '\'' +
+                ", name='" + name + '\'' +
+                ", continent='" + continent + '\'' +
+                ", region='" + region + '\'' +
+                ", population=" + population +
+                ", capital=" + capital +
+                '}';
+    }
 }
