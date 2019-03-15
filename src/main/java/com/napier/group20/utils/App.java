@@ -118,7 +118,7 @@ public class App {
      */
     private ArrayList<Country> loadCountries(String regionName) {
         ArrayList<Country> countries = new ArrayList<>();
-        String query = "SELECT Code, Name, Capital, Population FROM country WHERE Region = ?;";
+        String query = "SELECT Code, Name, Capital, Population, Continent FROM country WHERE Region = ?;";
 
         try {
             PreparedStatement ps = connection.prepareStatement(query);
@@ -132,7 +132,8 @@ public class App {
                 City capital = loadCapital(countryCode);
                 //Call function to load districts and to load languages
                 countries.add(new Country(countryCode, rs.getString("Name"), loadDistricts(countryCode, capital),
-                        capital, loadLanguages(countryCode), rs.getLong("Population")));
+                        capital, loadLanguages(countryCode), rs.getLong("Population"),
+                        rs.getString("Continent"), regionName));
             }
 
         } catch(SQLException e) {

@@ -1,8 +1,10 @@
 package com.napier.group20.places;
 
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class WorldTest {
 
@@ -26,9 +28,9 @@ class WorldTest {
         // Arrange
         ArrayList<Country> countries = new ArrayList<>();
         countries.add(new Country("ABC", "Country1", null, null, null,
-                12345));
+                12345, null, null));
         countries.add(new Country("DEF", "Country2", null, null, null,
-                12345));
+                12345, null, null));
 
         ArrayList<Region> regions = new ArrayList<>();
         regions.add(new Region("Region", countries));
