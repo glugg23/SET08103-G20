@@ -75,6 +75,35 @@ public class App {
     }
 
     /**
+     * Implements the feature to return all the cities in the world,
+     * ordered by their population, from largest to smallest
+     *
+     * @return A list of all cities in the world, ordered by population
+     */
+    public ArrayList<City> citiesInWorld() {
+        //If world is not instantiated return null
+        if(world == null) {
+            return null;
+        }
+
+        ArrayList<City> cities = new ArrayList<>();
+
+        for(Continent continent : world.getContinents()) {
+            for(Region region : continent.getRegions()) {
+                for(Country country : region.getCountries()) {
+                    for(District district: country.getDistricts()) {
+                        cities.addAll(district.getCities());
+                    }
+                }
+            }
+        }
+
+        cities.sort(Comparator.comparingLong(City::getPopulation).reversed());
+
+        return cities;
+    }
+
+    /**
      * Loads the contents of the database into the world member variable
      */
     public void loadDatabase() {

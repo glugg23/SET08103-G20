@@ -1,5 +1,6 @@
 package com.napier.group20;
 
+import com.napier.group20.places.City;
 import com.napier.group20.places.Country;
 import com.napier.group20.utils.App;
 
@@ -17,6 +18,11 @@ public class Main {
         ArrayList<Country> countriesInWorld = app.countriesInWorld();
         for(Country country : countriesInWorld) {
             System.out.println(country.toString());
+        }
+
+        ArrayList<City> citiesInWorld = app.citiesInWorld();
+        for(City city : citiesInWorld) {
+            System.out.println(city.toString());
         }
     }
 }
