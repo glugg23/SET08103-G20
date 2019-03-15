@@ -4,6 +4,7 @@ import com.napier.group20.places.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -46,6 +47,25 @@ public class App {
                 e.printStackTrace();
             }
         }
+    }
+
+    public ArrayList<Country> countriesInWorld() {
+        //If world is not instantiated return null
+        if(world == null) {
+            return null;
+        }
+
+        ArrayList<Country> countries = new ArrayList<>();
+
+        for(Continent continent : world.getContinents()) {
+            for(Region region : continent.getRegions()) {
+                countries.addAll(region.getCountries());
+            }
+        }
+
+        countries.sort(Comparator.comparingLong(Country::getPopulation).reversed());
+
+        return countries;
     }
 
     /**
