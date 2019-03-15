@@ -89,7 +89,6 @@ public class Country implements Population {
         return region;
     }
 
-    //TODO: Write unit test once City class has been updated with toString method
     @Override
     public String toString() {
         return "Country{" +
