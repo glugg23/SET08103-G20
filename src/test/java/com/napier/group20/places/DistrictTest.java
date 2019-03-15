@@ -21,9 +21,9 @@ class DistrictTest {
     void getCities() {
         // Arrange
         ArrayList<City> cities = new ArrayList<>();
-        cities.add(new City("City1", 100,true));
-        cities.add(new City("City2", 100,false));
-        cities.add(new City("City3", 100,false));
+        cities.add(new City("City1", 100,true, null, null));
+        cities.add(new City("City2", 100,false, null, null));
+        cities.add(new City("City3", 100,false, null, null));
 
         District district = new District("District", cities);
 
@@ -35,9 +35,9 @@ class DistrictTest {
     void getPopulation() {
         // Arrange
         ArrayList<City> cities = new ArrayList<>();
-        cities.add(new City("City1", 100,true));
-        cities.add(new City("City2", 100,false));
-        cities.add(new City("City3", 100,false));
+        cities.add(new City("City1", 100,true, null, null));
+        cities.add(new City("City2", 100,false, null, null));
+        cities.add(new City("City3", 100,false, null, null));
 
         District district = new District("District", cities);
 

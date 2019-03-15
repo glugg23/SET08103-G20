@@ -58,12 +58,12 @@ class CountryTest {
     void getCitiesPopulation() {
         // Arrange
         ArrayList<City> cities1 = new ArrayList<>();
-        cities1.add(new City("City1", 100,true));
-        cities1.add(new City("City2", 50,false));
+        cities1.add(new City("City1", 100,true, null, null));
+        cities1.add(new City("City2", 50,false, null, null));
 
         ArrayList<City> cities2 = new ArrayList<>();
-        cities2.add(new City("City3", 100,false));
-        cities2.add(new City("City4", 50,false));
+        cities2.add(new City("City3", 100,false, null, null));
+        cities2.add(new City("City4", 50,false, null, null));
 
         ArrayList<District> districts = new ArrayList<>();
         districts.add(new District("District1", cities1));
@@ -78,7 +78,7 @@ class CountryTest {
     @Test
     void getCapital() {
         // Arrange
-        City capital = new City("City1",100,true);
+        City capital = new City("City1",100,true, null, null);
 
         Country country = new Country("ABC", "Country", null, capital, null,
                 12345, null, null);
@@ -155,5 +155,16 @@ class CountryTest {
 
         // Assert
         assertEquals("Region", country.getRegion());
+    }
+
+    @Test
+    void toStringTest() {
+        // Arrange
+        Country country = new Country("ABC", "Country", null,
+                new City("City", 100, true, "Country", "District"),
+                null, 12345, "Continent", "Region");
+
+        // Assert
+        assertEquals("Country{countryCode='ABC', name='Country', continent='Continent', region='Region', population=12345, capital=City{name='City', population=100, country='Country', district='District'}}", country.toString());
     }
 }

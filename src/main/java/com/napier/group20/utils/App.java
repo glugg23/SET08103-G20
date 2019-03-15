@@ -49,6 +49,12 @@ public class App {
         }
     }
 
+    /**
+     * Implements the feature to return all the countries in the world,
+     * ordered by their population, largest to smallest
+     *
+     * @return A list of all the countries in the world, ordered by population
+     */
     public ArrayList<Country> countriesInWorld() {
         //If world is not instantiated return null
         if(world == null) {
@@ -66,6 +72,35 @@ public class App {
         countries.sort(Comparator.comparingLong(Country::getPopulation).reversed());
 
         return countries;
+    }
+
+    /**
+     * Implements the feature to return all the cities in the world,
+     * ordered by their population, from largest to smallest
+     *
+     * @return A list of all cities in the world, ordered by population
+     */
+    public ArrayList<City> citiesInWorld() {
+        //If world is not instantiated return null
+        if(world == null) {
+            return null;
+        }
+
+        ArrayList<City> cities = new ArrayList<>();
+
+        for(Continent continent : world.getContinents()) {
+            for(Region region : continent.getRegions()) {
+                for(Country country : region.getCountries()) {
+                    for(District district: country.getDistricts()) {
+                        cities.addAll(district.getCities());
+                    }
+                }
+            }
+        }
+
+        cities.sort(Comparator.comparingLong(City::getPopulation).reversed());
+
+        return cities;
     }
 
     /**
@@ -148,10 +183,11 @@ public class App {
             while(rs.next()) {
                 //Put this in a variable to save writing this statement in multiple places
                 String countryCode = rs.getString("Code");
+                String countryName = rs.getString("Name");
                 //Find the capital city
                 City capital = loadCapital(countryCode);
                 //Call function to load districts and to load languages
-                countries.add(new Country(countryCode, rs.getString("Name"), loadDistricts(countryCode, capital),
+                countries.add(new Country(countryCode, countryName, loadDistricts(countryCode, rs.getString("Name"), capital),
                         capital, loadLanguages(countryCode), rs.getLong("Population"),
                         rs.getString("Continent"), regionName));
             }
@@ -195,12 +231,14 @@ public class App {
      * Finds a list of all the districts in a country
      *
      * @param countryCode The country code for the districts we want
+     * @param countryName The country name for the current country as we need this as data
+     *                    for all the cities in a district
      * @param capital We pass this because some countries do not have districts or even
      *                a capital so we can use this as a check here as well as passing
      *                it to the loadCities function to avoid duplicate data
      * @return A list of all districts for a country
      */
-    private ArrayList<District> loadDistricts(String countryCode, City capital) {
+    private ArrayList<District> loadDistricts(String countryCode, String countryName, City capital) {
         ArrayList<District> districts = new ArrayList<>();
 
         //EDGE CASE: If there is no capital there will not be any districts so return early
@@ -225,7 +263,7 @@ public class App {
                     districtName = "None";
                 }
                 //Load cities into new district object
-                districts.add(new District(districtName, loadCities(districtNameOrig, countryCode, capital)));
+                districts.add(new District(districtName, loadCities(districtNameOrig, countryName, countryCode, capital)));
             }
 
         } catch(SQLException e) {
@@ -242,7 +280,7 @@ public class App {
      * @return An object representing the capital of a country
      */
     private City loadCapital(String countryCode) {
-        String query = "SELECT city.Name, city.Population FROM country LEFT JOIN city ON Capital = ID AND Code = CountryCode WHERE Code = ?;";
+        String query = "SELECT city.Name, city.Population, District, country.Name FROM country LEFT JOIN city ON Capital = ID AND Code = CountryCode WHERE Code = ?;";
 
         try {
             PreparedStatement ps = connection.prepareStatement(query);
@@ -256,7 +294,15 @@ public class App {
             if(rs.getString("city.Name") == null) {
                 return null;
             }
-            return new City(rs.getString("city.Name"), rs.getInt("city.Population"), true);
+
+            String districtName = rs.getString("District");
+            //If it's a strange value set it to something which makes more sense for the user
+            if(districtName.equals("") || districtName.equals("–")) {
+                districtName = "None";
+            }
+
+            return new City(rs.getString("city.Name"), rs.getInt("city.Population"), true,
+                    rs.getString("country.Name"), districtName);
 
         } catch(SQLException e) {
             e.printStackTrace();
@@ -270,11 +316,12 @@ public class App {
      * Finds a list of all the cities in a given district.
      *
      * @param districtName The district we want to get the cities for
+     * @param countryName The country the city is in
      * @param countryCode The country this district is in
      * @param capital The capital for this country in order to not have duplicate data
      * @return A list of all cities in a district
      */
-    private ArrayList<City> loadCities(String districtName, String countryCode, City capital) {
+    private ArrayList<City> loadCities(String districtName, String countryName, String countryCode, City capital) {
         ArrayList<City> cities = new ArrayList<>();
         String query = "SELECT Name, Population FROM city WHERE District = ? AND CountryCode = ?;";
 
@@ -290,7 +337,8 @@ public class App {
                         && rs.getInt("Population") == capital.getPopulation()) {
                     cities.add(capital);
                 } else {
-                    cities.add(new City(rs.getString("Name"), rs.getInt("Population"), false));
+                    cities.add(new City(rs.getString("Name"), rs.getInt("Population"), false,
+                            countryName, districtName));
                 }
             }
 
