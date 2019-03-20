@@ -21,7 +21,9 @@ jobs:
       install: skip
       script: mvn test -Dtest="com.napier.group20.places.*Test"
     - stage: Integration
-      script: mvn test -Dtest="com.napier.group20.util.*Test"
+      script:
+        - sudo docker-compose up db
+        - mvn test -Dtest="com.napier.group20.utils.*Test"
     - stage: Deployment
       install: skip
       script:
