@@ -14,6 +14,7 @@ services:
   - docker
 
 install:
+  - mvn clean
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 jobs:
@@ -23,14 +24,11 @@ jobs:
       jdk: openjdk11
       script: mvn test -Dtest="com.napier.group20.places.*Test"
     - stage: Integration
-      jdk: openjdk11
       script: echo "Integration insert here"
     - stage: Deployment
-      jdk: openjdk11
       script: sudo docker-compose up --build --abort-on-container-exit
 
 before_script:
-  - mvn clean
   - sudo service mysql stop
   - sudo service postgresql stop
 
