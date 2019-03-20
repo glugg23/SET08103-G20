@@ -2,24 +2,50 @@ sudo: required
 
 language: java
 
+addons:
+    hosts:
+      - db
+
 jdk:
-  - oraclejdk11
   - openjdk11
 
 services:
   - docker
 
-after_success:
-  - mvn install
-  - sudo service mariadb stop
+install:
+  - mvn clean install -DskipTests=true -D"maven.javadoc.skip=true" -B -V
+
+jobs:
+  include:
+    - stage: Units
+      install: skip
+      script: mvn test -Dtest="com.napier.group20.places.*Test"
+    - stage: Integration
+      script: echo "Integration insert here"
+    - stage: Deployment
+      install: skip
+      script:
+        - mvn package -DskipTests=true -D"maven.javadoc.skip=true"
+        - sudo docker-compose up --build --abort-on-container-exit
+
+before_script:
   - sudo service mysql stop
   - sudo service postgresql stop
-  - sudo docker-compose up --build --abort-on-container-exit
+
+after_success:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
   - ./send.sh success $WEBHOOK_URL
+#-bash <(curl -s https://codecov.io/bash)>
+#requires Max to add the repo to codecov
 
 after_failure:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
   - ./send.sh failure $WEBHOOK_URL
+
+stages:
+  - Units
+  - Integration
+  - name: Deployment
+    if: branch = master

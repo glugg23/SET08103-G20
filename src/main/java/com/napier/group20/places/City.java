@@ -5,37 +5,29 @@ import com.napier.group20.utils.Population;
 /**
  * City.java
  *
- * Stores information about a city including its name, country,
- * district, population and if it is the capital city.
+ * Stores information about a city including its name,
+ * population and if it is the capital city.
  *
  */
 
 public class City implements Population {
 
     private String name;
-    private Country country;
-    private District district;
     private int population;
     private boolean isCapital;
+    private String country;
+    private String district;
 
-    public City(String name, Country country, District district, int population, boolean isCapital) {
+    public City(String name, int population, boolean isCapital, String country, String district) {
         this.name = name;
-        this.country = country;
-        this.district = district;
         this.population = population;
         this.isCapital = isCapital;
+        this.country = country;
+        this.district = district;
     }
 
     public String getName() {
         return name;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public District getDistrict() {
-        return district;
     }
 
     public long getPopulation() {
@@ -46,4 +38,21 @@ public class City implements Population {
         return isCapital;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "name='" + name + '\'' +
+                ", population=" + population +
+                ", country='" + country + '\'' +
+                ", district='" + district + '\'' +
+                '}';
+    }
 }

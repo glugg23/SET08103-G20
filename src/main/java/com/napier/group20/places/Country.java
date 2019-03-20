@@ -15,12 +15,24 @@ public class Country implements Population {
 
     private String countryCode;
     private String name;
-    private Continent continent;
-    private Region region;
     private ArrayList<District> districts;
     private City capital;
-    private ArrayList<Language> language;
+    private ArrayList<Language> languages;
     private long population;
+    private String continent;
+    private String region;
+
+    public Country(String countryCode, String name, ArrayList<District> districts, City capital,
+                   ArrayList<Language> languages, long population, String continent, String region) {
+        this.countryCode = countryCode;
+        this.name = name;
+        this.districts = districts;
+        this.capital = capital;
+        this.languages = languages;
+        this.population = population;
+        this.continent = continent;
+        this.region = region;
+    }
 
     public String getCountryCode() {
         return countryCode;
@@ -28,14 +40,6 @@ public class Country implements Population {
 
     public String getName() {
         return name;
-    }
-
-    public Continent getContinent() {
-        return continent;
-    }
-
-    public Region getRegion() {
-        return region;
     }
 
     public ArrayList<District> getDistricts() {
@@ -46,8 +50,23 @@ public class Country implements Population {
         return capital;
     }
 
-    public ArrayList<Language> getLanguage() {
-        return language;
+    public ArrayList<Language> getLanguages() {
+        return languages;
+    }
+
+    public ArrayList<Language> getOfficialLanguages() {
+        ArrayList<Language> officialLanguages = new ArrayList<>();
+        for(Language language : languages) {
+            if(language.isOfficial()) {
+                officialLanguages.add(language);
+            }
+        }
+
+        if(officialLanguages.isEmpty()) {
+            return null;
+        }
+
+        return officialLanguages;
     }
 
     public long getPopulation() {
@@ -62,5 +81,23 @@ public class Country implements Population {
         return countryPopulation;
     }
 
+    public String getContinent() {
+        return continent;
+    }
 
+    public String getRegion() {
+        return region;
+    }
+
+    @Override
+    public String toString() {
+        return "Country{" +
+                "countryCode='" + countryCode + '\'' +
+                ", name='" + name + '\'' +
+                ", continent='" + continent + '\'' +
+                ", region='" + region + '\'' +
+                ", population=" + population +
+                ", capital=" + capital +
+                '}';
+    }
 }
