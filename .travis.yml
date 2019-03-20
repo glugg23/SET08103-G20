@@ -3,8 +3,8 @@ sudo: required
 language: java
 
 addons:
-    hosts:
-      - db
+  hosts:
+    - db
 
 jdk:
   - openjdk11
@@ -58,3 +58,7 @@ stages:
   - Integration
   - name: GitHub Release
     if: branch = master
+
+before_install:
+  - openssl aes-256-cbc -K $encrypted_416895d112dd_key -iv $encrypted_416895d112dd_iv
+    -in client-secret.json.enc -out client-secret.json -d
