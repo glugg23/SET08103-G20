@@ -2,6 +2,10 @@ sudo: required
 
 language: java
 
+addons:
+    hosts:
+      - db
+
 jdk:
   - oraclejdk11
   - openjdk11
@@ -9,17 +13,25 @@ jdk:
 services:
   - docker
 
-after_success:
-  - mvn install
-  - sudo service mariadb stop
-  - sudo service mysql stop
-  - sudo service postgresql stop
-  - sudo docker-compose up --build --abort-on-container-exit
-  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-  - chmod +x send.sh
-  - ./send.sh success $WEBHOOK_URL
+install:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - docker-compose up --build --abort-on-container-exit
+
+test:
+  - mvn test -Dtest="com.napier.group20.places.*Test"
+
+before_script:
+  - mvn clean
+  - service mariadb stop
+  - service mysql stop
+  - service postgresql stop
 
 after_failure:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
   - ./send.sh failure $WEBHOOK_URL
+
+after_success:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh success $WEBHOOK_URL
