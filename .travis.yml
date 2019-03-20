@@ -21,7 +21,7 @@ jobs:
       install: skip
       script: mvn test -Dtest="com.napier.group20.places.*Test"
     - stage: Integration
-      script: echo "Integration insert here"
+      script: mvn test -Dtest="com.napier.group20.util.*Test"
     - stage: Deployment
       install: skip
       script:
@@ -33,11 +33,10 @@ before_script:
   - sudo service postgresql stop
 
 after_success:
+  - bash <(curl -s https://codecov.io/bash)>
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
   - ./send.sh success $WEBHOOK_URL
-#-bash <(curl -s https://codecov.io/bash)>
-#requires Max to add the repo to codecov
 
 after_failure:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
