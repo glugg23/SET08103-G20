@@ -114,9 +114,7 @@ public class App {
             throw new NullPointerException();
         }
 
-        ArrayList<City> cities = citiesInWorld();
-
-        for (City city : cities) {
+        for (City city : citiesInWorld()) {
             if (city.getName().equals(cityName)) {
                 return city.getPopulation();
             }
@@ -143,6 +141,31 @@ public class App {
                 for (Region region : continent.getRegions()) {
                     if(region.getName().equals(regionName)) {
                         return region.getPopulation();
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Implements feature to return the population of a given district
+     *
+     * @param countryName The country name of where the district is
+     * @param districtName The district name to return the population of
+     *
+     * @return Population of given district if found, otherwise return -1
+     */
+    public long populationOfDistrict(String countryName, String districtName) {
+        if (world == null) {
+            throw new NullPointerException();
+        }
+
+        for (Country country : countriesInWorld()) {
+            if (country.getName().equals(countryName)) {
+                for (District district : country.getDistricts()) {
+                    if (district.getName().equals(districtName)) {
+                        return district.getPopulation();
                     }
                 }
             }

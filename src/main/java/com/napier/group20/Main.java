@@ -30,5 +30,8 @@ public class Main {
 
         long populationOfRegion = app.populationOfRegion("Asia", "Southern and Central Asia");
         System.out.println(populationOfRegion);
+
+        long populationOfDistrict = app.populationOfDistrict("Argentina", "Buenos Aires");
+        System.out.println(populationOfDistrict);
     }
 }
