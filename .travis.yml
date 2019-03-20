@@ -26,7 +26,6 @@ jobs:
       jdk: openjdk11
       script: echo "Integration insert here"
     - stage: Deployment
-      install: skip
       jdk: openjdk11
       script: sudo docker-compose up --build --abort-on-container-exit
 
