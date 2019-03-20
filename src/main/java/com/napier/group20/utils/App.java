@@ -106,6 +106,7 @@ public class App {
     /**
      * Implements the feature to return the population of a city
      *
+     * @param cityName The name of the city to return the population of
      * @return Population of a city
      */
     public long populationOfCity(String cityName) {
@@ -121,7 +122,32 @@ public class App {
             }
         }
 
-        return 0;
+        return -1;
+    }
+
+    /**
+     * Implements feature to return the population of a region
+     *
+     * @param continentName Name of the continent where the region is
+     * @param regionName Name of the region to return the population of
+     *
+     * @return Population of a given region if found, otherwise return -1
+     */
+    public long populationOfRegion(String continentName, String regionName) {
+        if (world == null) {
+            throw new NullPointerException();
+        }
+
+        for (Continent continent : world.getContinents()) {
+            if (continent.getName().equals(continentName)) {
+                for (Region region : continent.getRegions()) {
+                    if(region.getName().equals(regionName)) {
+                        return region.getPopulation();
+                    }
+                }
+            }
+        }
+        return -1;
     }
 
     /**
