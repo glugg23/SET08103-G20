@@ -13,7 +13,7 @@ services:
   - docker
 
 install:
-  - mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - mvn clean install -DskipTests=true -D"maven.javadoc.skip=true" -B -V
 
 jobs:
   include:
@@ -25,7 +25,7 @@ jobs:
     - stage: Deployment
       install: skip
       script:
-        - mvn package -DskipTests=true -Dmaven.javadoc.skip=true
+        - mvn package -DskipTests=true -D"maven.javadoc.skip=true"
         - sudo docker-compose up --build --abort-on-container-exit
 
 before_script:
