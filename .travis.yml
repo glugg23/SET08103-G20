@@ -15,7 +15,7 @@ services:
 
 install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-  - docker-compose up --build --abort-on-container-exit
+  - sudo docker-compose up --build --abort-on-container-exit
 
 jobs:
   include:
@@ -33,9 +33,9 @@ jobs:
 
 before_script:
   - mvn clean
-  - service mariadb stop
-  - service mysql stop
-  - service postgresql stop
+  - sudo service mariadb stop
+  - sudo service mysql stop
+  - sudo service postgresql stop
 
 after_success:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
