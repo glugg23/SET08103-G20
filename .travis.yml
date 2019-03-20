@@ -32,7 +32,6 @@ jobs:
 
 before_script:
   - mvn clean
-  - sudo service mariadb stop
   - sudo service mysql stop
   - sudo service postgresql stop
 
