@@ -15,17 +15,22 @@ public class Region implements Population{
     //Instance variables
     private String name;
     private ArrayList<Country> countries;
-    private long population;
 
     //Constructor
-    public Region(String name, ArrayList<Country> countries, long population) {
+    public Region(String name, ArrayList<Country> countries) {
         this.name = name;
         this.countries = countries;
-        this.population = population;
     }
 
     //Getters
     public String getName() { return name; }
     public ArrayList<Country> getCountries() { return countries; }
-    public long getPopulation() { return population; }
+
+    public long getPopulation() {
+        long regionPopulation = 0;
+        for (Country country : countries) {
+            regionPopulation += country.getPopulation();
+        }
+        return regionPopulation;
+    }
 }
