@@ -17,8 +17,19 @@ install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
   - docker-compose up --build --abort-on-container-exit
 
-test:
-  - mvn test -Dtest="com.napier.group20.places.*Test"
+jobs:
+  include:
+    - stage: Units
+      install: skip
+      jdk: openjdk11
+      script: mvn test -Dtest="com.napier.group20.places.*Test"
+    - stage: Integration
+      jdk: openjdk11
+      script: echo "Integration insert here"
+    - stage: Deployment
+      install: skip
+      jdk: openjdk11
+      script: echo "Deployment insert here"
 
 before_script:
   - mvn clean
@@ -26,12 +37,12 @@ before_script:
   - service mysql stop
   - service postgresql stop
 
-after_failure:
-  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
-  - chmod +x send.sh
-  - ./send.sh failure $WEBHOOK_URL
-
 after_success:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
   - chmod +x send.sh
   - ./send.sh success $WEBHOOK_URL
+
+after_failure:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh failure $WEBHOOK_URL
