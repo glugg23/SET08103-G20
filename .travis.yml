@@ -15,7 +15,6 @@ services:
 
 install:
   - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-  - sudo docker-compose up --build --abort-on-container-exit
 
 jobs:
   include:
@@ -29,7 +28,7 @@ jobs:
     - stage: Deployment
       install: skip
       jdk: openjdk11
-      script: echo "Deployment insert here"
+      script: sudo docker-compose up --build --abort-on-container-exit
 
 before_script:
   - mvn clean
@@ -50,5 +49,4 @@ after_failure:
 stages:
   - Units
   - Integration
-  - name: Deployment
-    if: branch = master
+  - Deployment
