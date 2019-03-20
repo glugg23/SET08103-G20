@@ -45,4 +45,5 @@ after_failure:
 stages:
   - Units
   - Integration
-  - Deployment
+  - name: Deployment
+    if: branch = master

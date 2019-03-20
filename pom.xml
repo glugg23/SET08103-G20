@@ -42,6 +42,7 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
+                    <finalName>seMethods-G20</finalName>
                     <archive>
                         <manifest>
                             <mainClass>com.napier.group20.Main</mainClass>
