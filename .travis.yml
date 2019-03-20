@@ -7,7 +7,6 @@ addons:
       - db
 
 jdk:
-  - oraclejdk11
   - openjdk11
 
 services:
@@ -20,7 +19,6 @@ jobs:
   include:
     - stage: Units
       install: skip
-      jdk: openjdk11
       script: mvn test -Dtest="com.napier.group20.places.*Test"
     - stage: Integration
       script: echo "Integration insert here"
