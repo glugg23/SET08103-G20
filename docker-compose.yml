@@ -4,15 +4,8 @@
 version: '3.3'
 services:
   db:
-    image: mariadb
+    build: src/main/resources/
     restart: always
-    environment:
-      MYSQL_DATABASE: world
-      MYSQL_ROOT_PASSWORD: secret
-    ports:
-      - 3306:3306
-    volumes:
-      - ./src/main/resources/:/docker-entrypoint-initdb.d/
 
   app:
     build: .
