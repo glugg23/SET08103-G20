@@ -62,7 +62,7 @@ jobs:
         - gcloud auth configure-docker
         - docker build -t gcr.io/${PROJECT_ID}/db src/main/resources
         - docker push gcr.io/${PROJECT_ID}/db
-        - gcloud container clusters create hr-cluster --num-nodes=1
+        - gcloud container clusters create world-cluster --num-nodes=1
         - kubectl run world --image=gcr.io/${PROJECT_ID}/db --port 3306
         - kubectl expose deployment world --port=3306 --target-port=3306 --type=LoadBalancer
 
