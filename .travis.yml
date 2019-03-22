@@ -3,8 +3,12 @@ sudo: required
 language: java
 
 addons:
-    hosts:
-      - db
+  hosts:
+    - db
+
+env:
+  global:
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 
 jdk:
   - openjdk11
@@ -20,10 +24,13 @@ jobs:
     - stage: Units
       install: skip
       script: mvn test -Dtest="com.napier.group20.places.*Test"
+
     - stage: Integration
       script:
-        - sudo docker-compose up -d db
+        - sudo docker build -t db src/main/resources
+        - sudo docker run --rm -d -p 3306:3306 db
         - mvn test -Dtest="com.napier.group20.utils.*Test"
+
     - stage: GitHub Release
       install: skip
       script: mvn package -DskipTests=true -D"maven.javadoc.skip=true"
@@ -37,6 +44,27 @@ jobs:
         api_key: $GITHUB_OAUTH_TOKEN
         file: $TRAVIS_BUILD_DIR/target/SET08103-G20.jar
         skip_cleanup: true
+
+    - stage: Google Cloud Deploy
+      install: skip
+      jdk: oraclejdk11
+      before_script:
+        - if [ ! -d ${HOME}/google-cloud-sdk ]; then curl https://sdk.cloud.google.com | bash
+          > /dev/null; fi
+        - source $HOME/google-cloud-sdk/path.bash.inc
+        - gcloud components install kubectl
+        - gcloud version
+        - gcloud auth activate-service-account --key-file client-secret.json
+      script:
+        - gcloud config set project set08103-g20
+        - gcloud config set compute/zone europe-west2-b
+        - export PROJECT_ID="$(gcloud config get-value project -q)"
+        - gcloud auth configure-docker
+        - docker build -t gcr.io/${PROJECT_ID}/db src/main/resources
+        - docker push gcr.io/${PROJECT_ID}/db
+        - gcloud container clusters create world-cluster --num-nodes=1
+        - kubectl run world --image=gcr.io/${PROJECT_ID}/db --port 3306
+        - kubectl expose deployment world --port=3306 --target-port=3306 --type=LoadBalancer
 
 before_script:
   - sudo service mysql stop
@@ -58,3 +86,9 @@ stages:
   - Integration
   - name: GitHub Release
     if: branch = master
+  - name: Google Cloud Deploy
+    if: branch = master
+
+before_install:
+  - openssl aes-256-cbc -K $encrypted_416895d112dd_key -iv $encrypted_416895d112dd_iv
+    -in client-secret.json.enc -out client-secret.json -d
