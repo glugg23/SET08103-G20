@@ -73,6 +73,30 @@ class AppTest {
     }
 
     @Test
+    void capitalCitiesInWorld() {
+        //Act
+        ArrayList<City> actual = app.capitalCitiesInWorld();
+
+        //Assert
+        StringBuilder hashBuffer = new StringBuilder();
+        for(City city : actual) {
+            hashBuffer.append(city.toString());
+        }
+
+        String sha1 = "";
+        try {
+            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
+            crypt.update(hashBuffer.toString().getBytes(StandardCharsets.UTF_8));
+            sha1 = Base64.getEncoder().encodeToString(crypt.digest());
+        } catch(NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(232, actual.size());
+        assertEquals("/cv/yz9MRMjtp4igMHEEnKnw+6Y=", sha1);
+    }
+
+    @Test
     void populationOfCity() {
         //Arrange
         long expected = 450180;

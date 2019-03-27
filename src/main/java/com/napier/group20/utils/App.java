@@ -91,7 +91,7 @@ public class App {
         for(Continent continent : world.getContinents()) {
             for(Region region : continent.getRegions()) {
                 for(Country country : region.getCountries()) {
-                    for(District district: country.getDistricts()) {
+                    for(District district : country.getDistricts()) {
                         cities.addAll(district.getCities());
                     }
                 }
@@ -101,6 +101,29 @@ public class App {
         cities.sort(Comparator.comparingLong(City::getPopulation).reversed());
 
         return cities;
+    }
+
+    public ArrayList<City> capitalCitiesInWorld() {
+        //If world is not instantiated return null
+        if(world == null) {
+            return null;
+        }
+
+        ArrayList<City> capitalCities = new ArrayList<>();
+
+        for(Continent continent : world.getContinents()) {
+            for(Region region : continent.getRegions()) {
+                for(Country country : region.getCountries()) {
+                    if(country.getCapital() != null) {
+                        capitalCities.add(country.getCapital());
+                    }
+                }
+            }
+        }
+
+        capitalCities.sort(Comparator.comparingLong(City::getPopulation).reversed());
+
+        return capitalCities;
     }
 
     /**

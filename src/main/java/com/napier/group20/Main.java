@@ -25,6 +25,11 @@ public class Main {
             System.out.println(city.toString());
         }
 
+        ArrayList<City> capitalCitiesInWorld = app.capitalCitiesInWorld();
+        for(City city : capitalCitiesInWorld) {
+            System.out.println(city.toString());
+        }
+
         long populationOfCity = app.populationOfCity("Edinburgh");
         System.out.println(populationOfCity);
 
