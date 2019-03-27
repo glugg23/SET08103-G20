@@ -95,4 +95,28 @@ class AppTest {
         //Assert
         assertEquals(expected, actual);
     }
+
+    @Test
+    void populationOfRegion() {
+        //Arrange
+        long expected = 1490776000;
+
+        //Act
+        long actual = app.populationOfRegion("Asia", "Southern and Central Asia");
+
+        //Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void populationOfRegionNotFound() {
+        //Arrange
+        long expected = -1;
+
+        //Act
+        long actual = app.populationOfRegion("Does not exist", "Does not exist");
+
+        //Assert
+        assertEquals(expected, actual);
+    }
 }
