@@ -119,4 +119,28 @@ class AppTest {
         //Assert
         assertEquals(expected, actual);
     }
+
+    @Test
+    void populationOfDistrict() {
+        //Arrange
+        long expected = 10530136;
+
+        //Act
+        long actual = app.populationOfDistrict("Argentina", "Buenos Aires");
+
+        //Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void populationOfDistrictNotFound() {
+        //Arrange
+        long expected = -1;
+
+        //Act
+        long actual = app.populationOfDistrict("Does not exist", "Does not exist");
+
+        //Assert
+        assertEquals(expected, actual);
+    }
 }
