@@ -30,6 +30,9 @@ public class Main {
             System.out.println(city.toString());
         }
 
+        long populationOfWorld = app.populationOfWorld();
+        System.out.println(populationOfWorld);
+
         long populationOfCity = app.populationOfCity("Edinburgh");
         System.out.println(populationOfCity);
 

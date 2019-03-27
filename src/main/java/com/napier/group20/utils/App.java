@@ -103,6 +103,12 @@ public class App {
         return cities;
     }
 
+    /**
+     * Implements the feature to return all the capital cities in the world,
+     * ordered by population
+     *
+     * @return List of all capital cities
+     */
     public ArrayList<City> capitalCitiesInWorld() {
         //If world is not instantiated return null
         if(world == null) {
@@ -124,6 +130,19 @@ public class App {
         capitalCities.sort(Comparator.comparingLong(City::getPopulation).reversed());
 
         return capitalCities;
+    }
+
+    /**
+     * Finds the population of the whole world
+     *
+     * @return The population of the world
+     */
+    public long populationOfWorld() {
+        if(world == null) {
+            throw new NullPointerException();
+        }
+
+        return world.getPopulation();
     }
 
     /**

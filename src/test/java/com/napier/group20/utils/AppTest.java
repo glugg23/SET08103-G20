@@ -97,6 +97,18 @@ class AppTest {
     }
 
     @Test
+    void populationOfWorld() {
+        //Arrange
+        long expected = 6078749450L;
+
+        //Act
+        long actual = app.populationOfWorld();
+
+        //Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void populationOfCity() {
         //Arrange
         long expected = 450180;
