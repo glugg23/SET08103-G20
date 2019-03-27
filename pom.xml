@@ -6,7 +6,7 @@
 
     <groupId>com.napier.group20</groupId>
     <artifactId>SET08103-G20</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
@@ -42,7 +42,7 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <finalName>seMethods-G20</finalName>
+                    <finalName>SET08103-G20</finalName>
                     <archive>
                         <manifest>
                             <mainClass>com.napier.group20.Main</mainClass>
@@ -51,6 +51,7 @@
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
                     <execution>
