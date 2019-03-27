@@ -71,4 +71,28 @@ class AppTest {
         assertEquals(4079, actual.size());
         assertEquals("UU7JcDurNp+9OTIUDyWE8WBGKY0=", sha1);
     }
+
+    @Test
+    void populationOfCity() {
+        //Arrange
+        long expected = 450180;
+
+        //Act
+        long actual = app.populationOfCity("Edinburgh");
+
+        //Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void populationOfCityNotFound() {
+        //Arrange
+        long expected = -1;
+
+        //Act
+        long actual = app.populationOfCity("Does not exist");
+
+        //Assert
+        assertEquals(expected, actual);
+    }
 }
