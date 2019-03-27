@@ -16,6 +16,33 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class AppTest {
     private static App app;
 
+    /**
+     * A generic method for getting the SHA1 hash of a list
+     *
+     * @param list The list the hash should be made from
+     * @param <T> The object type of the list
+     * @return A SHA1 hash of all the elements in the list combined together
+     */
+    <T> String listToSHA1(ArrayList<T> list) {
+        StringBuilder hashBuffer = new StringBuilder();
+        for(T item : list) {
+            hashBuffer.append(item.toString());
+        }
+
+        String sha1 = "";
+        try {
+            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
+            crypt.update(hashBuffer.toString().getBytes(StandardCharsets.UTF_8));
+            sha1 = Base64.getEncoder().encodeToString(crypt.digest());
+
+        } catch(NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        return sha1;
+    }
+
+
     @BeforeAll
     static void init() {
         app = new App();
@@ -30,22 +57,20 @@ class AppTest {
         ArrayList<Country> actual = app.countriesInWorld();
 
         //Assert
-        StringBuilder hashBuffer = new StringBuilder();
-        for(Country country : actual) {
-            hashBuffer.append(country.toString());
-        }
-
-        String sha1 = "";
-        try {
-            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
-            crypt.update(hashBuffer.toString().getBytes(StandardCharsets.UTF_8));
-            sha1 = Base64.getEncoder().encodeToString(crypt.digest());
-        } catch(NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
+        String sha1 = listToSHA1(actual);
         assertEquals(239, actual.size());
         assertEquals("8/o7+3uFB368QRAhQIW5SAtTv3c=", sha1);
+    }
+
+    @Test
+    void countriesInWorldLimit() {
+        //Act
+        ArrayList<Country> actual = app.countriesInWorldLimit(10);
+
+        //Assert
+        String sha1 = listToSHA1(actual);
+        assertEquals(10, actual.size());
+        assertEquals("gzS4OY2UtuwBQQRgHK5B684fAFM=", sha1);
     }
 
     @Test
@@ -54,20 +79,7 @@ class AppTest {
         ArrayList<City> actual = app.citiesInWorld();
 
         //Assert
-        StringBuilder hashBuffer = new StringBuilder();
-        for(City city : actual) {
-            hashBuffer.append(city.toString());
-        }
-
-        String sha1 = "";
-        try {
-            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
-            crypt.update(hashBuffer.toString().getBytes(StandardCharsets.UTF_8));
-            sha1 = Base64.getEncoder().encodeToString(crypt.digest());
-        } catch(NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
+        String sha1 = listToSHA1(actual);
         assertEquals(4079, actual.size());
         assertEquals("UU7JcDurNp+9OTIUDyWE8WBGKY0=", sha1);
     }
@@ -78,20 +90,7 @@ class AppTest {
         ArrayList<City> actual = app.capitalCitiesInWorld();
 
         //Assert
-        StringBuilder hashBuffer = new StringBuilder();
-        for(City city : actual) {
-            hashBuffer.append(city.toString());
-        }
-
-        String sha1 = "";
-        try {
-            MessageDigest crypt = MessageDigest.getInstance("SHA-1");
-            crypt.update(hashBuffer.toString().getBytes(StandardCharsets.UTF_8));
-            sha1 = Base64.getEncoder().encodeToString(crypt.digest());
-        } catch(NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
+        String sha1 = listToSHA1(actual);
         assertEquals(232, actual.size());
         assertEquals("/cv/yz9MRMjtp4igMHEEnKnw+6Y=", sha1);
     }

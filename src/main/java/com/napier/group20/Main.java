@@ -20,6 +20,11 @@ public class Main {
             System.out.println(country.toString());
         }
 
+        ArrayList<Country> nCountriesInWorld = app.countriesInWorldLimit(10);
+        for(Country country : nCountriesInWorld) {
+            System.out.println(country.toString());
+        }
+
         ArrayList<City> citiesInWorld = app.citiesInWorld();
         for(City city : citiesInWorld) {
             System.out.println(city.toString());

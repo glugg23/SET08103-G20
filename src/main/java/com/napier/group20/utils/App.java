@@ -75,6 +75,16 @@ public class App {
     }
 
     /**
+     * Finds the top N countries in the world based on their population
+     *
+     * @param limit The number of countries to get
+     * @return A list of N countries which have the most population
+     */
+    public ArrayList<Country> countriesInWorldLimit(int limit) {
+        return new ArrayList<>(countriesInWorld().subList(0, limit));
+    }
+
+    /**
      * Implements the feature to return all the cities in the world,
      * ordered by their population, from largest to smallest
      *
