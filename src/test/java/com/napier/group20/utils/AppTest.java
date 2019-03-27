@@ -71,4 +71,76 @@ class AppTest {
         assertEquals(4079, actual.size());
         assertEquals("UU7JcDurNp+9OTIUDyWE8WBGKY0=", sha1);
     }
+
+    @Test
+    void populationOfCity() {
+        //Arrange
+        long expected = 450180;
+
+        //Act
+        long actual = app.populationOfCity("Edinburgh");
+
+        //Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void populationOfCityNotFound() {
+        //Arrange
+        long expected = -1;
+
+        //Act
+        long actual = app.populationOfCity("Does not exist");
+
+        //Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void populationOfRegion() {
+        //Arrange
+        long expected = 1490776000;
+
+        //Act
+        long actual = app.populationOfRegion("Asia", "Southern and Central Asia");
+
+        //Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void populationOfRegionNotFound() {
+        //Arrange
+        long expected = -1;
+
+        //Act
+        long actual = app.populationOfRegion("Does not exist", "Does not exist");
+
+        //Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void populationOfDistrict() {
+        //Arrange
+        long expected = 10530136;
+
+        //Act
+        long actual = app.populationOfDistrict("Argentina", "Buenos Aires");
+
+        //Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void populationOfDistrictNotFound() {
+        //Arrange
+        long expected = -1;
+
+        //Act
+        long actual = app.populationOfDistrict("Does not exist", "Does not exist");
+
+        //Assert
+        assertEquals(expected, actual);
+    }
 }

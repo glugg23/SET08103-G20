@@ -104,6 +104,76 @@ public class App {
     }
 
     /**
+     * Implements the feature to return the population of a city
+     *
+     * @param cityName The name of the city to return the population of
+     * @return Population of a city
+     */
+    public long populationOfCity(String cityName) {
+        if (world == null) {
+            throw new NullPointerException();
+        }
+
+        for (City city : citiesInWorld()) {
+            if (city.getName().equals(cityName)) {
+                return city.getPopulation();
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * Implements feature to return the population of a region
+     *
+     * @param continentName Name of the continent where the region is
+     * @param regionName Name of the region to return the population of
+     *
+     * @return Population of a given region if found, otherwise return -1
+     */
+    public long populationOfRegion(String continentName, String regionName) {
+        if (world == null) {
+            throw new NullPointerException();
+        }
+
+        for (Continent continent : world.getContinents()) {
+            if (continent.getName().equals(continentName)) {
+                for (Region region : continent.getRegions()) {
+                    if(region.getName().equals(regionName)) {
+                        return region.getPopulation();
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Implements feature to return the population of a given district
+     *
+     * @param countryName The country name of where the district is
+     * @param districtName The district name to return the population of
+     *
+     * @return Population of given district if found, otherwise return -1
+     */
+    public long populationOfDistrict(String countryName, String districtName) {
+        if (world == null) {
+            throw new NullPointerException();
+        }
+
+        for (Country country : countriesInWorld()) {
+            if (country.getName().equals(countryName)) {
+                for (District district : country.getDistricts()) {
+                    if (district.getName().equals(districtName)) {
+                        return district.getPopulation();
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
      * Loads the contents of the database into the world member variable
      */
     public void loadDatabase() {

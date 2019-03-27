@@ -24,5 +24,14 @@ public class Main {
         for(City city : citiesInWorld) {
             System.out.println(city.toString());
         }
+
+        long populationOfCity = app.populationOfCity("Edinburgh");
+        System.out.println(populationOfCity);
+
+        long populationOfRegion = app.populationOfRegion("Asia", "Southern and Central Asia");
+        System.out.println(populationOfRegion);
+
+        long populationOfDistrict = app.populationOfDistrict("Argentina", "Buenos Aires");
+        System.out.println(populationOfDistrict);
     }
 }
