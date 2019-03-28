@@ -1,8 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Work+Sans:400');
+@import url('https://fonts.googleapis.com/css?family=Patrick+Hand');
+
+body {
+    background: #FFF3E0;
+}
 
 body > * {
-    font-family: 'Work Sans', sans-serif;
-    color: #fff;
+    font-family: 'Patrick Hand', sans-serif;
+    color: #E65100;
 }
 
 #wrap {
@@ -14,4 +18,10 @@ h1 {
     font-size: 4em;
     text-align: center;
     margin: 50px;
+}
+
+h2 {
+    font-size: 2em;
+    margin: 40px 0 20px 0;
+
 }
