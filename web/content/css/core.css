@@ -28,6 +28,10 @@ h2 {
 
 }
 
+small {
+    color: var(--primary-light-colour);
+}
+
 a {
     color: var(--primary-colour);
 }
