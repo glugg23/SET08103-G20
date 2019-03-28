@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>World Database</title>
     <link href="css/variables.css" rel="stylesheet">
     <link href="css/reset.css" rel="stylesheet">
@@ -10,7 +11,7 @@
 <body>
 <div id="wrap">
     <h1>SEM Assignment</h1>
-    <h2>Population Reports</h2>
+    <h2>Population Report</h2>
     <form>
         <div class="input">
             Get
@@ -38,39 +39,39 @@
         <input type="submit" value="Generate!">
     </form>
 
-    <h2>Place Reports</h2>
-    <h3>Region Report</h3>
+    <h2>Place Report</h2>
     <form>
-        <label for="region_name">Region Name</label>
-        <input id="region_name" name="region_name" placeholder="Norway">
+        <div class="input">
+            Get a report
+
+            <input type="radio" name="amount" id="amount_all" value="all" checked>
+            <label for="amount_all">all</label>
+
+            <input type="radio" name="amount" id="amount_count" value="count">
+            <label for="amount_count">the top <input name="count" type="number" value="5" step="1"></label>
+
+            <select name="place_child">
+                <option selected value="countries">countries</option>
+                <option value="cities">cities</option>
+                <option value="capitals">capitals</option>
+            </select>
+            in the <select name="place_parent">
+            <option selected value="world">world</option>
+            <option value="continent">continent</option>
+            <option value="region">region</option>
+            <option value="country">country</option>
+            <option value="district">district</option>
+        </select> <input id="place_name" name="place_name" placeholder="Norway">
+        </div>
+
         <input type="submit" value="Generate!">
     </form>
 
-    <h3>Continent Report</h3>
-    <form>
-        <label for="continent_name">Country Name</label>
-        <input id="continent_name" name="country_name" placeholder="Norway">
-        <input type="submit" value="Generate!">
-    </form>
+    <h3>Static Reports</h3>
+    <a href="population_breakdown.html?place=continent">The population of people, people living in cities, and people not living in cities in each continent.</a>
+    <a href="population_breakdown.html?place=region">The population of people, people living in cities, and people not living in cities in each region.</a>
+    <a href="population_breakdown.html?place=country">The population of people, people living in cities, and people not living in cities in each country.</a>
 
-    <h3>Country Report</h3>
-    <form>
-        <label for="country_name">Country Name</label>
-        <input id="country_name" name="country_name" placeholder="Norway">
-        <input type="submit" value="Generate!">
-    </form>
-    <h3>City Report</h3>
-    <form>
-        <label for="city_name">Country Name</label>
-        <input id="city_name" name="city_name" placeholder="Manchester">
-        <input type="submit" value="Generate!">
-    </form>
-    <h3>Capital Report</h3>
-    <form>
-        <label for="capital_name">Capital Name</label>
-        <input id="capital_name" name="capital_name" placeholder="Edinburgh">
-        <input type="submit" value="Generate!">
-    </form>
 </div>
 </body>
 </html>
