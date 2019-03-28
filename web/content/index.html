@@ -5,7 +5,43 @@
 </head>
 <body>
 <h1>World Database</h1>
+<h2>Population Reports</h2>
+<form>
+    Get
+    <label for="amount_all">all</label>
+    <input type="radio" name="amount" id="amount_all" value="all">
+    <label for="amount_count">the top <input name="count" type="number"></label>
+    <input type="radio" name="amount" id="amount_count" value="count">
+    <select id="place_child">
+    <option selected>countries</option>
+    <option>cities</option>
+    <option>capital cities</option>
+    </select>
+    in the <select id="place_parent">
+        <option selected>world</option>
+        <option>continent</option>
+        <option>region</option>
+        <option>country</option>
+        <option>district</option>
+    </select> <input id="place_name" name="place_name" placeholder="Norway">
+    <input type="submit" value="Generate!">
+</form>
+
 <h2>Generic Reports</h2>
+<h3>Region Report</h3>
+<form>
+    <label for="region_name">Region Name</label>
+    <input id="region_name" name="region_name" placeholder="Norway">
+    <input type="submit" value="Generate!">
+</form>
+
+<h3>Continent Report</h3>
+<form>
+    <label for="continent_name">Country Name</label>
+    <input id="continent_name" name="country_name" placeholder="Norway">
+    <input type="submit" value="Generate!">
+</form>
+
 <h3>Country Report</h3>
 <form>
     <label for="country_name">Country Name</label>
@@ -24,8 +60,6 @@
     <input id="capital_name" name="capital_name" placeholder="Edinburgh">
     <input type="submit" value="Generate!">
 </form>
-
-
 
 </body>
 </html>
