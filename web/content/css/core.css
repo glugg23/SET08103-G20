@@ -29,6 +29,5 @@ h2 {
 }
 
 a {
-    display: block;
     color: var(--primary-colour);
 }
