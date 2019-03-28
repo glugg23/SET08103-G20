@@ -16,22 +16,22 @@
         <input type="radio" name="amount" id="amount_all" value="all">
         <label for="amount_count">the top <input name="count" type="number"></label>
         <input type="radio" name="amount" id="amount_count" value="count">
-        <select id="place_child">
-        <option selected>countries</option>
-        <option>cities</option>
-        <option>capital cities</option>
+        <select name="place_child">
+        <option selected value="countries">countries</option>
+        <option value="cities">cities</option>
+        <option value="capitals">capitals</option>
         </select>
-        in the <select id="place_parent">
-            <option selected>world</option>
-            <option>continent</option>
-            <option>region</option>
-            <option>country</option>
-            <option>district</option>
+        in the <select name="place_parent">
+            <option selected value="world">world</option>
+            <option value="continent">continent</option>
+            <option value="region">region</option>
+            <option value="country">country</option>
+            <option value="district">district</option>
         </select> <input id="place_name" name="place_name" placeholder="Norway">
         <input type="submit" value="Generate!">
     </form>
 
-    <h2>Generic Reports</h2>
+    <h2>Place Reports</h2>
     <h3>Region Report</h3>
     <form>
         <label for="region_name">Region Name</label>
