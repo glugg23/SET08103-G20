@@ -63,8 +63,12 @@ input[type="radio"]:checked+label {
 
 .input {
     margin: 15px auto;
-    width: max-content;
+    width: 100%;
     display: block;
     background: var(--primary-lightest-colour);
     padding: 30px;
+}
+.input_inner {
+    margin: 0 auto;
+    width: max-content;
 }

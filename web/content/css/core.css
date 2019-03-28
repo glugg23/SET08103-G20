@@ -26,3 +26,8 @@ h2 {
     margin: 40px 0 20px 0;
 
 }
+
+a {
+    display: block;
+    color: var(--primary-colour);
+}

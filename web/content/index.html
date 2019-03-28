@@ -14,26 +14,29 @@
     <h2>Population Report</h2>
     <form>
         <div class="input">
-            Get
+            <div class="input_inner">
+                Get
+                <input type="radio" name="amount" id="amount_all" value="all" checked>
+                <label for="amount_all">all</label>
 
-            <input type="radio" name="amount" id="amount_all" value="all" checked>
-            <label for="amount_all">all</label>
+                <input type="radio" name="amount" id="amount_count" value="count">
+                <label for="amount_count">the top <input name="count" type="number" value="5" step="1"></label>
 
-            <input type="radio" name="amount" id="amount_count" value="count">
-            <label for="amount_count">the top <input name="count" type="number" value="5" step="1"></label>
-
-            <select name="place_child">
-                <option selected value="countries">countries</option>
-                <option value="cities">cities</option>
-                <option value="capitals">capitals</option>
-            </select>
-            in the <select name="place_parent">
-            <option selected value="world">world</option>
-            <option value="continent">continent</option>
-            <option value="region">region</option>
-            <option value="country">country</option>
-            <option value="district">district</option>
-        </select> <input id="place_name" name="place_name" placeholder="Norway">
+                <select name="place_child">
+                    <option selected value="countries">countries</option>
+                    <option value="cities">cities</option>
+                    <option value="capitals">capitals</option>
+                </select>
+                in the
+                <select name="place_parent">
+                    <option selected value="world">world</option>
+                    <option value="continent">continent</option>
+                    <option value="region">region</option>
+                    <option value="country">country</option>
+                    <option value="district">district</option>
+                </select>
+                <input id="place_name" name="place_name" placeholder="Norway">
+            </div>
         </div>
 
         <input type="submit" value="Generate!">
@@ -42,35 +45,27 @@
     <h2>Place Report</h2>
     <form>
         <div class="input">
-            Get a report
+            <div class="input_inner">
+                Get a report on the
 
-            <input type="radio" name="amount" id="amount_all" value="all" checked>
-            <label for="amount_all">all</label>
-
-            <input type="radio" name="amount" id="amount_count" value="count">
-            <label for="amount_count">the top <input name="count" type="number" value="5" step="1"></label>
-
-            <select name="place_child">
-                <option selected value="countries">countries</option>
-                <option value="cities">cities</option>
-                <option value="capitals">capitals</option>
-            </select>
-            in the <select name="place_parent">
-            <option selected value="world">world</option>
-            <option value="continent">continent</option>
-            <option value="region">region</option>
-            <option value="country">country</option>
-            <option value="district">district</option>
-        </select> <input id="place_name" name="place_name" placeholder="Norway">
+                <select name="place">
+                    <option selected value="world">world</option>
+                    <option value="continent">continent</option>
+                    <option value="region">region</option>
+                    <option value="country">country</option>
+                    <option value="district">district</option>
+                </select> <input name="place_name" placeholder="Norway">
+            </div>
         </div>
 
         <input type="submit" value="Generate!">
     </form>
 
-    <h3>Static Reports</h3>
-    <a href="population_breakdown.html?place=continent">The population of people, people living in cities, and people not living in cities in each continent.</a>
-    <a href="population_breakdown.html?place=region">The population of people, people living in cities, and people not living in cities in each region.</a>
-    <a href="population_breakdown.html?place=country">The population of people, people living in cities, and people not living in cities in each country.</a>
+    <h2>Static Reports</h2>
+    <a href="population_breakdown.html?place=continent">Continent population breakdown</a>
+    <a href="population_breakdown.html?place=region">Region population breakdown</a>
+    <a href="population_breakdown.html?place=country">Country population breakdown</a>
+    <a href="language_breakdown.html">Language breakdown</a>
 
 </div>
 </body>
