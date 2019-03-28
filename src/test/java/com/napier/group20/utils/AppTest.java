@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class AppTest {
     private static App app;
@@ -177,5 +178,26 @@ class AppTest {
 
         //Assert
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void continentPopulationReport() {
+        //Arrange
+        String expected = "PopulationReport{name='Europe', totalPopulation=730074600, cityPopulation=241942813 (0.33139464514996136%), nonCityPopulation=488131787 (0.6686053548500386%)}";
+
+        //Act
+        PopulationReport actual = app.continentPopulationReport("Europe");
+
+        //Assert
+        assertEquals(expected, actual.toString());
+    }
+
+    @Test
+    void continentPopulationReportNotFound() {
+        //Act
+        PopulationReport report = app.continentPopulationReport("Does not exist");
+
+        //Assert
+        assertNull(report);
     }
 }

@@ -226,6 +226,33 @@ public class App {
     }
 
     /**
+     * Generates a population report for a given continent
+     * @param continentName The continent name to find the population of
+     * @return An object representing the total population and the number
+     *         of people living in cities and not living in cities
+     */
+    public PopulationReport continentPopulationReport(String continentName) {
+        if(world == null) {
+            return null;
+        }
+
+        for(Continent continent : world.getContinents()) {
+            if(continent.getName().equals(continentName)) {
+                long cityPopulation = 0;
+                for(Region region : continent.getRegions()) {
+                    for(Country country : region.getCountries()) {
+                        cityPopulation += country.getCitiesPopulation();
+                    }
+                }
+
+                return new PopulationReport(continentName, cityPopulation, continent.getPopulation());
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Loads the contents of the database into the world member variable
      */
     public void loadDatabase() {

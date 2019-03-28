@@ -3,6 +3,7 @@ package com.napier.group20;
 import com.napier.group20.places.City;
 import com.napier.group20.places.Country;
 import com.napier.group20.utils.App;
+import com.napier.group20.utils.PopulationReport;
 
 import java.util.ArrayList;
 
@@ -46,5 +47,8 @@ public class Main {
 
         long populationOfDistrict = app.populationOfDistrict("Argentina", "Buenos Aires");
         System.out.println(populationOfDistrict);
+
+        PopulationReport contientReport = app.continentPopulationReport("Europe");
+        System.out.println(contientReport.toString());
     }
 }
