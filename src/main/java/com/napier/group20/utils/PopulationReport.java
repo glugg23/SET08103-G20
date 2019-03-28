@@ -2,13 +2,15 @@ package com.napier.group20.utils;
 
 public class PopulationReport {
     private String name;
+    private long totalPopulation;
     private long cityPopulation;
     private long nonCityPopulation;
 
-    public PopulationReport(String name, long cityPopulation, long nonCityPopulation) {
+    public PopulationReport(String name, long cityPopulation, long totalPopulation) {
         this.name = name;
         this.cityPopulation = cityPopulation;
-        this.nonCityPopulation = nonCityPopulation;
+        this.totalPopulation = totalPopulation;
+        this.nonCityPopulation = totalPopulation - cityPopulation;
     }
 
     public String getName() {
@@ -24,22 +26,22 @@ public class PopulationReport {
     }
 
     public long getTotalPopulation() {
-        return cityPopulation + nonCityPopulation;
+        return totalPopulation;
     }
 
     public double getCityPopulationPercentage() {
-        return (double) cityPopulation / getTotalPopulation();
+        return (double) cityPopulation / totalPopulation;
     }
 
     public double getNonCityPopulationPercentage() {
-        return (double) nonCityPopulation / getTotalPopulation();
+        return (double) nonCityPopulation / totalPopulation;
     }
 
     @Override
     public String toString() {
         return "PopulationReport{" +
                 "name='" + name + '\'' +
-                ", totalPopulation=" + getTotalPopulation() +
+                ", totalPopulation=" + totalPopulation +
                 ", cityPopulation=" + cityPopulation +
                 " (" + getCityPopulationPercentage() + "%)" +
                 ", nonCityPopulation=" + nonCityPopulation +
