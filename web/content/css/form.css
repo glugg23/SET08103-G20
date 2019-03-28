@@ -5,12 +5,34 @@ input, select {
     font-family: 'Patrick Hand', sans-serif;
     font-size: 24px;
     border-bottom: var(--primary-colour) solid 3px;
+    line-height: 24px;
+    margin: 0;
+    text-align: center;
+    padding-bottom: 2px;
+}
+
+select {
+    -webkit-appearance: none;
+    padding-bottom: 1px;
+    font-weight: bold;
+}
+
+select::-ms-expand {
+    display: none;
 }
 
 input[type=number] {
-    width: 30px;
+    width: 35px;
     border-bottom: none;
 
+}
+
+input[type=submit] {
+    padding: 10px;
+    border: var(--primary-colour) solid 3px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
 }
 
 input[type="radio"] {
@@ -24,7 +46,25 @@ input[type="radio"]+label {
     font-weight: bold;
 }
 
+input[type="radio"]+label > * {
+    color: var(--primary-light-colour);
+    font-weight: bold;
+}
+input[type="radio"]:checked+label > * {
+    color: var(--primary-colour);
+    text-align: center;
+
+}
+
 input[type="radio"]:checked+label {
     border-bottom: var(--primary-colour) solid 3px;
     color: var(--primary-colour);
+}
+
+.input {
+    margin: 15px auto;
+    width: max-content;
+    display: block;
+    background: var(--primary-lightest-colour);
+    padding: 30px;
 }
