@@ -1,5 +1,17 @@
-@import url('https://fonts.googleapis.com/css?family=Special+Elite');
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:400');
 
 body > * {
-    font-family: 'Special Elite', cursive;
+    font-family: 'Work Sans', sans-serif;
+    color: #fff;
+}
+
+#wrap {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 4em;
+    text-align: center;
+    margin: 50px;
 }
