@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Patrick+Hand');
 
 body {
-    background: #FFF3E0;
+    background: #FFF;
+    font-size: 24px;
 }
 
 body > * {
     font-family: 'Patrick Hand', sans-serif;
-    color: #E65100;
+    color: var(--primary-colour);
 }
 
 #wrap {
@@ -15,13 +16,13 @@ body > * {
 }
 
 h1 {
-    font-size: 4em;
+    font-size: 60px;
     text-align: center;
     margin: 50px;
 }
 
 h2 {
-    font-size: 2em;
+    font-size: 36px;
     margin: 40px 0 20px 0;
 
 }

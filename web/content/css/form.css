@@ -1,0 +1,30 @@
+input, select {
+    background: none;
+    border: none;
+    color: var(--primary-colour);
+    font-family: 'Patrick Hand', sans-serif;
+    font-size: 24px;
+    border-bottom: var(--primary-colour) solid 3px;
+}
+
+input[type=number] {
+    width: 30px;
+    border-bottom: none;
+
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]+label {
+    color: var(--primary-light-colour);
+    cursor: pointer;
+    border-bottom: none;
+    font-weight: bold;
+}
+
+input[type="radio"]:checked+label {
+    border-bottom: var(--primary-colour) solid 3px;
+    color: var(--primary-colour);
+}
