@@ -1,6 +1,8 @@
 package com.napier.group20.utils;
 
 import com.napier.group20.places.*;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,10 +15,13 @@ import java.util.concurrent.TimeUnit;
  * A class which holds all the methods for interacting
  * with the database and returning data for user queries
  */
+
+@SpringBootApplication
+@RestController
 public class App {
 
-    private Connection connection = null;
-    private World world = null;
+    private static Connection connection = null;
+    private static World world = null;
 
     /**
      * Creates a connection to a mariadb database
@@ -24,7 +29,7 @@ public class App {
      * @param connectionString Where to connect to, usually db:3306 or localhost:3306
      * @param retries The number of times the connection should be attempted
      */
-    public void connect(String connectionString, int retries) {
+    public static void connect(String connectionString, int retries) {
         for(int i = 0; i < retries; ++i) {
             try {
                 TimeUnit.SECONDS.sleep(5);
@@ -39,7 +44,7 @@ public class App {
     /**
      * Close the connection to the database
      */
-    public void disconnect() {
+    public static void disconnect() {
         if(connection != null) {
             try {
                 connection.close();
@@ -55,7 +60,7 @@ public class App {
      *
      * @return A list of all the countries in the world, ordered by population
      */
-    public ArrayList<Country> countriesInWorld() {
+    public static ArrayList<Country> countriesInWorld() {
         //If world is not instantiated return null
         if(world == null) {
             return null;
@@ -80,7 +85,7 @@ public class App {
      * @param limit The number of countries to get
      * @return A list of N countries which have the most population
      */
-    public ArrayList<Country> countriesInWorldLimit(int limit) {
+    public static ArrayList<Country> countriesInWorldLimit(int limit) {
         return new ArrayList<>(countriesInWorld().subList(0, limit));
     }
 
@@ -90,7 +95,7 @@ public class App {
      *
      * @return A list of all cities in the world, ordered by population
      */
-    public ArrayList<City> citiesInWorld() {
+    public static ArrayList<City> citiesInWorld() {
         //If world is not instantiated return null
         if(world == null) {
             return null;
@@ -119,7 +124,7 @@ public class App {
      *
      * @return List of all capital cities
      */
-    public ArrayList<City> capitalCitiesInWorld() {
+    public static ArrayList<City> capitalCitiesInWorld() {
         //If world is not instantiated return null
         if(world == null) {
             return null;
@@ -147,7 +152,7 @@ public class App {
      *
      * @return The population of the world
      */
-    public long populationOfWorld() {
+    public static long populationOfWorld() {
         if(world == null) {
             throw new NullPointerException();
         }
@@ -161,7 +166,7 @@ public class App {
      * @param cityName The name of the city to return the population of
      * @return Population of a city
      */
-    public long populationOfCity(String cityName) {
+    public static long populationOfCity(String cityName) {
         if (world == null) {
             throw new NullPointerException();
         }
@@ -183,7 +188,7 @@ public class App {
      *
      * @return Population of a given region if found, otherwise return -1
      */
-    public long populationOfRegion(String continentName, String regionName) {
+    public static long populationOfRegion(String continentName, String regionName) {
         if (world == null) {
             throw new NullPointerException();
         }
@@ -208,7 +213,7 @@ public class App {
      *
      * @return Population of given district if found, otherwise return -1
      */
-    public long populationOfDistrict(String countryName, String districtName) {
+    public static long populationOfDistrict(String countryName, String districtName) {
         if (world == null) {
             throw new NullPointerException();
         }
@@ -228,7 +233,7 @@ public class App {
     /**
      * Loads the contents of the database into the world member variable
      */
-    public void loadDatabase() {
+    public static void loadDatabase() {
         world = World.getInstance();
         world.setContinents(loadContinents());
     }
@@ -239,7 +244,7 @@ public class App {
      *
      * @return A list of all the continents
      */
-    private ArrayList<Continent> loadContinents() {
+    private static ArrayList<Continent> loadContinents() {
         ArrayList<Continent> continents = new ArrayList<>();
         String query = "SELECT DISTINCT Continent FROM country;";
 
@@ -265,7 +270,7 @@ public class App {
      * @param continentName The name of the continent for which we want the regions
      * @return A list of all regions for a given continent
      */
-    private ArrayList<Region> loadRegions(String continentName) {
+    private static ArrayList<Region> loadRegions(String continentName) {
         ArrayList<Region> regions = new ArrayList<>();
         String query = "SELECT DISTINCT Region FROM country WHERE Continent = ?;";
 
@@ -293,7 +298,7 @@ public class App {
      * @param regionName The region we want to get the countries from
      * @return A list of all countries for this region
      */
-    private ArrayList<Country> loadCountries(String regionName) {
+    private static ArrayList<Country> loadCountries(String regionName) {
         ArrayList<Country> countries = new ArrayList<>();
         String query = "SELECT Code, Name, Capital, Population, Continent FROM country WHERE Region = ?;";
 
@@ -327,7 +332,7 @@ public class App {
      * @param countryCode The country code for which we want the languages from
      * @return A list of all languages spoken in a country
      */
-    private ArrayList<Language> loadLanguages(String countryCode) {
+    private static ArrayList<Language> loadLanguages(String countryCode) {
         ArrayList<Language> languages = new ArrayList<>();
         String query = "SELECT Language, IsOfficial, Percentage FROM countrylanguage WHERE CountryCode = ?;";
 
@@ -360,7 +365,7 @@ public class App {
      *                it to the loadCities function to avoid duplicate data
      * @return A list of all districts for a country
      */
-    private ArrayList<District> loadDistricts(String countryCode, String countryName, City capital) {
+    private static ArrayList<District> loadDistricts(String countryCode, String countryName, City capital) {
         ArrayList<District> districts = new ArrayList<>();
 
         //EDGE CASE: If there is no capital there will not be any districts so return early
@@ -401,7 +406,7 @@ public class App {
      * @param countryCode The country code for the capital that we need to find
      * @return An object representing the capital of a country
      */
-    private City loadCapital(String countryCode) {
+    private static City loadCapital(String countryCode) {
         String query = "SELECT city.Name, city.Population, District, country.Name FROM country LEFT JOIN city ON Capital = ID AND Code = CountryCode WHERE Code = ?;";
 
         try {
@@ -443,7 +448,7 @@ public class App {
      * @param capital The capital for this country in order to not have duplicate data
      * @return A list of all cities in a district
      */
-    private ArrayList<City> loadCities(String districtName, String countryName, String countryCode, City capital) {
+    private static ArrayList<City> loadCities(String districtName, String countryName, String countryCode, City capital) {
         ArrayList<City> cities = new ArrayList<>();
         String query = "SELECT Name, Population FROM city WHERE District = ? AND CountryCode = ?;";
 
