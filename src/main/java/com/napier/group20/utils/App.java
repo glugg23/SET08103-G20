@@ -1,7 +1,6 @@
 package com.napier.group20.utils;
 
 import com.napier.group20.places.*;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.*;
@@ -15,8 +14,6 @@ import java.util.concurrent.TimeUnit;
  * A class which holds all the methods for interacting
  * with the database and returning data for user queries
  */
-
-@SpringBootApplication
 @RestController
 public class App {
 

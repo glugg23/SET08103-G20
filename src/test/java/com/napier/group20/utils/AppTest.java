@@ -14,8 +14,6 @@ import java.util.Base64;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AppTest {
-    private static App app;
-
     /**
      * A generic method for getting the SHA1 hash of a list
      *
@@ -45,16 +43,15 @@ class AppTest {
 
     @BeforeAll
     static void init() {
-        app = new App();
-        app.connect("localhost:3306", 1); //This needs to be localhost and not db for some reason
-        app.loadDatabase();
-        app.disconnect();
+        App.connect("localhost:3306", 1); //This needs to be localhost and not db for some reason
+        App.loadDatabase();
+        App.disconnect();
     }
 
     @Test
     void countriesInWorld() {
         //Act
-        ArrayList<Country> actual = app.countriesInWorld();
+        ArrayList<Country> actual = App.countriesInWorld();
 
         //Assert
         String sha1 = listToSHA1(actual);
@@ -65,7 +62,7 @@ class AppTest {
     @Test
     void countriesInWorldLimit() {
         //Act
-        ArrayList<Country> actual = app.countriesInWorldLimit(10);
+        ArrayList<Country> actual = App.countriesInWorldLimit(10);
 
         //Assert
         String sha1 = listToSHA1(actual);
@@ -76,7 +73,7 @@ class AppTest {
     @Test
     void citiesInWorld() {
         //Act
-        ArrayList<City> actual = app.citiesInWorld();
+        ArrayList<City> actual = App.citiesInWorld();
 
         //Assert
         String sha1 = listToSHA1(actual);
@@ -87,7 +84,7 @@ class AppTest {
     @Test
     void capitalCitiesInWorld() {
         //Act
-        ArrayList<City> actual = app.capitalCitiesInWorld();
+        ArrayList<City> actual = App.capitalCitiesInWorld();
 
         //Assert
         String sha1 = listToSHA1(actual);
@@ -101,7 +98,7 @@ class AppTest {
         long expected = 6078749450L;
 
         //Act
-        long actual = app.populationOfWorld();
+        long actual = App.populationOfWorld();
 
         //Assert
         assertEquals(expected, actual);
@@ -113,7 +110,7 @@ class AppTest {
         long expected = 450180;
 
         //Act
-        long actual = app.populationOfCity("Edinburgh");
+        long actual = App.populationOfCity("Edinburgh");
 
         //Assert
         assertEquals(expected, actual);
@@ -125,7 +122,7 @@ class AppTest {
         long expected = -1;
 
         //Act
-        long actual = app.populationOfCity("Does not exist");
+        long actual = App.populationOfCity("Does not exist");
 
         //Assert
         assertEquals(expected, actual);
@@ -137,7 +134,7 @@ class AppTest {
         long expected = 1490776000;
 
         //Act
-        long actual = app.populationOfRegion("Asia", "Southern and Central Asia");
+        long actual = App.populationOfRegion("Asia", "Southern and Central Asia");
 
         //Assert
         assertEquals(expected, actual);
@@ -149,7 +146,7 @@ class AppTest {
         long expected = -1;
 
         //Act
-        long actual = app.populationOfRegion("Does not exist", "Does not exist");
+        long actual = App.populationOfRegion("Does not exist", "Does not exist");
 
         //Assert
         assertEquals(expected, actual);
@@ -161,7 +158,7 @@ class AppTest {
         long expected = 10530136;
 
         //Act
-        long actual = app.populationOfDistrict("Argentina", "Buenos Aires");
+        long actual = App.populationOfDistrict("Argentina", "Buenos Aires");
 
         //Assert
         assertEquals(expected, actual);
@@ -173,7 +170,7 @@ class AppTest {
         long expected = -1;
 
         //Act
-        long actual = app.populationOfDistrict("Does not exist", "Does not exist");
+        long actual = App.populationOfDistrict("Does not exist", "Does not exist");
 
         //Assert
         assertEquals(expected, actual);
