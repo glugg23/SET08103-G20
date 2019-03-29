@@ -2,6 +2,7 @@ package com.napier.group20;
 
 import com.napier.group20.places.City;
 import com.napier.group20.places.Country;
+import com.napier.group20.places.Language;
 import com.napier.group20.utils.App;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         App app = new App();
-        app.connect("db:3306", 10);
+        app.connect("35.197.228.94:3306", 10);
 
         app.loadDatabase();
 
@@ -35,6 +36,11 @@ public class Main {
             System.out.println(city.toString());
         }
 
+        ArrayList<Language> languagesOfWorld = app.languagesOfWorld();
+        for (Language language : languagesOfWorld) {
+            System.out.println(language.toString());
+        }
+
         long populationOfWorld = app.populationOfWorld();
         System.out.println(populationOfWorld);
 
@@ -46,5 +52,7 @@ public class Main {
 
         long populationOfDistrict = app.populationOfDistrict("Argentina", "Buenos Aires");
         System.out.println(populationOfDistrict);
+
+
     }
 }

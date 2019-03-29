@@ -3,8 +3,7 @@ package com.napier.group20.utils;
 import com.napier.group20.places.*;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -223,6 +222,35 @@ public class App {
             }
         }
         return -1;
+    }
+
+    /**
+     *
+     *
+     * @return Every language spoken in the world
+     */
+    public ArrayList<Language> languagesOfWorld() {
+        if (world == null) {
+            throw new NullPointerException();
+        }
+
+        ArrayList<Language> languages = new ArrayList<>();
+        for (Continent continent : world.getContinents()) {
+            for (Region region : continent.getRegions()) {
+                for (Country country : region.getCountries()) {
+                    languages.addAll(country.getLanguages());
+                }
+            }
+        }
+        // Remove duplicated languages
+        ArrayList<Language> uniqueLanguages = new ArrayList<>();
+        Set<Language> uniqueValues = new HashSet<>();
+        for (Language language : languages) {
+            if (uniqueValues.add(language)) {
+                uniqueLanguages.add(language);
+            }
+        }
+        return uniqueLanguages;
     }
 
     /**

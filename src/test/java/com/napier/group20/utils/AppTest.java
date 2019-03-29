@@ -46,7 +46,7 @@ class AppTest {
     @BeforeAll
     static void init() {
         app = new App();
-        app.connect("localhost:3306", 1); //This needs to be localhost and not db for some reason
+        app.connect("35.197.228.94:3306", 1); //This needs to be localhost and not db for some reason
         app.loadDatabase();
         app.disconnect();
     }
@@ -177,5 +177,11 @@ class AppTest {
 
         //Assert
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void languagesOfWorld() {
+        // Arrange
+        //ArrayList<Language> expected =
     }
 }
