@@ -23,13 +23,15 @@ jobs:
   include:
     - stage: Units
       install: skip
-      script: mvn test -Dtest="com.napier.group20.places.*Test"
+      script:
+        - mvn test -Dtest="com.napier.group20.places.*Test"
+        - mvn test -Dtest="com.napier.group20.utils.PopulationReportTest"
 
     - stage: Integration
       script:
         - sudo docker build -t db src/main/resources
         - sudo docker run --rm -d -p 3306:3306 db
-        - mvn test -Dtest="com.napier.group20.utils.*Test"
+        - mvn test -Dtest="com.napier.group20.utils.AppTest"
 
     - stage: GitHub Release
       install: skip
