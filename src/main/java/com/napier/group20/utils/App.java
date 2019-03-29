@@ -227,6 +227,8 @@ public class App {
         return -1;
     }
 
+
+    // DATABASE LOADING FUNCTIONS
     /**
      * Loads the contents of the database into the world member variable
      */
