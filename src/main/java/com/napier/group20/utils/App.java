@@ -176,6 +176,22 @@ public class App {
     }
 
     /**
+     * Implements the feature to return the population of a city
+     *
+     * @param countryName The name of the city to return the population of
+     * @return Population of a city
+     */
+    public long populationofCountry(String countryName) {
+        for (Country country : countriesInWorld()) {
+            if (country.getName().equals(countryName)) {
+                return country.getPopulation();
+            }
+        }
+
+        return -1;
+    }
+
+    /**
      * Implements feature to return the population of a region
      *
      * @param continentName Name of the continent where the region is
