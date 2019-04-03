@@ -128,6 +128,37 @@ public class App {
     }
 
     /**
+     * Implements the feature to return all the countries in the world,
+     * ordered by their population, largest to smallest
+     *
+     * @param cityName Name of the city
+     *
+     * @return A list of all the cities in a country, ordered by population
+     */
+    public ArrayList<City> citiesInCountry(String countryName) {
+        Country country = null;
+        for(Country current_country : this.countriesInWorld()) {
+            if((current_country.getName()).equals(countryName)) {
+                country = current_country;
+            }
+        }
+
+        if(country == null) {
+            return null;
+        }
+
+        ArrayList<City> cities = new ArrayList<>();
+        for(District district : country.getDistricts()) {
+            cities.addAll(district.getCities());
+        }
+
+        cities.sort(Comparator.comparingLong(City::getPopulation).reversed());
+
+        return cities;
+    }
+
+
+    /**
      * Finds the population of the whole world
      *
      * @return The population of the world
@@ -158,7 +189,7 @@ public class App {
      * @param countryName The name of the city to return the population of
      * @return Population of a city
      */
-    public long populationofCountry(String countryName) {
+    public long populationOfCountry(String countryName) {
         for (Country country : countriesInWorld()) {
             if (country.getName().equals(countryName)) {
                 return country.getPopulation();
