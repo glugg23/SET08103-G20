@@ -199,6 +199,18 @@ public class App {
         return cities;
     }
 
+    /**
+     * Finds the top N cities in a district based on their population
+     *
+     * @param districtName The name of the district
+     * @param limit The number of countries to get
+     *
+     * @return A list of N countries which have the most population in the district
+     */
+    public ArrayList<City> citiesInDistrictLimit(String districtName, int limit) {
+        return new ArrayList<>(citiesInDistrict(districtName).subList(0, limit));
+    }
+
 
     /**
      * Finds the population of the whole world
