@@ -108,6 +108,17 @@ class AppTest {
     }
 
     @Test
+    void citiesInCountryLimit() {
+        //Act
+        ArrayList<City> actual = app.citiesInCountryLimit("Norway", 2);
+
+        //Assert
+        String sha1 = listToSHA1(actual);
+        assertEquals(2, actual.size());
+        assertEquals("ToM0/1a6X+708RfHwQJFLt1YBYQ=", sha1);
+    }
+
+    @Test
     void populationOfWorld() {
         //Arrange
         long expected = 6078749450L;

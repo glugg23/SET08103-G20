@@ -128,10 +128,10 @@ public class App {
     }
 
     /**
-     * Implements the feature to return all the countries in the world,
+     * Implements the feature to return all the cities in a country,
      * ordered by their population, largest to smallest
      *
-     * @param cityName Name of the city
+     * @param countryName Name of the city
      *
      * @return A list of all the cities in a country, ordered by population
      */
@@ -155,6 +155,18 @@ public class App {
         cities.sort(Comparator.comparingLong(City::getPopulation).reversed());
 
         return cities;
+    }
+
+    /**
+     * Finds the top N cities in a country based on their population
+     *
+     * @param countryName The name of the country
+     * @param limit The number of countries to get
+     *
+     * @return A list of N countries which have the most population in the country
+     */
+    public ArrayList<City> citiesInCountryLimit(String countryName, int limit) {
+        return new ArrayList<>(citiesInCountry(countryName).subList(0, limit));
     }
 
 
