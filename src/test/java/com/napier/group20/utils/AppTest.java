@@ -47,7 +47,7 @@ class AppTest {
     @BeforeAll
     static void init() {
         app = new App();
-        app.connect("localhost:3306", 1); //This needs to be localhost and not db for some reason
+        app.connect("35.197.228.94:3306", 1); //This needs to be localhost and not db for some reason
         app.loadDatabase();
         app.disconnect();
     }
@@ -111,10 +111,10 @@ class AppTest {
     @Test
     void populationOfCountry() {
         //Arrange
-        long expected = 6078749450L;
+        long expected = 4478500;
 
         //Act
-        long actual = app.populationofCountry();
+        long actual = app.populationofCountry("Norway");
 
         //Assert
         assertEquals(expected, actual);
