@@ -169,6 +169,36 @@ public class App {
         return new ArrayList<>(citiesInCountry(countryName).subList(0, limit));
     }
 
+    /**
+     * Implements the feature to return all the cities in a district,
+     * ordered by their population, largest to smallest
+     *
+     * @param districtName Name of the district
+     *
+     * @return A list of all the cities in a district, ordered by population
+     */
+    public ArrayList<City> citiesInDistrict(String districtName) {
+        District district = null;
+        for(Country current_country : this.countriesInWorld()) {
+            for(District current_district : current_country.getDistricts()) {
+                if((current_district.getName()).equals(districtName)) {
+                    district = current_district;
+                    break;
+                }
+            }
+        }
+
+        if(district == null) {
+            return null;
+        }
+
+        ArrayList<City> cities = district.getCities();
+
+        cities.sort(Comparator.comparingLong(City::getPopulation).reversed());
+
+        return cities;
+    }
+
 
     /**
      * Finds the population of the whole world

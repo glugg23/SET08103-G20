@@ -119,6 +119,17 @@ class AppTest {
     }
 
     @Test
+    void citiesInDistrict() {
+        //Act
+        ArrayList<City> actual = app.citiesInDistrict("Buenos Aires");
+
+        //Assert
+        String sha1 = listToSHA1(actual);
+        assertEquals(31, actual.size());
+        assertEquals("fTxddv3wTKPZdZvCR8iqAfaOxCs=", sha1);
+    }
+
+    @Test
     void populationOfWorld() {
         //Arrange
         long expected = 6078749450L;
