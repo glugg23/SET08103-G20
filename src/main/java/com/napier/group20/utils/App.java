@@ -56,11 +56,6 @@ public class App {
      * @return A list of all the countries in the world, ordered by population
      */
     public ArrayList<Country> countriesInWorld() {
-        //If world is not instantiated return null
-        if(world == null) {
-            return null;
-        }
-
         ArrayList<Country> countries = new ArrayList<>();
 
         for(Continent continent : world.getContinents()) {
@@ -91,11 +86,6 @@ public class App {
      * @return A list of all cities in the world, ordered by population
      */
     public ArrayList<City> citiesInWorld() {
-        //If world is not instantiated return null
-        if(world == null) {
-            return null;
-        }
-
         ArrayList<City> cities = new ArrayList<>();
 
         for(Continent continent : world.getContinents()) {
@@ -120,11 +110,6 @@ public class App {
      * @return List of all capital cities
      */
     public ArrayList<City> capitalCitiesInWorld() {
-        //If world is not instantiated return null
-        if(world == null) {
-            return null;
-        }
-
         ArrayList<City> capitalCities = new ArrayList<>();
 
         for(Continent continent : world.getContinents()) {
@@ -148,10 +133,6 @@ public class App {
      * @return The population of the world
      */
     public long populationOfWorld() {
-        if(world == null) {
-            throw new NullPointerException();
-        }
-
         return world.getPopulation();
     }
 
@@ -162,10 +143,6 @@ public class App {
      * @return Population of a city
      */
     public long populationOfCity(String cityName) {
-        if (world == null) {
-            throw new NullPointerException();
-        }
-
         for (City city : citiesInWorld()) {
             if (city.getName().equals(cityName)) {
                 return city.getPopulation();
@@ -200,10 +177,6 @@ public class App {
      * @return Population of a given region if found, otherwise return -1
      */
     public long populationOfRegion(String continentName, String regionName) {
-        if (world == null) {
-            throw new NullPointerException();
-        }
-
         for (Continent continent : world.getContinents()) {
             if (continent.getName().equals(continentName)) {
                 for (Region region : continent.getRegions()) {
@@ -225,10 +198,6 @@ public class App {
      * @return Population of given district if found, otherwise return -1
      */
     public long populationOfDistrict(String countryName, String districtName) {
-        if (world == null) {
-            throw new NullPointerException();
-        }
-
         for (Country country : countriesInWorld()) {
             if (country.getName().equals(countryName)) {
                 for (District district : country.getDistricts()) {
@@ -248,10 +217,6 @@ public class App {
      *         of people living in cities and not living in cities
      */
     public PopulationReport continentPopulationReport(String continentName) {
-        if(world == null) {
-            return null;
-        }
-
         for(Continent continent : world.getContinents()) {
             if(continent.getName().equals(continentName)) {
                 long cityPopulation = 0;
