@@ -21,6 +21,10 @@ select::-ms-expand {
     display: none;
 }
 
+input[type=text] {
+    width: 140px;
+}
+
 input[type=number] {
     width: 35px;
     border-bottom: none;
