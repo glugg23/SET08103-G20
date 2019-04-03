@@ -234,23 +234,28 @@ public class App {
             throw new NullPointerException();
         }
 
-        ArrayList<Language> languages = new ArrayList<>();
+        // CountryCode, Population
+        HashMap<String, Long> countryPopulations = new HashMap<>();
+        // CountryCode, <LanguageName, Percentage>
+        HashMap<String, Double> languagePercentages = new HashMap<>();
+
+        String[] languages = { "Chinese", "English", "Hindi", "Spanish", "Arabic" };
+
         for (Continent continent : world.getContinents()) {
             for (Region region : continent.getRegions()) {
                 for (Country country : region.getCountries()) {
-                    languages.addAll(country.getLanguages());
+                    String c = country.getCountryCode();
+                    long p = country.getPopulation();
+                    for (Language language : country.getLanguages()) {
+                        String l = language.getLanguageName();
+                        double lp = language.getPercentage();
+                        LanguageReport lr = new LanguageReport(c, p, l, lp);
+
+                    }
                 }
             }
         }
-        // Remove duplicated languages
-        ArrayList<Language> uniqueLanguages = new ArrayList<>();
-        Set<Language> uniqueValues = new HashSet<>();
-        for (Language language : languages) {
-            if (uniqueValues.add(language)) {
-                uniqueLanguages.add(language);
-            }
-        }
-        return uniqueLanguages;
+        return new ArrayList<>();
     }
 
     /**
