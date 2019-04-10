@@ -319,6 +319,29 @@ public class App {
     }
 
     /**
+     * Creates a population report for a given region
+     *
+     * @param regionName The region to get a population report for
+     * @return An object representing the city and non city population for that region
+     */
+    public PopulationReport regionPopulationReport(String regionName) {
+        for(Continent continent : world.getContinents()) {
+            for(Region region : continent.getRegions()) {
+                if(region.getName().equals(regionName)) {
+                    long cityPopulation = 0;
+                    for(Country country : region.getCountries()) {
+                        cityPopulation += country.getCitiesPopulation();
+                    }
+
+                    return new PopulationReport(regionName, cityPopulation, region.getPopulation());
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Loads the contents of the database into the world member variable
      */
     public void loadDatabase() {
