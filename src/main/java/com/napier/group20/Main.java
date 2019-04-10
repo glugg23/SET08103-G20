@@ -4,13 +4,14 @@ import com.napier.group20.places.City;
 import com.napier.group20.places.Country;
 import com.napier.group20.places.Language;
 import com.napier.group20.utils.App;
+import com.napier.group20.utils.PopulationReport;
 
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
         App app = new App();
-        app.connect("35.197.228.94:3306", 10);
+        app.connect("db:3306", 10);
 
         app.loadDatabase();
 
@@ -53,6 +54,7 @@ public class Main {
         long populationOfDistrict = app.populationOfDistrict("Argentina", "Buenos Aires");
         System.out.println(populationOfDistrict);
 
-
+        PopulationReport contientReport = app.continentPopulationReport("Europe");
+        System.out.println(contientReport.toString());
     }
 }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class AppTest {
     private static App app;
@@ -46,7 +47,7 @@ class AppTest {
     @BeforeAll
     static void init() {
         app = new App();
-        app.connect("35.197.228.94:3306", 1); //This needs to be localhost and not db for some reason
+        app.connect("localhost:3306", 1); //This needs to be localhost and not db for some reason
         app.loadDatabase();
         app.disconnect();
     }
@@ -84,6 +85,30 @@ class AppTest {
         assertEquals("UU7JcDurNp+9OTIUDyWE8WBGKY0=", sha1);
     }
 
+
+    @Test
+    void citiesInRegion() {
+        //Act
+        ArrayList<City> actual = app.citiesInRegion("Southern and Central Asia");
+
+        //Assert
+        String sha1 = listToSHA1(actual);
+        assertEquals(555, actual.size());
+        assertEquals("efgPO7pqt71ASkU5vCg/xByT+PE=", sha1);
+    }
+
+    @Test
+    void citiesInRegionLimit() {
+        //Act
+        ArrayList<City> actual = app.citiesInRegionLimit("Southern and Central Asia", 10);
+
+        //Assert
+        String sha1 = listToSHA1(actual);
+        assertEquals(10, actual.size());
+        assertEquals("L+N2TQYB/W2UPJHGc4jsAqN+tXE=", sha1);
+    }
+
+
     @Test
     void capitalCitiesInWorld() {
         //Act
@@ -96,12 +121,68 @@ class AppTest {
     }
 
     @Test
+    void citiesInCountry() {
+        //Act
+        ArrayList<City> actual = app.citiesInCountry("Norway");
+
+        //Assert
+        String sha1 = listToSHA1(actual);
+        assertEquals(5, actual.size());
+        assertEquals("gpqL4gN7I198D4qZ/x8k/jqXnCM=", sha1);
+    }
+
+    @Test
+    void citiesInCountryLimit() {
+        //Act
+        ArrayList<City> actual = app.citiesInCountryLimit("Norway", 2);
+
+        //Assert
+        String sha1 = listToSHA1(actual);
+        assertEquals(2, actual.size());
+        assertEquals("ToM0/1a6X+708RfHwQJFLt1YBYQ=", sha1);
+    }
+
+    @Test
+    void citiesInDistrict() {
+        //Act
+        ArrayList<City> actual = app.citiesInDistrict("Buenos Aires");
+
+        //Assert
+        String sha1 = listToSHA1(actual);
+        assertEquals(31, actual.size());
+        assertEquals("fTxddv3wTKPZdZvCR8iqAfaOxCs=", sha1);
+    }
+
+    @Test
+    void citiesInDistrictLimit() {
+        //Act
+        ArrayList<City> actual = app.citiesInDistrictLimit("Buenos Aires", 10);
+
+        //Assert
+        String sha1 = listToSHA1(actual);
+        assertEquals(10, actual.size());
+        assertEquals("0O6su4YbZ6DCs81cWaTeqDywRLY=", sha1);
+    }
+
+    @Test
     void populationOfWorld() {
         //Arrange
         long expected = 6078749450L;
 
         //Act
         long actual = app.populationOfWorld();
+
+        //Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void populationOfCountry() {
+        //Arrange
+        long expected = 4478500;
+
+        //Act
+        long actual = app.populationOfCountry("Norway");
 
         //Assert
         assertEquals(expected, actual);
@@ -181,7 +262,39 @@ class AppTest {
 
     @Test
     void languagesOfWorld() {
-        // Arrange
-        //ArrayList<Language> expected =
+
+    }
+
+    @Test
+    void continentPopulationReport() {
+        //Arrange
+        String expected = "PopulationReport{name='Europe', totalPopulation=730074600, cityPopulation=241942813 (33.14%), nonCityPopulation=488131787 (66.86%)}";
+
+        //Act
+        PopulationReport actual = app.continentPopulationReport("Europe");
+
+        //Assert
+        assertEquals(expected, actual.toString());
+    }
+
+    @Test
+    void continentPopulationReportNotFound() {
+        //Act
+        PopulationReport report = app.continentPopulationReport("Does not exist");
+
+        //Assert
+        assertNull(report);
+    }
+
+    @Test
+    void regionPopulationReport() {
+        //Arrange
+        String expected = "PopulationReport{name='Melanesia', totalPopulation=6472000, cityPopulation=484459 (7.49%), nonCityPopulation=5987541 (92.51%)}";
+
+        //Act
+        PopulationReport actual = app.regionPopulationReport("Melanesia");
+
+        //Assert
+        assertEquals(expected, actual.toString());
     }
 }
