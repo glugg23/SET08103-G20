@@ -36,6 +36,11 @@ public class Main {
             System.out.println(city.toString());
         }
 
+        ArrayList<Country> countriesInContinent = app.countriesInContinent("Europe");
+        for (Country country : countriesInContinent) {
+            System.out.println(country.toString());
+        }
+
         long populationOfWorld = app.populationOfWorld();
         System.out.println(populationOfWorld);
 
@@ -48,7 +53,7 @@ public class Main {
         long populationOfDistrict = app.populationOfDistrict("Argentina", "Buenos Aires");
         System.out.println(populationOfDistrict);
 
-        PopulationReport contientReport = app.continentPopulationReport("Europe");
-        System.out.println(contientReport.toString());
+        PopulationReport continentReport = app.continentPopulationReport("Europe");
+        System.out.println(continentReport.toString());
     }
 }

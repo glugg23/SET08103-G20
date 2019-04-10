@@ -213,6 +213,24 @@ public class App {
 
 
     /**
+     *  Countries in continent sorted by most populated
+     *  @return List of countries sorted by most populated
+     */
+    public ArrayList<Country> countriesInContinent(String continentName) {
+        ArrayList<Country> countries = new ArrayList<>();
+        for (Continent currentContinent : world.getContinents()) {
+            if (currentContinent.getName().equals(continentName)) {
+                for (Region region : currentContinent.getRegions()) {
+                    countries.addAll(region.getCountries());
+                }
+                break;
+            }
+        }
+        countries.sort(Comparator.comparingLong(Country::getPopulation).reversed());
+        return countries;
+    }
+
+    /**
      * Finds the population of the whole world
      *
      * @return The population of the world
