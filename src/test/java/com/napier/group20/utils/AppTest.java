@@ -47,7 +47,7 @@ class AppTest {
     @BeforeAll
     static void init() {
         app = new App();
-        app.connect("35.197.228.94:3306", 1); //This needs to be localhost and not db for some reason
+        app.connect("localhost:3306", 1); //This needs to be localhost and not db for some reason
         app.loadDatabase();
         app.disconnect();
     }
@@ -255,5 +255,17 @@ class AppTest {
 
         //Assert
         assertNull(report);
+    }
+
+    @Test
+    void regionPopulationReport() {
+        //Arrange
+        String expected = "PopulationReport{name='Melanesia', totalPopulation=6472000, cityPopulation=484459 (0.07485460444993819%), nonCityPopulation=5987541 (0.9251453955500618%)}";
+
+        //Act
+        PopulationReport actual = app.regionPopulationReport("Melanesia");
+
+        //Assert
+        assertEquals(expected, actual.toString());
     }
 }
