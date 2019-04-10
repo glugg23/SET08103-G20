@@ -84,6 +84,17 @@ class AppTest {
         assertEquals(4079, actual.size());
         assertEquals("UU7JcDurNp+9OTIUDyWE8WBGKY0=", sha1);
     }
+    @Test
+    void citiesInRegion() {
+        //Act
+        ArrayList<City> actual = app.citiesInRegion("Southern and Central Asia");
+
+        //Assert
+        String sha1 = listToSHA1(actual);
+        assertEquals(555, actual.size());
+        assertEquals("efgPO7pqt71ASkU5vCg/xByT+PE=", sha1);
+    }
+
 
     @Test
     void capitalCitiesInWorld() {

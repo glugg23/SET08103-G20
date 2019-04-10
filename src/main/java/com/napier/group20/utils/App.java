@@ -158,6 +158,40 @@ public class App {
     }
 
     /**
+     * Implements the feature to return all the cities in a region,
+     * ordered by their population, largest to smallest
+     *
+     * @param regionName Name of the region
+     *
+     * @return A list of all the cities in a region, ordered by population
+     */
+    public ArrayList<City> citiesInRegion(String regionName) {
+        Region region = null;
+        for(Continent continent : world.getContinents()) {
+            for(Region current_region : continent.getRegions()) {
+                if((current_region.getName()).equals(regionName)) {
+                    region = current_region;
+                }
+            }
+        }
+
+        if(region == null) {
+            return null;
+        }
+
+        ArrayList<City> cities = new ArrayList<>();
+        for(Country country : region.getCountries()) {
+            for(District district : country.getDistricts()) {
+                cities.addAll(district.getCities());
+            }
+        }
+
+        cities.sort(Comparator.comparingLong(City::getPopulation).reversed());
+
+        return cities;
+    }
+
+    /**
      * Finds the top N cities in a country based on their population
      *
      * @param countryName The name of the country
