@@ -192,6 +192,18 @@ public class App {
     }
 
     /**
+     * Finds the top N cities in a region based on their population
+     *
+     * @param regionName The name of the region
+     * @param limit The number of countries to get
+     *
+     * @return A list of N countries which have the most population in the region
+     */
+    public ArrayList<City> citiesInRegionLimit(String regionName, int limit) {
+        return new ArrayList<>(citiesInRegion(regionName).subList(0, limit));
+    }
+
+    /**
      * Finds the top N cities in a country based on their population
      *
      * @param countryName The name of the country

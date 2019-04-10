@@ -84,6 +84,8 @@ class AppTest {
         assertEquals(4079, actual.size());
         assertEquals("UU7JcDurNp+9OTIUDyWE8WBGKY0=", sha1);
     }
+
+
     @Test
     void citiesInRegion() {
         //Act
@@ -93,6 +95,17 @@ class AppTest {
         String sha1 = listToSHA1(actual);
         assertEquals(555, actual.size());
         assertEquals("efgPO7pqt71ASkU5vCg/xByT+PE=", sha1);
+    }
+
+    @Test
+    void citiesInRegionLimit() {
+        //Act
+        ArrayList<City> actual = app.citiesInRegionLimit("Southern and Central Asia", 10);
+
+        //Assert
+        String sha1 = listToSHA1(actual);
+        assertEquals(10, actual.size());
+        assertEquals("L+N2TQYB/W2UPJHGc4jsAqN+tXE=", sha1);
     }
 
 
