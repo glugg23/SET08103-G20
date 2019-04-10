@@ -62,7 +62,7 @@ public class PopulationReport {
      * @return Percentage of people in cities
      */
     public double getCityPopulationPercentage() {
-        return (double) cityPopulation / totalPopulation;
+        return ((double) cityPopulation / totalPopulation) * 100;
     }
 
     /**
@@ -70,7 +70,7 @@ public class PopulationReport {
      * @return Percentage of people not in cities
      */
     public double getNonCityPopulationPercentage() {
-        return (double) nonCityPopulation / totalPopulation;
+        return ((double) nonCityPopulation / totalPopulation) * 100;
     }
 
     /**
@@ -83,9 +83,9 @@ public class PopulationReport {
                 "name='" + name + '\'' +
                 ", totalPopulation=" + totalPopulation +
                 ", cityPopulation=" + cityPopulation +
-                " (" + getCityPopulationPercentage() + "%)" +
+                String.format(" (%.2f%%)", getCityPopulationPercentage()) +
                 ", nonCityPopulation=" + nonCityPopulation +
-                " (" + getNonCityPopulationPercentage() + "%)" +
+                String.format(" (%.2f%%)", getNonCityPopulationPercentage()) +
                 '}';
     }
 }

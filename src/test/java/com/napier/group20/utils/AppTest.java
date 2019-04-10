@@ -47,7 +47,7 @@ class AppTest {
     @BeforeAll
     static void init() {
         app = new App();
-        app.connect("35.197.228.94:3306", 1); //This needs to be localhost and not db for some reason
+        app.connect("localhost:3306", 1); //This needs to be localhost and not db for some reason
         app.loadDatabase();
         app.disconnect();
     }
@@ -250,7 +250,7 @@ class AppTest {
     @Test
     void continentPopulationReport() {
         //Arrange
-        String expected = "PopulationReport{name='Europe', totalPopulation=730074600, cityPopulation=241942813 (0.33139464514996136%), nonCityPopulation=488131787 (0.6686053548500386%)}";
+        String expected = "PopulationReport{name='Europe', totalPopulation=730074600, cityPopulation=241942813 (33.14%), nonCityPopulation=488131787 (66.86%)}";
 
         //Act
         PopulationReport actual = app.continentPopulationReport("Europe");
@@ -266,5 +266,17 @@ class AppTest {
 
         //Assert
         assertNull(report);
+    }
+
+    @Test
+    void regionPopulationReport() {
+        //Arrange
+        String expected = "PopulationReport{name='Melanesia', totalPopulation=6472000, cityPopulation=484459 (7.49%), nonCityPopulation=5987541 (92.51%)}";
+
+        //Act
+        PopulationReport actual = app.regionPopulationReport("Melanesia");
+
+        //Assert
+        assertEquals(expected, actual.toString());
     }
 }
