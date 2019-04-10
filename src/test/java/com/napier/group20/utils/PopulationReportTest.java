@@ -48,7 +48,7 @@ class PopulationReportTest {
         PopulationReport populationReport = new PopulationReport("Test", 100, 400);
 
         //Assert
-        assertEquals(0.25, populationReport.getCityPopulationPercentage());
+        assertEquals(25.0, populationReport.getCityPopulationPercentage());
     }
 
     @Test
@@ -57,13 +57,13 @@ class PopulationReportTest {
         PopulationReport populationReport = new PopulationReport("Test", 100, 400);
 
         //Assert
-        assertEquals(0.75, populationReport.getNonCityPopulationPercentage());
+        assertEquals(75.0, populationReport.getNonCityPopulationPercentage());
     }
 
     @Test
     void toStringTest() {
         //Arrange
-        String expect = "PopulationReport{name='Test', totalPopulation=400, cityPopulation=100 (0.25%), nonCityPopulation=300 (0.75%)}";
+        String expect = "PopulationReport{name='Test', totalPopulation=400, cityPopulation=100 (25.00%), nonCityPopulation=300 (75.00%)}";
         PopulationReport populationReport = new PopulationReport("Test", 100, 400);
 
         //Assert

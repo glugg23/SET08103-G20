@@ -239,7 +239,7 @@ class AppTest {
     @Test
     void continentPopulationReport() {
         //Arrange
-        String expected = "PopulationReport{name='Europe', totalPopulation=730074600, cityPopulation=241942813 (0.33139464514996136%), nonCityPopulation=488131787 (0.6686053548500386%)}";
+        String expected = "PopulationReport{name='Europe', totalPopulation=730074600, cityPopulation=241942813 (33.14%), nonCityPopulation=488131787 (66.86%)}";
 
         //Act
         PopulationReport actual = app.continentPopulationReport("Europe");
@@ -260,7 +260,7 @@ class AppTest {
     @Test
     void regionPopulationReport() {
         //Arrange
-        String expected = "PopulationReport{name='Melanesia', totalPopulation=6472000, cityPopulation=484459 (0.07485460444993819%), nonCityPopulation=5987541 (0.9251453955500618%)}";
+        String expected = "PopulationReport{name='Melanesia', totalPopulation=6472000, cityPopulation=484459 (7.49%), nonCityPopulation=5987541 (92.51%)}";
 
         //Act
         PopulationReport actual = app.regionPopulationReport("Melanesia");
