@@ -236,7 +236,8 @@ public class App {
     /**
      * Cities in a continent organised from largest to smallest
      *
-     *
+     * @param continentName The name of the continent to select cities from
+     * @return An array list of cities ordered from most populated to least
      */
     public ArrayList<City> citiesInContinent(String continentName) {
         ArrayList<City> cities = new ArrayList<>();
@@ -254,7 +255,10 @@ public class App {
     /**
      * Top N populated cities in a continent where N is provided by the user
      *
+     * @param continentName The name of the continent to select the cities from
+     * @param limit The number of results to be returned
      *
+     * @return An array list of top N populated cities in a continent
      */
     public ArrayList<City> topPopulatedCitiesInContinent(String continentName, int limit) {
         return new ArrayList<>(citiesInContinent(continentName).subList(0, limit));
