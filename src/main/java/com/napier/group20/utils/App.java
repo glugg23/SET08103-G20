@@ -234,6 +234,33 @@ public class App {
     }
 
     /**
+     * Cities in a continent organised from largest to smallest
+     *
+     *
+     */
+    public ArrayList<City> citiesInContinent(String continentName) {
+        ArrayList<City> cities = new ArrayList<>();
+
+        for (Country country : countriesInContinent(continentName)) {
+            for (District district : country.getDistricts()) {
+                cities.addAll(district.getCities());
+            }
+        }
+
+        cities.sort(Comparator.comparingLong(City::getPopulation).reversed());
+        return cities;
+    }
+
+    /**
+     * Top N populated cities in a continent where N is provided by the user
+     *
+     *
+     */
+    public ArrayList<City> topPopulatedCitiesInContinent(String continentName, int limit) {
+        return new ArrayList<>(citiesInContinent(continentName).subList(0, limit));
+    }
+
+    /**
      * Finds the population of the whole world
      *
      * @return The population of the world

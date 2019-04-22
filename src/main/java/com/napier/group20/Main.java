@@ -41,6 +41,16 @@ public class Main {
             System.out.println(country.toString());
         }
 
+        ArrayList<City> topCities = app.citiesInContinent("Europe");
+        for (City city : topCities) {
+            System.out.println(city.toString());
+        }
+
+        ArrayList<City> topNCities = app.topPopulatedCitiesInContinent("Europe", 5);
+        for (City city : topNCities) {
+            System.out.println(city.toString());
+        }
+
         long populationOfWorld = app.populationOfWorld();
         System.out.println(populationOfWorld);
 
