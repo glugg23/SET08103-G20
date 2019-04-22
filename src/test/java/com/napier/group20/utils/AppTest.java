@@ -262,7 +262,12 @@ class AppTest {
 
     @Test
     void languagesOfWorld() {
+        //Act
+        ArrayList<LanguageReport> actual = app.languagesOfWorld();
 
+        //Assert
+        String sha1 = listToSHA1(actual);
+        assertEquals("ElGTdnW6yzoLNKfwZ01dEQqlb7s=", sha1);
     }
 
     @Test

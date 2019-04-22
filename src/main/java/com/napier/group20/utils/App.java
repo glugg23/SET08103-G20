@@ -5,7 +5,6 @@ import com.napier.group20.places.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -347,34 +346,33 @@ public class App {
      *
      * @return Every language spoken in the world
      */
-    public ArrayList<Language> languagesOfWorld() {
-        if(world == null) {
-            throw new NullPointerException();
+    public ArrayList<LanguageReport> languagesOfWorld() {
+        String[] languages = {"Chinese", "English", "Hindi", "Spanish", "Arabic"};
+        ArrayList<LanguageReport> languageReports = new ArrayList<>();
+
+        for(String language : languages) {
+            languageReports.add(new LanguageReport(language));
         }
 
-        // CountryCode, Population
-        HashMap<String, Long> countryPopulations = new HashMap<>();
-        // CountryCode, <LanguageName, Percentage>
-        HashMap<String, Double> languagePercentages = new HashMap<>();
-
-        String[] languages = {"Chinese", "English", "Hindi", "Spanish", "Arabic"};
-
-        for(Continent continent : world.getContinents()) {
-            for(Region region : continent.getRegions()) {
-                for(Country country : region.getCountries()) {
-                    String c = country.getCountryCode();
-                    long p = country.getPopulation();
-                    for(Language language : country.getLanguages()) {
-                        String l = language.getLanguageName();
-                        double lp = language.getPercentage();
-                        LanguageReport lr = new LanguageReport(c, p, l, lp);
-
+        for(Country country : this.countriesInWorld()) {
+            for(Language language : country.getLanguages()) {
+                for(LanguageReport report : languageReports) {
+                    if(language.getLanguageName().equals(report.getLanguageName())) {
+                        long population = (long) (country.getPopulation() * (language.getPercentage() / 100));
+                        report.addSpeakerPopulation(population);
                     }
                 }
             }
         }
-        return new ArrayList<>();
 
+        long worldPopulation = world.getPopulation();
+        for(LanguageReport report : languageReports) {
+            report.calculateWorldPercentage(worldPopulation);
+        }
+
+        languageReports.sort(Comparator.comparingLong(LanguageReport::getSpeakerPopulation).reversed());
+
+        return languageReports;
     }
 
     /**
