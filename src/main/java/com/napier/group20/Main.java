@@ -18,22 +18,22 @@ public class Main {
         app.disconnect();
 
         ArrayList<Country> countriesInWorld = app.countriesInWorld();
-        for(Country country : countriesInWorld) {
+        for (Country country : countriesInWorld) {
             System.out.println(country.toString());
         }
 
         ArrayList<Country> nCountriesInWorld = app.countriesInWorldLimit(10);
-        for(Country country : nCountriesInWorld) {
+        for (Country country : nCountriesInWorld) {
             System.out.println(country.toString());
         }
 
         ArrayList<City> citiesInWorld = app.citiesInWorld();
-        for(City city : citiesInWorld) {
+        for (City city : citiesInWorld) {
             System.out.println(city.toString());
         }
 
         ArrayList<City> capitalCitiesInWorld = app.capitalCitiesInWorld();
-        for(City city : capitalCitiesInWorld) {
+        for (City city : capitalCitiesInWorld) {
             System.out.println(city.toString());
         }
 
@@ -51,24 +51,25 @@ public class Main {
         for (City city : topNCities) {
             System.out.println(city.toString());
 
-        ArrayList<LanguageReport> languagesOfWorld = app.languagesOfWorld();
-        for (LanguageReport report : languagesOfWorld) {
-            System.out.println(report.toString());
+            ArrayList<LanguageReport> languagesOfWorld = app.languagesOfWorld();
+            for (LanguageReport report : languagesOfWorld) {
+                System.out.println(report.toString());
+            }
+
+            long populationOfWorld = app.populationOfWorld();
+            System.out.println(populationOfWorld);
+
+            long populationOfCity = app.populationOfCity("Edinburgh");
+            System.out.println(populationOfCity);
+
+            long populationOfRegion = app.populationOfRegion("Asia", "Southern and Central Asia");
+            System.out.println(populationOfRegion);
+
+            long populationOfDistrict = app.populationOfDistrict("Argentina", "Buenos Aires");
+            System.out.println(populationOfDistrict);
+
+            PopulationReport continentReport = app.continentPopulationReport("Europe");
+            System.out.println(continentReport.toString());
         }
-
-        long populationOfWorld = app.populationOfWorld();
-        System.out.println(populationOfWorld);
-
-        long populationOfCity = app.populationOfCity("Edinburgh");
-        System.out.println(populationOfCity);
-
-        long populationOfRegion = app.populationOfRegion("Asia", "Southern and Central Asia");
-        System.out.println(populationOfRegion);
-
-        long populationOfDistrict = app.populationOfDistrict("Argentina", "Buenos Aires");
-        System.out.println(populationOfDistrict);
-
-        PopulationReport continentReport = app.continentPopulationReport("Europe");
-        System.out.println(continentReport.toString());
     }
 }
