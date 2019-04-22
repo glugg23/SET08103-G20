@@ -261,6 +261,16 @@ class AppTest {
     }
 
     @Test
+    void languagesOfWorld() {
+        //Act
+        ArrayList<LanguageReport> actual = app.languagesOfWorld();
+
+        //Assert
+        String sha1 = listToSHA1(actual);
+        assertEquals("ElGTdnW6yzoLNKfwZ01dEQqlb7s=", sha1);
+    }
+
+    @Test
     void continentPopulationReport() {
         //Arrange
         String expected = "PopulationReport{name='Europe', totalPopulation=730074600, cityPopulation=241942813 (33.14%), nonCityPopulation=488131787 (66.86%)}";

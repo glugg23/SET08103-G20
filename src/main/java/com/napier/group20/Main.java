@@ -3,6 +3,7 @@ package com.napier.group20;
 import com.napier.group20.places.City;
 import com.napier.group20.places.Country;
 import com.napier.group20.utils.App;
+import com.napier.group20.utils.LanguageReport;
 import com.napier.group20.utils.PopulationReport;
 
 import java.util.ArrayList;
@@ -34,6 +35,11 @@ public class Main {
         ArrayList<City> capitalCitiesInWorld = app.capitalCitiesInWorld();
         for(City city : capitalCitiesInWorld) {
             System.out.println(city.toString());
+        }
+
+        ArrayList<LanguageReport> languagesOfWorld = app.languagesOfWorld();
+        for (LanguageReport report : languagesOfWorld) {
+            System.out.println(report.toString());
         }
 
         long populationOfWorld = app.populationOfWorld();

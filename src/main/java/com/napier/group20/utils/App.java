@@ -342,6 +342,40 @@ public class App {
     }
 
     /**
+     *
+     *
+     * @return Every language spoken in the world
+     */
+    public ArrayList<LanguageReport> languagesOfWorld() {
+        String[] languages = {"Chinese", "English", "Hindi", "Spanish", "Arabic"};
+        ArrayList<LanguageReport> languageReports = new ArrayList<>();
+
+        for(String language : languages) {
+            languageReports.add(new LanguageReport(language));
+        }
+
+        for(Country country : this.countriesInWorld()) {
+            for(Language language : country.getLanguages()) {
+                for(LanguageReport report : languageReports) {
+                    if(language.getLanguageName().equals(report.getLanguageName())) {
+                        long population = (long) (country.getPopulation() * (language.getPercentage() / 100));
+                        report.addSpeakerPopulation(population);
+                    }
+                }
+            }
+        }
+
+        long worldPopulation = world.getPopulation();
+        for(LanguageReport report : languageReports) {
+            report.calculateWorldPercentage(worldPopulation);
+        }
+
+        languageReports.sort(Comparator.comparingLong(LanguageReport::getSpeakerPopulation).reversed());
+
+        return languageReports;
+    }
+
+    /**
      * Generates a population report for a given continent
      * @param continentName The continent name to find the population of
      * @return An object representing the total population and the number

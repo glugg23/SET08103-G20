@@ -25,7 +25,7 @@ jobs:
       install: skip
       script:
         - mvn test -Dtest="com.napier.group20.places.*Test"
-        - mvn test -Dtest="com.napier.group20.utils.PopulationReportTest"
+        - mvn test -Dtest="com.napier.group20.utils.*ReportTest"
 
     - stage: Integration
       script:
