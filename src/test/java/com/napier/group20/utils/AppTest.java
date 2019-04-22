@@ -47,7 +47,7 @@ class AppTest {
     @BeforeAll
     static void init() {
         app = new App();
-        app.connect("35.197.228.94:3306", 1); //This needs to be localhost and not db for some reason
+        app.connect("localhost:3306", 1); //This needs to be localhost and not db for some reason
         app.loadDatabase();
         app.disconnect();
     }
@@ -84,6 +84,30 @@ class AppTest {
         assertEquals(4079, actual.size());
         assertEquals("UU7JcDurNp+9OTIUDyWE8WBGKY0=", sha1);
     }
+
+
+    @Test
+    void citiesInRegion() {
+        //Act
+        ArrayList<City> actual = app.citiesInRegion("Southern and Central Asia");
+
+        //Assert
+        String sha1 = listToSHA1(actual);
+        assertEquals(555, actual.size());
+        assertEquals("efgPO7pqt71ASkU5vCg/xByT+PE=", sha1);
+    }
+
+    @Test
+    void citiesInRegionLimit() {
+        //Act
+        ArrayList<City> actual = app.citiesInRegionLimit("Southern and Central Asia", 10);
+
+        //Assert
+        String sha1 = listToSHA1(actual);
+        assertEquals(10, actual.size());
+        assertEquals("L+N2TQYB/W2UPJHGc4jsAqN+tXE=", sha1);
+    }
+
 
     @Test
     void capitalCitiesInWorld() {
@@ -237,9 +261,19 @@ class AppTest {
     }
 
     @Test
+    void languagesOfWorld() {
+        //Act
+        ArrayList<LanguageReport> actual = app.languagesOfWorld();
+
+        //Assert
+        String sha1 = listToSHA1(actual);
+        assertEquals("ElGTdnW6yzoLNKfwZ01dEQqlb7s=", sha1);
+    }
+
+    @Test
     void continentPopulationReport() {
         //Arrange
-        String expected = "PopulationReport{name='Europe', totalPopulation=730074600, cityPopulation=241942813 (0.33139464514996136%), nonCityPopulation=488131787 (0.6686053548500386%)}";
+        String expected = "PopulationReport{name='Europe', totalPopulation=730074600, cityPopulation=241942813 (33.14%), nonCityPopulation=488131787 (66.86%)}";
 
         //Act
         PopulationReport actual = app.continentPopulationReport("Europe");
@@ -264,5 +298,18 @@ class AppTest {
         ArrayList<Country> countriesInContinent = app.countriesInContinent("Oceania");
 
         assertEquals(expected, countriesInContinent.get(0).toString());
+
+    }
+
+    @Test
+    void regionPopulationReport() {
+        //Arrange
+        String expected = "PopulationReport{name='Melanesia', totalPopulation=6472000, cityPopulation=484459 (7.49%), nonCityPopulation=5987541 (92.51%)}";
+
+        //Act
+        PopulationReport actual = app.regionPopulationReport("Melanesia");
+
+        //Assert
+        assertEquals(expected, actual.toString());
     }
 }

@@ -158,6 +158,52 @@ public class App {
     }
 
     /**
+     * Implements the feature to return all the cities in a region,
+     * ordered by their population, largest to smallest
+     *
+     * @param regionName Name of the region
+     *
+     * @return A list of all the cities in a region, ordered by population
+     */
+    public ArrayList<City> citiesInRegion(String regionName) {
+        Region region = null;
+        for(Continent continent : world.getContinents()) {
+            for(Region current_region : continent.getRegions()) {
+                if((current_region.getName()).equals(regionName)) {
+                    region = current_region;
+                }
+            }
+        }
+
+        if(region == null) {
+            return null;
+        }
+
+        ArrayList<City> cities = new ArrayList<>();
+        for(Country country : region.getCountries()) {
+            for(District district : country.getDistricts()) {
+                cities.addAll(district.getCities());
+            }
+        }
+
+        cities.sort(Comparator.comparingLong(City::getPopulation).reversed());
+
+        return cities;
+    }
+
+    /**
+     * Finds the top N cities in a region based on their population
+     *
+     * @param regionName The name of the region
+     * @param limit The number of countries to get
+     *
+     * @return A list of N countries which have the most population in the region
+     */
+    public ArrayList<City> citiesInRegionLimit(String regionName, int limit) {
+        return new ArrayList<>(citiesInRegion(regionName).subList(0, limit));
+    }
+
+    /**
      * Finds the top N cities in a country based on their population
      *
      * @param countryName The name of the country
@@ -348,6 +394,40 @@ public class App {
     }
 
     /**
+     *
+     *
+     * @return Every language spoken in the world
+     */
+    public ArrayList<LanguageReport> languagesOfWorld() {
+        String[] languages = {"Chinese", "English", "Hindi", "Spanish", "Arabic"};
+        ArrayList<LanguageReport> languageReports = new ArrayList<>();
+
+        for(String language : languages) {
+            languageReports.add(new LanguageReport(language));
+        }
+
+        for(Country country : this.countriesInWorld()) {
+            for(Language language : country.getLanguages()) {
+                for(LanguageReport report : languageReports) {
+                    if(language.getLanguageName().equals(report.getLanguageName())) {
+                        long population = (long) (country.getPopulation() * (language.getPercentage() / 100));
+                        report.addSpeakerPopulation(population);
+                    }
+                }
+            }
+        }
+
+        long worldPopulation = world.getPopulation();
+        for(LanguageReport report : languageReports) {
+            report.calculateWorldPercentage(worldPopulation);
+        }
+
+        languageReports.sort(Comparator.comparingLong(LanguageReport::getSpeakerPopulation).reversed());
+
+        return languageReports;
+    }
+
+    /**
      * Generates a population report for a given continent
      * @param continentName The continent name to find the population of
      * @return An object representing the total population and the number
@@ -364,6 +444,29 @@ public class App {
                 }
 
                 return new PopulationReport(continentName, cityPopulation, continent.getPopulation());
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Creates a population report for a given region
+     *
+     * @param regionName The region to get a population report for
+     * @return An object representing the city and non city population for that region
+     */
+    public PopulationReport regionPopulationReport(String regionName) {
+        for(Continent continent : world.getContinents()) {
+            for(Region region : continent.getRegions()) {
+                if(region.getName().equals(regionName)) {
+                    long cityPopulation = 0;
+                    for(Country country : region.getCountries()) {
+                        cityPopulation += country.getCitiesPopulation();
+                    }
+
+                    return new PopulationReport(regionName, cityPopulation, region.getPopulation());
+                }
             }
         }
 
