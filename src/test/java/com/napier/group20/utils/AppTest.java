@@ -256,4 +256,13 @@ class AppTest {
         //Assert
         assertNull(report);
     }
+
+    @Test
+    void topPopulatedCountriesInContinent() {
+        String expected = "Country{countryCode='AUS', name='Australia', continent='Oceania', region='Australia and New Zealand', population=18886000, capital=City{name='Canberra', population=322723, country='Australia', district='Capital Region'}}";
+
+        ArrayList<Country> countriesInContinent = app.countriesInContinent("Oceania");
+
+        assertEquals(expected, countriesInContinent.get(0).toString());
+    }
 }

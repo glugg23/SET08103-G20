@@ -213,8 +213,11 @@ public class App {
 
 
     /**
-     *  Countries in continent sorted by most populated
-     *  @return List of countries sorted by most populated
+     * Countries in continent sorted by most populated
+     *
+     * @param continentName The name of the continent to get countries from
+     *
+     * @return List of countries sorted by most populated
      */
     public ArrayList<Country> countriesInContinent(String continentName) {
         ArrayList<Country> countries = new ArrayList<>();
