@@ -92,5 +92,5 @@ stages:
     if: branch = master
 
 before_install:
-  - openssl aes-256-cbc -K $encrypted_416895d112dd_key -iv $encrypted_416895d112dd_iv
-    -in client-secret.json.enc -out client-secret.json -d
+- openssl aes-256-cbc -K $encrypted_9725d73fb555_key -iv $encrypted_9725d73fb555_iv
+  -in client-secret.json.enc -out client-secret.json -d
