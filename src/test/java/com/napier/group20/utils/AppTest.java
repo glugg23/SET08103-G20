@@ -325,7 +325,13 @@ class AppTest {
 
     @Test
     void topNPopulatedCitiesInContinent() {
+        String expectedFirstItem = "City{name='Moscow', population=8389200, country='Russian Federation', district='Moscow (City)'}";
+        final int expectedNumberOfElements = 5;
 
+        ArrayList<City> topCitiesInContinent = app.topPopulatedCitiesInContinent("Europe", 5);
+
+        assertEquals(expectedFirstItem, topCitiesInContinent.get(0).toString());
+        assertEquals(expectedNumberOfElements, topCitiesInContinent.size());
     }
 
     @Test
