@@ -486,6 +486,21 @@ public class App {
     }
 
     /**
+     * Create report for number of people living in cities and non-cities in a given country
+     *
+     * @param countryName The name of the country for the population report
+     * @return An object representing the city and non-city population for that country
+     */
+    public PopulationReport countryPopulationReport(String countryName) {
+        for (Country country : this.countriesInWorld()) {
+            if (country.getName().equals(countryName)) {
+                return new PopulationReport(countryName, country.getCitiesPopulation(), country.getPopulation());
+            }
+        }
+        return null;
+    }
+
+    /**
      * Loads the contents of the database into the world member variable
      */
     public void loadDatabase() {
