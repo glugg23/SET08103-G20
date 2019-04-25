@@ -58,7 +58,7 @@ jobs:
         - gcloud version
         - gcloud auth activate-service-account --key-file client-secret.json
       script:
-        - gcloud config set project set08103-g20
+        - gcloud config set project set08103-g20-2
         - gcloud config set compute/zone europe-west2-b
         - export PROJECT_ID="$(gcloud config get-value project -q)"
         - gcloud auth configure-docker
