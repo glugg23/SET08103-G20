@@ -280,6 +280,26 @@ public class App {
     }
 
     /**
+     * Countries in a region organised by largest population to smallest
+     *
+     * @param regionName The name of the region to get populated countries from
+     * @return List of countries sorted by most populated
+     */
+    public ArrayList<Country> countriesInRegion(String regionName) {
+        ArrayList<Country> countries = new ArrayList<>();
+        for (Continent continent : world.getContinents()) {
+            for (Region region : continent.getRegions()) {
+                if (region.getName().equals(regionName)) {
+                    countries.addAll(region.getCountries());
+                    break;
+                }
+            }
+        }
+        countries.sort(Comparator.comparingLong(Country::getPopulation).reversed());
+        return countries;
+    }
+
+    /**
      * Top N populated countries in a continent where N is provided by user
      *
      * @param continentName The name of the continent to select the countries from
