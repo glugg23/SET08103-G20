@@ -165,6 +165,14 @@ class AppTest {
     }
 
     @Test
+    void countriesInRegion() {
+        ArrayList<Country> actual = app.countriesInRegion("Southern and Central Asia");
+
+        String sha1 = listToSHA1(actual);
+        assertEquals("Gs2T7HdU10YC4+d0RZVlNP5iw4w=", sha1);
+    }
+
+    @Test
     void populationOfWorld() {
         //Arrange
         long expected = 6078749450L;
