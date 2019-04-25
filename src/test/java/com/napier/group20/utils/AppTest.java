@@ -345,4 +345,13 @@ class AppTest {
         //Assert
         assertEquals(expected, actual.toString());
     }
+
+    @Test
+    void countryPopulationReport() {
+        String expected = "PopulationReport{name='Spain', totalPopulation=39441700, cityPopulation=16669189 (42.26%), nonCityPopulation=22772511 (57.74%)}";
+
+        PopulationReport actual = app.countryPopulationReport("Spain");
+
+        assertEquals(expected, actual.toString());
+    }
 }
