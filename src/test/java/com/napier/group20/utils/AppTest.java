@@ -315,6 +315,20 @@ class AppTest {
     }
 
     @Test
+    void topPopulatedCitiesInContinent() {
+        String expected = "City{name='Moscow', population=8389200, country='Russian Federation', district='Moscow (City)'}";
+
+        ArrayList<City> citiesInContinent = app.citiesInContinent("Europe");
+
+        assertEquals(expected, citiesInContinent.get(0).toString());
+    }
+
+    @Test
+    void topNPopulatedCitiesInContinent() {
+
+    }
+
+    @Test
     void regionPopulationReport() {
         //Arrange
         String expected = "PopulationReport{name='Melanesia', totalPopulation=6472000, cityPopulation=484459 (7.49%), nonCityPopulation=5987541 (92.51%)}";
