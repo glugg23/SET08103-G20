@@ -56,11 +56,6 @@ public class App {
      * @return A list of all the countries in the world, ordered by population
      */
     public ArrayList<Country> countriesInWorld() {
-        //If world is not instantiated return null
-        if(world == null) {
-            return null;
-        }
-
         ArrayList<Country> countries = new ArrayList<>();
 
         for(Continent continent : world.getContinents()) {
@@ -75,23 +70,28 @@ public class App {
     }
 
     /**
+     * Finds the top N countries in the world based on their population
+     *
+     * @param limit The number of countries to get
+     * @return A list of N countries which have the most population
+     */
+    public ArrayList<Country> countriesInWorldLimit(int limit) {
+        return new ArrayList<>(countriesInWorld().subList(0, limit));
+    }
+
+    /**
      * Implements the feature to return all the cities in the world,
      * ordered by their population, from largest to smallest
      *
      * @return A list of all cities in the world, ordered by population
      */
     public ArrayList<City> citiesInWorld() {
-        //If world is not instantiated return null
-        if(world == null) {
-            return null;
-        }
-
         ArrayList<City> cities = new ArrayList<>();
 
         for(Continent continent : world.getContinents()) {
             for(Region region : continent.getRegions()) {
                 for(Country country : region.getCountries()) {
-                    for(District district: country.getDistricts()) {
+                    for(District district : country.getDistricts()) {
                         cities.addAll(district.getCities());
                     }
                 }
@@ -101,6 +101,388 @@ public class App {
         cities.sort(Comparator.comparingLong(City::getPopulation).reversed());
 
         return cities;
+    }
+
+    /**
+     * Implements the feature to return all the capital cities in the world,
+     * ordered by population
+     *
+     * @return List of all capital cities
+     */
+    public ArrayList<City> capitalCitiesInWorld() {
+        ArrayList<City> capitalCities = new ArrayList<>();
+
+        for(Continent continent : world.getContinents()) {
+            for(Region region : continent.getRegions()) {
+                for(Country country : region.getCountries()) {
+                    if(country.getCapital() != null) {
+                        capitalCities.add(country.getCapital());
+                    }
+                }
+            }
+        }
+
+        capitalCities.sort(Comparator.comparingLong(City::getPopulation).reversed());
+
+        return capitalCities;
+    }
+
+    /**
+     * Implements the feature to return all the cities in a country,
+     * ordered by their population, largest to smallest
+     *
+     * @param countryName Name of the city
+     *
+     * @return A list of all the cities in a country, ordered by population
+     */
+    public ArrayList<City> citiesInCountry(String countryName) {
+        Country country = null;
+        for(Country current_country : this.countriesInWorld()) {
+            if((current_country.getName()).equals(countryName)) {
+                country = current_country;
+            }
+        }
+
+        if(country == null) {
+            return null;
+        }
+
+        ArrayList<City> cities = new ArrayList<>();
+        for(District district : country.getDistricts()) {
+            cities.addAll(district.getCities());
+        }
+
+        cities.sort(Comparator.comparingLong(City::getPopulation).reversed());
+
+        return cities;
+    }
+
+    /**
+     * Implements the feature to return all the cities in a region,
+     * ordered by their population, largest to smallest
+     *
+     * @param regionName Name of the region
+     *
+     * @return A list of all the cities in a region, ordered by population
+     */
+    public ArrayList<City> citiesInRegion(String regionName) {
+        Region region = null;
+        for(Continent continent : world.getContinents()) {
+            for(Region current_region : continent.getRegions()) {
+                if((current_region.getName()).equals(regionName)) {
+                    region = current_region;
+                }
+            }
+        }
+
+        if(region == null) {
+            return null;
+        }
+
+        ArrayList<City> cities = new ArrayList<>();
+        for(Country country : region.getCountries()) {
+            for(District district : country.getDistricts()) {
+                cities.addAll(district.getCities());
+            }
+        }
+
+        cities.sort(Comparator.comparingLong(City::getPopulation).reversed());
+
+        return cities;
+    }
+
+    /**
+     * Finds the top N cities in a region based on their population
+     *
+     * @param regionName The name of the region
+     * @param limit The number of countries to get
+     *
+     * @return A list of N countries which have the most population in the region
+     */
+    public ArrayList<City> citiesInRegionLimit(String regionName, int limit) {
+        return new ArrayList<>(citiesInRegion(regionName).subList(0, limit));
+    }
+
+    /**
+     * Finds the top N cities in a country based on their population
+     *
+     * @param countryName The name of the country
+     * @param limit The number of countries to get
+     *
+     * @return A list of N countries which have the most population in the country
+     */
+    public ArrayList<City> citiesInCountryLimit(String countryName, int limit) {
+        return new ArrayList<>(citiesInCountry(countryName).subList(0, limit));
+    }
+
+    /**
+     * Implements the feature to return all the cities in a district,
+     * ordered by their population, largest to smallest
+     *
+     * @param districtName Name of the district
+     *
+     * @return A list of all the cities in a district, ordered by population
+     */
+    public ArrayList<City> citiesInDistrict(String districtName) {
+        District district = null;
+        for(Country current_country : this.countriesInWorld()) {
+            for(District current_district : current_country.getDistricts()) {
+                if((current_district.getName()).equals(districtName)) {
+                    district = current_district;
+                    break;
+                }
+            }
+        }
+
+        if(district == null) {
+            return null;
+        }
+
+        ArrayList<City> cities = district.getCities();
+
+        cities.sort(Comparator.comparingLong(City::getPopulation).reversed());
+
+        return cities;
+    }
+
+    /**
+     * Finds the top N cities in a district based on their population
+     *
+     * @param districtName The name of the district
+     * @param limit The number of countries to get
+     *
+     * @return A list of N countries which have the most population in the district
+     */
+    public ArrayList<City> citiesInDistrictLimit(String districtName, int limit) {
+        return new ArrayList<>(citiesInDistrict(districtName).subList(0, limit));
+    }
+
+
+    /**
+     * Countries in continent sorted by most populated
+     *
+     * @param continentName The name of the continent to get countries from
+     *
+     * @return List of countries sorted by most populated
+     */
+    public ArrayList<Country> countriesInContinent(String continentName) {
+        ArrayList<Country> countries = new ArrayList<>();
+        for (Continent currentContinent : world.getContinents()) {
+            if (currentContinent.getName().equals(continentName)) {
+                for (Region region : currentContinent.getRegions()) {
+                    countries.addAll(region.getCountries());
+                }
+                break;
+            }
+        }
+        countries.sort(Comparator.comparingLong(Country::getPopulation).reversed());
+        return countries;
+    }
+
+    /**
+     * Top N populated countries in a continent where N is provided by user
+     *
+     * @param continentName The name of the continent to select the countries from
+     * @param limit The number of results to be returned
+     *
+     * @return An array list of top N populated countries in a continent
+     */
+    public ArrayList<Country> topPopulatedCountriesInContinent(String continentName, int limit) {
+        return new ArrayList<>(countriesInContinent(continentName).subList(0, limit));
+    }
+
+    /**
+     * Cities in a continent organised from largest to smallest
+     *
+     * @param continentName The name of the continent to select cities from
+     * @return An array list of cities ordered from most populated to least
+     */
+    public ArrayList<City> citiesInContinent(String continentName) {
+        ArrayList<City> cities = new ArrayList<>();
+
+        for (Country country : countriesInContinent(continentName)) {
+            for (District district : country.getDistricts()) {
+                cities.addAll(district.getCities());
+            }
+        }
+
+        cities.sort(Comparator.comparingLong(City::getPopulation).reversed());
+        return cities;
+    }
+
+    /**
+     * Top N populated cities in a continent where N is provided by the user
+     *
+     * @param continentName The name of the continent to select the cities from
+     * @param limit The number of results to be returned
+     *
+     * @return An array list of top N populated cities in a continent
+     */
+    public ArrayList<City> topPopulatedCitiesInContinent(String continentName, int limit) {
+        return new ArrayList<>(citiesInContinent(continentName).subList(0, limit));
+    }
+
+    /**
+     * Finds the population of the whole world
+     *
+     * @return The population of the world
+     */
+    public long populationOfWorld() {
+        return world.getPopulation();
+    }
+
+    /**
+     * Implements the feature to return the population of a city
+     *
+     * @param cityName The name of the city to return the population of
+     * @return Population of a city
+     */
+    public long populationOfCity(String cityName) {
+        for (City city : citiesInWorld()) {
+            if (city.getName().equals(cityName)) {
+                return city.getPopulation();
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * Implements the feature to return the population of a city
+     *
+     * @param countryName The name of the city to return the population of
+     * @return Population of a city
+     */
+    public long populationOfCountry(String countryName) {
+        for (Country country : countriesInWorld()) {
+            if (country.getName().equals(countryName)) {
+                return country.getPopulation();
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * Implements feature to return the population of a region
+     *
+     * @param continentName Name of the continent where the region is
+     * @param regionName Name of the region to return the population of
+     *
+     * @return Population of a given region if found, otherwise return -1
+     */
+    public long populationOfRegion(String continentName, String regionName) {
+        for (Continent continent : world.getContinents()) {
+            if (continent.getName().equals(continentName)) {
+                for (Region region : continent.getRegions()) {
+                    if(region.getName().equals(regionName)) {
+                        return region.getPopulation();
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Implements feature to return the population of a given district
+     *
+     * @param countryName The country name of where the district is
+     * @param districtName The district name to return the population of
+     *
+     * @return Population of given district if found, otherwise return -1
+     */
+    public long populationOfDistrict(String countryName, String districtName) {
+        for (Country country : countriesInWorld()) {
+            if (country.getName().equals(countryName)) {
+                for (District district : country.getDistricts()) {
+                    if (district.getName().equals(districtName)) {
+                        return district.getPopulation();
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+
+    /**
+     *
+     *
+     * @return Every language spoken in the world
+     */
+    public ArrayList<LanguageReport> languagesOfWorld() {
+        String[] languages = {"Chinese", "English", "Hindi", "Spanish", "Arabic"};
+        ArrayList<LanguageReport> languageReports = new ArrayList<>();
+
+        for(String language : languages) {
+            languageReports.add(new LanguageReport(language));
+        }
+
+        for(Country country : this.countriesInWorld()) {
+            for(Language language : country.getLanguages()) {
+                for(LanguageReport report : languageReports) {
+                    if(language.getLanguageName().equals(report.getLanguageName())) {
+                        long population = (long) (country.getPopulation() * (language.getPercentage() / 100));
+                        report.addSpeakerPopulation(population);
+                    }
+                }
+            }
+        }
+
+        long worldPopulation = world.getPopulation();
+        for(LanguageReport report : languageReports) {
+            report.calculateWorldPercentage(worldPopulation);
+        }
+
+        languageReports.sort(Comparator.comparingLong(LanguageReport::getSpeakerPopulation).reversed());
+
+        return languageReports;
+    }
+
+    /**
+     * Generates a population report for a given continent
+     * @param continentName The continent name to find the population of
+     * @return An object representing the total population and the number
+     *         of people living in cities and not living in cities
+     */
+    public PopulationReport continentPopulationReport(String continentName) {
+        for(Continent continent : world.getContinents()) {
+            if(continent.getName().equals(continentName)) {
+                long cityPopulation = 0;
+                for(Region region : continent.getRegions()) {
+                    for(Country country : region.getCountries()) {
+                        cityPopulation += country.getCitiesPopulation();
+                    }
+                }
+
+                return new PopulationReport(continentName, cityPopulation, continent.getPopulation());
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Creates a population report for a given region
+     *
+     * @param regionName The region to get a population report for
+     * @return An object representing the city and non city population for that region
+     */
+    public PopulationReport regionPopulationReport(String regionName) {
+        for(Continent continent : world.getContinents()) {
+            for(Region region : continent.getRegions()) {
+                if(region.getName().equals(regionName)) {
+                    long cityPopulation = 0;
+                    for(Country country : region.getCountries()) {
+                        cityPopulation += country.getCitiesPopulation();
+                    }
+
+                    return new PopulationReport(regionName, cityPopulation, region.getPopulation());
+                }
+            }
+        }
+
+        return null;
     }
 
     /**

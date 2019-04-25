@@ -42,4 +42,13 @@ public class Language {
                 isOfficial() == language.isOfficial() &&
                 getLanguageName().equals(language.getLanguageName());
     }
+
+    @Override
+    public String toString() {
+        return "Language{" +
+                "languageName='" + languageName + "', " +
+                "percentage='" + percentage + "', " +
+                "isOfficial='" + isOfficial + "'" +
+                "}";
+    }
 }
