@@ -302,6 +302,19 @@ class AppTest {
     }
 
     @Test
+    void topNPopulatedCountriesInContinent() {
+        String expectedFirstItem = "Country{countryCode='RUS', name='Russian Federation', continent='Europe', region='Eastern Europe', population=146934000, capital=City{name='Moscow', population=8389200, country='Russian Federation', district='Moscow (City)'}}";
+        final int expectedNumberOfElements = 5;
+
+
+        ArrayList<Country> topCountriesInContinent = app.topPopulatedCountriesInContinent("Europe", 5);
+
+        assertEquals(expectedFirstItem, topCountriesInContinent.get(0).toString());
+        assertEquals(expectedNumberOfElements, topCountriesInContinent.size());
+
+    }
+
+    @Test
     void regionPopulationReport() {
         //Arrange
         String expected = "PopulationReport{name='Melanesia', totalPopulation=6472000, cityPopulation=484459 (7.49%), nonCityPopulation=5987541 (92.51%)}";

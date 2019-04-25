@@ -17,39 +17,9 @@ public class Main {
 
         app.disconnect();
 
-        ArrayList<Country> countriesInWorld = app.countriesInWorld();
-        for (Country country : countriesInWorld) {
+        ArrayList<Country> topNCountries = app.topPopulatedCountriesInContinent("Europe", 5);
+        for (Country country : topNCountries) {
             System.out.println(country.toString());
-        }
-
-        ArrayList<Country> nCountriesInWorld = app.countriesInWorldLimit(10);
-        for (Country country : nCountriesInWorld) {
-            System.out.println(country.toString());
-        }
-
-        ArrayList<City> citiesInWorld = app.citiesInWorld();
-        for (City city : citiesInWorld) {
-            System.out.println(city.toString());
-        }
-
-        ArrayList<City> capitalCitiesInWorld = app.capitalCitiesInWorld();
-        for (City city : capitalCitiesInWorld) {
-            System.out.println(city.toString());
-        }
-
-        ArrayList<Country> countriesInContinent = app.countriesInContinent("Europe");
-        for (Country country : countriesInContinent) {
-            System.out.println(country.toString());
-        }
-
-        ArrayList<City> topCities = app.citiesInContinent("Europe");
-        for (City city : topCities) {
-            System.out.println(city.toString());
-        }
-
-        ArrayList<City> topNCities = app.topPopulatedCitiesInContinent("Europe", 5);
-        for (City city : topNCities) {
-            System.out.println(city.toString());
         }
 
         ArrayList<LanguageReport> languagesOfWorld = app.languagesOfWorld();

@@ -280,6 +280,18 @@ public class App {
     }
 
     /**
+     * Top N populated countries in a continent where N is provided by user
+     *
+     * @param continentName The name of the continent to select the countries from
+     * @param limit The number of results to be returned
+     *
+     * @return An array list of top N populated countries in a continent
+     */
+    public ArrayList<Country> topPopulatedCountriesInContinent(String continentName, int limit) {
+        return new ArrayList<>(countriesInContinent(continentName).subList(0, limit));
+    }
+
+    /**
      * Cities in a continent organised from largest to smallest
      *
      * @param continentName The name of the continent to select cities from
