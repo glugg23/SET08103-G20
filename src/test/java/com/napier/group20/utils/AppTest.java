@@ -385,4 +385,14 @@ class AppTest {
         assertEquals("juClLL3/xGT7F8JvmJe1zTxk5Og=", sha1);
     }
 
+    @Test
+    void mostPopulatedCapitalsRegion() {
+        //Call
+        ArrayList<City> actual = app.mostPopulatedCapitalsRegion(10, "Middle East");
+
+        String sha1 = listToSHA1(actual);
+        //Assert
+        assertEquals(10, actual.size());
+        assertEquals("zbyha9k1J0HI9e3l2V9SC0SGjSQ=", sha1);
+    }
 }

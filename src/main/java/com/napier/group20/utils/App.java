@@ -549,6 +549,29 @@ public class App {
     }
 
     /**
+     * The top N populated capital cities in a region where N is provided by the user
+     *
+     * @param limit Number of capitals to display
+     * @param region What region the capital resides in
+     * @return An object ArrayList with the most populated cities
+     */
+    public ArrayList<City> mostPopulatedCapitalsRegion(int limit, String region) {
+        ArrayList<City> output = new ArrayList<>();
+        int counter = 0;
+        for (City c : citiesInRegion(region)) {
+            if (c.isCapital()) {
+                output.add(c);
+                counter++;
+            }
+            if (counter >= limit) {
+                break;
+            }
+        }
+
+        return output;
+    }
+
+    /**
      * Queries the database for all the continents and creates the
      * relevant objects
      *
