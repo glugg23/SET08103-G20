@@ -377,12 +377,12 @@ class AppTest {
     @Test
     void mostPopulatedCapitals() {
         //Call
-        ArrayList<City> actual = app.mostPopulatedCities(50);
+        ArrayList<City> actual = app.mostPopulatedCapitals(25);
 
         String sha1 = listToSHA1(actual);
         //Assert
-        assertEquals(50, actual.size());
-        assertEquals("T8a+40Y4v0H/5l6IzmhiyzEGrzw=", sha1);
+        assertEquals(25, actual.size());
+        assertEquals("juClLL3/xGT7F8JvmJe1zTxk5Og=", sha1);
     }
 
 }
