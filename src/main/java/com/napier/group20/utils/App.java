@@ -583,6 +583,17 @@ public class App {
     }
 
     /**
+     * The top N populated countries in a region where N is provided by the user
+     *
+     * @param limit Number of cities to display
+     * @param continent What continent the city resides in
+     * @return An object ArrayList with the most populated cities in a given continent
+     */
+    public ArrayList<City> mostPopulatedCityContinent(int limit, String continent) {
+        return new ArrayList<>(citiesInContinent(continent).subList(0, limit));
+    }
+
+    /**
      * Queries the database for all the continents and creates the
      * relevant objects
      *
