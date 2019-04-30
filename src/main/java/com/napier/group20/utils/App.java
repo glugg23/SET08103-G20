@@ -539,6 +539,16 @@ public class App {
     }
 
     /**
+     * The top N populated capital cities in the world where N is provided by the user
+     *
+     * @param limit Number of capitals to display
+     * @return An object ArrayList with the most populated cities
+     */
+    public ArrayList<City> mostPopulatedCapitals(int limit) {
+        return new ArrayList<>(capitalCitiesInWorld().subList(0, limit));
+    }
+
+    /**
      * Queries the database for all the continents and creates the
      * relevant objects
      *

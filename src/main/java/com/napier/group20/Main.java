@@ -41,5 +41,6 @@ public class Main {
 
         PopulationReport continentReport = app.continentPopulationReport("Europe");
         System.out.println(continentReport.toString());
+
     }
 }
