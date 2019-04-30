@@ -542,7 +542,7 @@ public class App {
      * The top N populated capital cities in the world where N is provided by the user
      *
      * @param limit Number of capitals to display
-     * @return An object ArrayList with the most populated cities
+     * @return An object ArrayList with the most populated capitals
      */
     public ArrayList<City> mostPopulatedCapitals(int limit) {
         return new ArrayList<>(capitalCitiesInWorld().subList(0, limit));
@@ -553,7 +553,7 @@ public class App {
      *
      * @param limit Number of capitals to display
      * @param region What region the capital resides in
-     * @return An object ArrayList with the most populated cities
+     * @return An object ArrayList with the most populated capitals in a given region
      */
     public ArrayList<City> mostPopulatedCapitalsRegion(int limit, String region) {
         ArrayList<City> output = new ArrayList<>();
@@ -569,6 +569,17 @@ public class App {
         }
 
         return output;
+    }
+
+    /**
+     * The top N populated countries in a region where N is provided by the user
+     *
+     * @param limit Number of countries to display
+     * @param region What region the country resides in
+     * @return An object ArrayList with the most populated countries in a given region
+     */
+    public ArrayList<Country> mostPopulatedCountryRegion(int limit, String region) {
+        return new ArrayList<>((countriesInRegion(region).subList(0, limit)));
     }
 
     /**
