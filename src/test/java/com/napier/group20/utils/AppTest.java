@@ -362,4 +362,16 @@ class AppTest {
 
         assertEquals(expected, actual.toString());
     }
+
+    @Test
+    void mostPopulatedCities() {
+        //Call
+        ArrayList<City> actual = app.mostPopulatedCities(10);
+
+        String sha1 = listToSHA1(actual);
+        //Assert
+        assertEquals(10, actual.size());
+        assertEquals("kTPvpCEigC+aDe5n0bD6DdTf32Q=", sha1);
+
+    }
 }
