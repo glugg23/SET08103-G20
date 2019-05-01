@@ -280,6 +280,26 @@ public class App {
     }
 
     /**
+     * Countries in a region organised by largest population to smallest
+     *
+     * @param regionName The name of the region to get populated countries from
+     * @return List of countries sorted by most populated
+     */
+    public ArrayList<Country> countriesInRegion(String regionName) {
+        ArrayList<Country> countries = new ArrayList<>();
+        for (Continent continent : world.getContinents()) {
+            for (Region region : continent.getRegions()) {
+                if (region.getName().equals(regionName)) {
+                    countries.addAll(region.getCountries());
+                    break;
+                }
+            }
+        }
+        countries.sort(Comparator.comparingLong(Country::getPopulation).reversed());
+        return countries;
+    }
+
+    /**
      * Top N populated countries in a continent where N is provided by user
      *
      * @param continentName The name of the continent to select the countries from
@@ -486,11 +506,91 @@ public class App {
     }
 
     /**
+     * Create report for number of people living in cities and non-cities in a given country
+     *
+     * @param countryName The name of the country for the population report
+     * @return An object representing the city and non-city population for that country
+     */
+    public PopulationReport countryPopulationReport(String countryName) {
+        for (Country country : this.countriesInWorld()) {
+            if (country.getName().equals(countryName)) {
+                return new PopulationReport(countryName, country.getCitiesPopulation(), country.getPopulation());
+            }
+        }
+        return null;
+    }
+
+    /**
      * Loads the contents of the database into the world member variable
      */
     public void loadDatabase() {
         world = World.getInstance();
         world.setContinents(loadContinents());
+    }
+
+    /**
+     * The top N populated cities in the world where N is provided by the user
+     *
+     * @param limit Number of cities to display
+     * @return An object ArrayList with the most populated cities
+     */
+    public ArrayList<City> mostPopulatedCities(int limit) {
+        return new ArrayList<>(citiesInWorld().subList(0, limit));
+    }
+
+    /**
+     * The top N populated capital cities in the world where N is provided by the user
+     *
+     * @param limit Number of capitals to display
+     * @return An object ArrayList with the most populated capitals
+     */
+    public ArrayList<City> mostPopulatedCapitals(int limit) {
+        return new ArrayList<>(capitalCitiesInWorld().subList(0, limit));
+    }
+
+    /**
+     * The top N populated capital cities in a region where N is provided by the user
+     *
+     * @param limit Number of capitals to display
+     * @param region What region the capital resides in
+     * @return An object ArrayList with the most populated capitals in a given region
+     */
+    public ArrayList<City> mostPopulatedCapitalsRegion(int limit, String region) {
+        ArrayList<City> output = new ArrayList<>();
+        int counter = 0;
+        for (City c : citiesInRegion(region)) {
+            if (c.isCapital()) {
+                output.add(c);
+                counter++;
+            }
+            if (counter >= limit) {
+                break;
+            }
+        }
+
+        return output;
+    }
+
+    /**
+     * The top N populated countries in a region where N is provided by the user
+     *
+     * @param limit Number of countries to display
+     * @param region What region the country resides in
+     * @return An object ArrayList with the most populated countries in a given region
+     */
+    public ArrayList<Country> mostPopulatedCountryRegion(int limit, String region) {
+        return new ArrayList<>((countriesInRegion(region).subList(0, limit)));
+    }
+
+    /**
+     * The top N populated countries in a region where N is provided by the user
+     *
+     * @param limit Number of cities to display
+     * @param continent What continent the city resides in
+     * @return An object ArrayList with the most populated cities in a given continent
+     */
+    public ArrayList<City> mostPopulatedCityContinent(int limit, String continent) {
+        return new ArrayList<>(citiesInContinent(continent).subList(0, limit));
     }
 
     /**

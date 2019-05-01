@@ -165,6 +165,14 @@ class AppTest {
     }
 
     @Test
+    void countriesInRegion() {
+        ArrayList<Country> actual = app.countriesInRegion("Southern and Central Asia");
+
+        String sha1 = listToSHA1(actual);
+        assertEquals("Gs2T7HdU10YC4+d0RZVlNP5iw4w=", sha1);
+    }
+
+    @Test
     void populationOfWorld() {
         //Arrange
         long expected = 6078749450L;
@@ -315,6 +323,26 @@ class AppTest {
     }
 
     @Test
+    void topPopulatedCitiesInContinent() {
+        String expected = "City{name='Moscow', population=8389200, country='Russian Federation', district='Moscow (City)'}";
+
+        ArrayList<City> citiesInContinent = app.citiesInContinent("Europe");
+
+        assertEquals(expected, citiesInContinent.get(0).toString());
+    }
+
+    @Test
+    void topNPopulatedCitiesInContinent() {
+        String expectedFirstItem = "City{name='Moscow', population=8389200, country='Russian Federation', district='Moscow (City)'}";
+        final int expectedNumberOfElements = 5;
+
+        ArrayList<City> topCitiesInContinent = app.topPopulatedCitiesInContinent("Europe", 5);
+
+        assertEquals(expectedFirstItem, topCitiesInContinent.get(0).toString());
+        assertEquals(expectedNumberOfElements, topCitiesInContinent.size());
+    }
+
+    @Test
     void regionPopulationReport() {
         //Arrange
         String expected = "PopulationReport{name='Melanesia', totalPopulation=6472000, cityPopulation=484459 (7.49%), nonCityPopulation=5987541 (92.51%)}";
@@ -324,5 +352,69 @@ class AppTest {
 
         //Assert
         assertEquals(expected, actual.toString());
+    }
+
+    @Test
+    void countryPopulationReport() {
+        String expected = "PopulationReport{name='Spain', totalPopulation=39441700, cityPopulation=16669189 (42.26%), nonCityPopulation=22772511 (57.74%)}";
+
+        PopulationReport actual = app.countryPopulationReport("Spain");
+
+        assertEquals(expected, actual.toString());
+    }
+
+    @Test
+    void mostPopulatedCities() {
+        //Call
+        ArrayList<City> actual = app.mostPopulatedCities(10);
+
+        String sha1 = listToSHA1(actual);
+        //Assert
+        assertEquals(10, actual.size());
+        assertEquals("kTPvpCEigC+aDe5n0bD6DdTf32Q=", sha1);
+    }
+
+    @Test
+    void mostPopulatedCapitals() {
+        //Call
+        ArrayList<City> actual = app.mostPopulatedCapitals(25);
+
+        String sha1 = listToSHA1(actual);
+        //Assert
+        assertEquals(25, actual.size());
+        assertEquals("juClLL3/xGT7F8JvmJe1zTxk5Og=", sha1);
+    }
+
+    @Test
+    void mostPopulatedCapitalsRegion() {
+        //Call
+        ArrayList<City> actual = app.mostPopulatedCapitalsRegion(10, "Middle East");
+
+        String sha1 = listToSHA1(actual);
+        //Assert
+        assertEquals(10, actual.size());
+        assertEquals("zbyha9k1J0HI9e3l2V9SC0SGjSQ=", sha1);
+    }
+
+    @Test
+    void mostPopulatedCountryRegion() {
+        //Call
+        ArrayList<Country> actual = app.mostPopulatedCountryRegion(10, "Middle East");
+
+        String sha1 = listToSHA1(actual);
+        //Assert
+        assertEquals(10, actual.size());
+        assertEquals("iFzU5BzqX1d/TXyAe+i1jTTWsac=", sha1);
+    }
+
+    @Test
+    void mostPopulatedCityContinent() {
+        //Call
+        ArrayList<City> actual = app.mostPopulatedCityContinent(10, "Europe");
+
+        String sha1 = listToSHA1(actual);
+        //Assert
+        assertEquals(10, actual.size());
+        assertEquals("CPLXM4e8UT7xWR53Cylo9ZLbGHo=", sha1);
     }
 }
