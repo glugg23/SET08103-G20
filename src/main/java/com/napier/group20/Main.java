@@ -10,8 +10,14 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
+        if(args.length < 1) {
+            System.err.println("Usage: SET08103-G20 {ip address}");
+            return;
+        }
+
+        String connectionString = String.format("%s:3306", args[0]);
         App app = new App();
-        app.connect("db:3306", 10);
+        app.connect(connectionString, 10);
 
         app.loadDatabase();
 
