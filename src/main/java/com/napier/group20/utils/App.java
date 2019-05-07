@@ -549,6 +549,30 @@ public class App {
     }
 
     /**
+     * All the capital cities in a region organised by largest to smallest.
+     *
+     * @param regionName The region to search for
+     * @return A list of capitals for a region
+     */
+    public ArrayList<City> capitalCitiesInRegion(String regionName) {
+        ArrayList<City> cities = new ArrayList<>();
+        for (Continent continent : world.getContinents()) {
+            for (Region region : continent.getRegions()) {
+                if (region.getName().equals(regionName)) {
+                    for(Country country : region.getCountries()) {
+                        cities.add(country.getCapital());
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        cities.sort(Comparator.comparingLong(City::getPopulation).reversed());
+        return cities;
+    }
+
+    /**
      * The top N populated capital cities in a region where N is provided by the user
      *
      * @param limit Number of capitals to display
@@ -556,19 +580,7 @@ public class App {
      * @return An object ArrayList with the most populated capitals in a given region
      */
     public ArrayList<City> mostPopulatedCapitalsRegion(int limit, String region) {
-        ArrayList<City> output = new ArrayList<>();
-        int counter = 0;
-        for (City c : citiesInRegion(region)) {
-            if (c.isCapital()) {
-                output.add(c);
-                counter++;
-            }
-            if (counter >= limit) {
-                break;
-            }
-        }
-
-        return output;
+        return new ArrayList<>(capitalCitiesInRegion(region).subList(0, limit));
     }
 
     /**
@@ -583,14 +595,38 @@ public class App {
     }
 
     /**
-     * The top N populated countries in a region where N is provided by the user
+     * All the capital cities in a continent organised by largest population to smallest.
      *
-     * @param limit Number of cities to display
-     * @param continent What continent the city resides in
-     * @return An object ArrayList with the most populated cities in a given continent
+     * @param continentName The continent to get the capitals from
+     * @return A list of capitals for a continent
      */
-    public ArrayList<City> mostPopulatedCityContinent(int limit, String continent) {
-        return new ArrayList<>(citiesInContinent(continent).subList(0, limit));
+    public ArrayList<City> capitalCitiesInContinent(String continentName) {
+        ArrayList<City> cities = new ArrayList<>();
+        for (Continent continent : world.getContinents()) {
+            if(continent.getName().equals(continentName)) {
+                for(Region region : continent.getRegions()) {
+                    for(Country country : region.getCountries()) {
+                        cities.add(country.getCapital());
+                    }
+                }
+
+                break;
+            }
+        }
+
+        cities.sort(Comparator.comparingLong(City::getPopulation).reversed());
+        return cities;
+    }
+
+    /**
+     * The top N populated capitals in a continent where N is provided by the user
+     *
+     * @param limit Number of capitals to display
+     * @param continent What continent the city resides in
+     * @return An object ArrayList with the most populated capitals in a given continent
+     */
+    public ArrayList<City> mostPopulatedCapitalsContinent(int limit, String continent) {
+        return new ArrayList<>(capitalCitiesInContinent(continent).subList(0, limit));
     }
 
     /**
