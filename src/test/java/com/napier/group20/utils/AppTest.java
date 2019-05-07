@@ -250,7 +250,7 @@ class AppTest {
         long expected = 10530136;
 
         //Act
-        long actual = app.populationOfDistrict("Argentina", "Buenos Aires");
+        long actual = app.populationOfDistrict("Buenos Aires");
 
         //Assert
         assertEquals(expected, actual);
@@ -262,7 +262,7 @@ class AppTest {
         long expected = -1;
 
         //Act
-        long actual = app.populationOfDistrict("Does not exist", "Does not exist");
+        long actual = app.populationOfDistrict("Does not exist");
 
         //Assert
         assertEquals(expected, actual);

@@ -1,6 +1,5 @@
 package com.napier.group20;
 
-import com.napier.group20.places.City;
 import com.napier.group20.places.Country;
 import com.napier.group20.utils.App;
 import com.napier.group20.utils.LanguageReport;
@@ -36,7 +35,7 @@ public class Main {
         long populationOfRegion = app.populationOfRegion("Asia", "Southern and Central Asia");
         System.out.println(populationOfRegion);
 
-        long populationOfDistrict = app.populationOfDistrict("Argentina", "Buenos Aires");
+        long populationOfDistrict = app.populationOfDistrict("Buenos Aires");
         System.out.println(populationOfDistrict);
 
         PopulationReport continentReport = app.continentPopulationReport("Europe");

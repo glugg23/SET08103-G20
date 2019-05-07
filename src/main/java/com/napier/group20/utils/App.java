@@ -407,18 +407,15 @@ public class App {
     /**
      * Implements feature to return the population of a given district
      *
-     * @param countryName The country name of where the district is
      * @param districtName The district name to return the population of
      *
      * @return Population of given district if found, otherwise return -1
      */
-    public long populationOfDistrict(String countryName, String districtName) {
+    public long populationOfDistrict(String districtName) {
         for (Country country : countriesInWorld()) {
-            if (country.getName().equals(countryName)) {
-                for (District district : country.getDistricts()) {
-                    if (district.getName().equals(districtName)) {
-                        return district.getPopulation();
-                    }
+            for (District district : country.getDistricts()) {
+                if (district.getName().equals(districtName)) {
+                    return district.getPopulation();
                 }
             }
         }
