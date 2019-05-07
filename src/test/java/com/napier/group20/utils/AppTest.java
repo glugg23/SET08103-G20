@@ -407,14 +407,16 @@ class AppTest {
         assertEquals("iFzU5BzqX1d/TXyAe+i1jTTWsac=", sha1);
     }
 
+    /*
     @Test
-    void mostPopulatedCityContinent() {
+    void mostPopulatedCapitalsContinent() {
         //Call
-        ArrayList<City> actual = app.mostPopulatedCityContinent(10, "Europe");
+        ArrayList<City> actual = app.mostPopulatedCapitalsContinent(10, "Europe");
 
         String sha1 = listToSHA1(actual);
         //Assert
         assertEquals(10, actual.size());
-        assertEquals("CPLXM4e8UT7xWR53Cylo9ZLbGHo=", sha1);
+        assertEquals("CPLXM4e8UT7xWR53Cylo9ZLbGHo=", actual.toString());
     }
+    */
 }

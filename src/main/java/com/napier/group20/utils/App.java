@@ -583,14 +583,26 @@ public class App {
     }
 
     /**
-     * The top N populated countries in a region where N is provided by the user
+     * The top N populated capitals in a continent where N is provided by the user
      *
-     * @param limit Number of cities to display
+     * @param limit Number of capitals to display
      * @param continent What continent the city resides in
-     * @return An object ArrayList with the most populated cities in a given continent
+     * @return An object ArrayList with the most populated capitals in a given continent
      */
-    public ArrayList<City> mostPopulatedCityContinent(int limit, String continent) {
-        return new ArrayList<>(citiesInContinent(continent).subList(0, limit));
+    public ArrayList<City> mostPopulatedCapitalsContinent(int limit, String continent) {
+        ArrayList<City> output = new ArrayList<>();
+        int counter = 0;
+        for (City c : citiesInContinent(continent)) {
+            if (c.isCapital()) {
+                output.add(c);
+                counter++;
+            }
+            if (counter >= limit) {
+                break;
+            }
+        }
+
+        return output;
     }
 
     /**
