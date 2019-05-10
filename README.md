@@ -36,7 +36,7 @@ Where {ip address} is the ip address of the SQL server you wish to connect to.
 
 | ID  | Name | Met | Screenshot |
 |-----|------|-----|------------|
-| 1   | All the countries in the world organised by largest population to smallest. | Yes | [Link]() |
+| 1   | All the countries in the world organised by largest population to smallest. | Yes | [Link](img/1.png) |
 | 2   | All the countries in a continent organised by largest population to smallest. | Yes | [Link]() |
 | 3   | All the countries in a region organised by largest population to smallest. | Yes | [Link]() |
 | 4   | The top `N` populated countries in the world where `N` is provided by the user. | Yes | [Link]() |
