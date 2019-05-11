@@ -54,7 +54,7 @@ Where {ip address} is the ip address of the SQL server you wish to connect to.
 | 16  | The top `N` populated cities in a district where `N` is provided by the user. | Yes | [Link]() |
 | 17  | All the capital cities in the world organised by largest population to smallest. | Yes | [Link]() |
 | 18  | All the capital cities in a continent organised by largest population to smallest. | Yes | [Link]() |
-| 19  | All the capital cities in a region organised by largest to smallest. | Yes | [Link]() |
+| 19  | All the capital cities in a region organised by largest to smallest. | Yes | [Link]() |Contribution
 | 20  | The top `N` populated capital cities in the world  where `N` is provided by the user. | Yes | [Link]() |
 | 21  | The top `N` populated capital cities in a continent where `N` is provided by the user. | Yes | [Link]() |
 | 22  | The top `N` populated capital cities in a region where `N` is provided by the user. | Yes | [Link]() |
@@ -68,3 +68,12 @@ Where {ip address} is the ip address of the SQL server you wish to connect to.
 | 30  | The population of a district. | Yes | [Link]() |
 | 31  | The population of a city. | Yes | [Link]() |
 | 32  | The number of people who speak Chinese, English, Hindi, Spanish or Arabic in the world. | Yes | [Link]() |
+
+## Contributions
+
+|                  | #1  | #2  | #3  | #4  | Final | Avg       |
+|------------------|-----|-----|-----|-----|-------|-----------|
+| Johann Leonhardt | 43% | 23% | 35% | 33% | 27%   | **32.2%** |
+| Jacob Barrow     | 20% | 31% | 25% | 22% | 17%   | **23.0%** |
+| Toby Cook        | 15% | 26% | 25% | 20% | 33%   | **23.8%** |
+| Raish Allan      | 22% | 20% | 15% | 25% | 23%   | **21.0%** |
