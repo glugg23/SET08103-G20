@@ -16,10 +16,16 @@ public class Main {
             return;
         }
 
+        System.out.println("Loading database, this may take a while.");
+
         String connectionString = String.format("%s:3306", args[0]);
         App app = new App();
         app.connect(connectionString, 10);
+
         app.loadDatabase();
+
+        System.out.println("Finished loading database.");
+
         app.disconnect();
 
         Scanner menuIn = new Scanner(System.in);
