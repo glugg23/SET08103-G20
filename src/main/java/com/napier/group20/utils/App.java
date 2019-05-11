@@ -557,7 +557,9 @@ public class App {
             for (Region region : continent.getRegions()) {
                 if (region.getName().equals(regionName)) {
                     for(Country country : region.getCountries()) {
-                        cities.add(country.getCapital());
+                        if(country.getCapital() != null) {
+                            cities.add(country.getCapital());
+                        }
                     }
 
                     break;
@@ -603,7 +605,9 @@ public class App {
             if(continent.getName().equals(continentName)) {
                 for(Region region : continent.getRegions()) {
                     for(Country country : region.getCountries()) {
-                        cities.add(country.getCapital());
+                        if(country.getCapital() != null) {
+                            cities.add(country.getCapital());
+                        }
                     }
                 }
 
