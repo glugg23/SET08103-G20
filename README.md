@@ -34,6 +34,8 @@ Where {ip address} is the ip address of the SQL server you wish to connect to.
 
 ## Features
 
+32 requirements of 32 have been implemented, which is 100%.
+
 | ID  | Name | Met | Screenshot |
 |-----|------|-----|------------|
 | 1   | All the countries in the world organised by largest population to smallest. | Yes | [Link](img/1.png) |
