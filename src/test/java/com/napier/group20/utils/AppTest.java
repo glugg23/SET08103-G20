@@ -250,7 +250,7 @@ class AppTest {
         long expected = 10530136;
 
         //Act
-        long actual = app.populationOfDistrict("Argentina", "Buenos Aires");
+        long actual = app.populationOfDistrict("Buenos Aires");
 
         //Assert
         assertEquals(expected, actual);
@@ -262,7 +262,7 @@ class AppTest {
         long expected = -1;
 
         //Act
-        long actual = app.populationOfDistrict("Does not exist", "Does not exist");
+        long actual = app.populationOfDistrict("Does not exist");
 
         //Assert
         assertEquals(expected, actual);
@@ -408,13 +408,35 @@ class AppTest {
     }
 
     @Test
-    void mostPopulatedCityContinent() {
+    void mostPopulatedCapitalsContinent() {
         //Call
-        ArrayList<City> actual = app.mostPopulatedCityContinent(10, "Europe");
+        ArrayList<City> actual = app.mostPopulatedCapitalsContinent(10, "Europe");
 
         String sha1 = listToSHA1(actual);
         //Assert
         assertEquals(10, actual.size());
-        assertEquals("CPLXM4e8UT7xWR53Cylo9ZLbGHo=", sha1);
+        assertEquals("oleozjqTk1Hv4E1wJJDwZ7Hrl3c=", sha1);
+    }
+
+    @Test
+    void capitalCitiesInRegion() {
+        //Act
+        ArrayList<City> actual = app.capitalCitiesInRegion("Nordic Countries");
+
+        //Assert
+        String sha1 = listToSHA1(actual);
+        assertEquals(7, actual.size());
+        assertEquals("UR11HuUf6k9zpAsQmx1hjOPzlHQ=", sha1);
+    }
+
+    @Test
+    void capitalCitiesInContinent() {
+        //Act
+        ArrayList<City> actual = app.capitalCitiesInContinent("South America");
+
+        //Assert
+        String sha1 = listToSHA1(actual);
+        assertEquals(14, actual.size());
+        assertEquals("qetEAS40evowOvjQvTfd4uWr4bY=", sha1);
     }
 }
